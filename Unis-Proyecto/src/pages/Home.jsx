@@ -3,6 +3,13 @@ import React from 'react'
 //import { FeatureSection } from './FeatureSection'
 //import { UniversityList } from './UniversityList'
 //import { CareerList } from './CareerList'
+{/*
+queda:
+
+1. hacerlo funcional con el hardcodeo de MG
+2. entender y reemplazar el hardcodeo por datos de la base de datos
+3. trabajo terminado
+*/}
 
 export function Home() {
   return (
