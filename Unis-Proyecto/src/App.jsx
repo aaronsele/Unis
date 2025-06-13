@@ -10,6 +10,8 @@ function App() {
     <Routes>
       <Route path="/" element={<Layout />}>
       <Route index element={<Home />} />
+
+      <Route path="*" element={<h1>error 404😢</h1>} ></Route>
       </Route>
     </Routes>
     </BrowserRouter>

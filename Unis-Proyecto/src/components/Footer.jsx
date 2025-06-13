@@ -9,7 +9,8 @@ import {
   InstagramIcon,
   LinkedinIcon,
 } from 'lucide-react'
-export function Footer() {
+
+function Footer() {
   const links = {
     explorar: [
       {
@@ -187,3 +188,5 @@ export function Footer() {
     </footer>
   )
 }
+
+export default Footer

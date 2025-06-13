@@ -11,7 +11,7 @@ queda:
 3. trabajo terminado
 */}
 
-export function Home() {
+function Home() {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
@@ -79,3 +79,5 @@ export function Home() {
     </div>
   )
 }
+
+export default Home

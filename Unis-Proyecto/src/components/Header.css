@@ -22,43 +22,15 @@
     display: flex;
     align-items: center;
   }
-  
-  .logo-icon {
-    width: 2.5rem;
-    height: 2.5rem;
-    border-radius: 0.5rem;
-    background-color: #2560B9;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
+.logo-img {
+  height: 50px;
+  object-fit: contain;
+}
   
   .icon-white {
     width: 1.5rem;
     height: 1.5rem;
     color: white;
-  }
-  
-  .logo-text {
-    margin-left: 0.75rem;
-    display: none;
-  }
-  
-  @media (min-width: 640px) {
-    .logo-text {
-      display: block;
-    }
-  }
-  
-  .logo-title {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: #2F2F2F;
-  }
-  
-  .logo-subtitle {
-    font-size: 0.875rem;
-    color: #4B5563;
   }
   
   .nav-desktop {
