@@ -2,7 +2,7 @@ import React from 'react'
 //import { SearchSection } from './SearchSection'
 //import { FeatureSection } from './FeatureSection'
 //import { UniversityList } from './UniversityList'
-//import { CareerList } from './CareerList'
+import  CareerList  from '../components/CareerList'
 {/*
 queda:
 
