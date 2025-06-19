@@ -1,5 +1,5 @@
 import React from 'react'
-//import { SearchSection } from './SearchSection'
+import { SearchSection } from './SearchSection'
 //import { FeatureSection } from './FeatureSection'
 //import { UniversityList } from './UniversityList'
 import  CareerList  from '../components/CareerList'
@@ -41,17 +41,17 @@ function Home() {
           </div>
         </div>
       </div>
-      {/* Search Section */}
+   
       <SearchSection />
-      {/* Features Section */}
+      
       <FeatureSection />
-      {/* Universities Section */}
+      
       <section className="py-16">
         <UniversityList />
       </section>
-      {/* Careers Section */}
+     
       <CareerList />
-      {/* CTA Section */}
+      
       <section className="py-16 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2
