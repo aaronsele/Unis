@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import { supabase } from '../lib/supabaseClient'
-import CareerCard from './CareerCard'
+import CareerCard from './CareerCard.jsx'
+import { getCarreras } from '../bd/bd.js'
 
-function CareerList() {
-  const [careers, setCareers] = useState([])
+
+export function CareerList() {
+  const [careers, setCareers] = useState([]);
 
   useEffect(() => {
-    const fetchCareers = async () => {
-      const { data, error } = await supabase.from('Carrera').select('*')
-      if (error) console.error('Error al traer carreras:', error)
-      else setCareers(data)
+    async function fetchCareers() {
+      const data = await getCarreras()
+      setCareers(data)
     }
     fetchCareers()
   }, [])
@@ -35,4 +36,3 @@ function CareerList() {
   )
 }
 
-export default CareerList

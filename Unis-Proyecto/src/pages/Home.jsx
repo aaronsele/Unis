@@ -1,8 +1,8 @@
 import React from 'react'
-import { SearchSection } from './SearchSection'
-//import { FeatureSection } from './FeatureSection'
-//import { UniversityList } from './UniversityList'
-import  CareerList  from '../components/CareerList'
+import { SearchSection } from '../components/SearchSection.jsx'
+import { FeatureSection } from '../components/FeatureSection.jsx'
+import  {CareerList}  from '../components/CareerList.jsx'
+import { UniversityList } from '../components/UniversityList.jsx'
 {/*
 queda:
 
@@ -11,7 +11,7 @@ queda:
 3. trabajo terminado
 */}
 
-function Home() {
+export function Home() {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
@@ -79,5 +79,3 @@ function Home() {
     </div>
   )
 }
-
-export default Home

@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import {
+  GraduationCapIcon,
   UserIcon,
   MenuIcon,
   BookOpenIcon,
@@ -10,152 +11,134 @@ import {
   NewspaperIcon,
   BellIcon,
   XIcon,
-  ShieldIcon,
-} from 'lucide-react'
-
-import { supabase } from '../lib/supabaseClient'
-import logoUnis from '../assets/logoUnis.png'
-import './Header.css'
+} from 'lucide-react';
 
 const navigation = [
-  { name: 'Explorar', to: '/explorar', icon: CompassIcon },
-  { name: 'Carreras', to: '/carreras', icon: BookOpenIcon },
-  { name: 'Dónde Estudiar', to: '/donde-estudiar', icon: BuildingIcon },
-  { name: 'Orientación Vocacional', to: '/orientacion-vocacional', icon: BrainIcon },
-  { name: 'Blog', to: '/blog', icon: NewspaperIcon },
-]
+  {
+    name: 'Explorar',
+    href: '/',
+    icon: CompassIcon,
+  },
+  {
+    name: 'Carreras',
+    href: '/careers',
+    icon: BookOpenIcon,
+  },
+  {
+    name: 'Donde Estudiar',
+    href: '/universities',
+    icon: BuildingIcon,
+  },
+  {
+    name: 'Orientación Vocacional',
+    href: '/guidance',
+    icon: BrainIcon,
+  },
+];
 
-function Header() {
-  const [user, setUser] = useState(null)
-  const [esAdmin, setEsAdmin] = useState(false)
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
-
-  useEffect(() => {
-    const fetchUser = async () => {
-      const { data: { user } } = await supabase.auth.getUser()
-      setUser(user)
-
-      if (user?.email) {
-        const { data, error } = await supabase
-          .from('Perfil')
-          .select('esAdmin')
-          .eq('email', user.email)
-          .single()
-
-        if (!error && data?.esAdmin === true) {
-          setEsAdmin(true)
-        } else {
-          setEsAdmin(false)
-        }
-      }
-    }
-
-    fetchUser()
-
-    const { data: listener } = supabase.auth.onAuthStateChange(() => {
-      fetchUser()
-    })
-
-    return () => {
-      listener?.subscription?.unsubscribe()
-    }
-  }, [])
+export function Header() {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
-    <header className="header">
-      <div className="container">
-        <div className="header-inner">
-
+    <header className="w-full bg-white border-b border-gray-200">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="relative flex items-center justify-between h-16">
           {/* Logo */}
-          <div className="logo">
-            <Link to="/" className="logo-link">
-              <img src={logoUnis} alt="Unis logo" className="logo-image" />
+          <div className="flex items-center">
+            <Link to="/" className="flex-shrink-0 flex items-center">
+              <div
+                className="w-10 h-10 rounded-lg flex items-center justify-center"
+                style={{ backgroundColor: '#2560B9' }}
+              >
+                <GraduationCapIcon className="w-6 h-6 text-white" />
+              </div>
+              <div className="ml-3 hidden sm:block">
+                <h1 className="text-2xl font-bold" style={{ color: '#2F2F2F' }}>
+                  Unis
+                </h1>
+                <p className="text-sm text-gray-600">
+                  Encuentra tu universidad ideal
+                </p>
+              </div>
             </Link>
           </div>
 
-          {/* Navegación desktop */}
-          <nav className="nav-desktop" aria-label="Menú principal">
-            {navigation.map((item) => (
-              <Link key={item.name} to={item.to} className="nav-link">
-                <item.icon className="nav-icon" />
-                {item.name}
-              </Link>
-            ))}
-            {esAdmin && (
-              <Link to="/admin" className="nav-link">
-                <ShieldIcon className="nav-icon" />
-                Admin
-              </Link>
-            )}
+          {/* Navigation - Desktop */}
+          <nav className="hidden md:flex space-x-8">
+            {navigation.map((item) => {
+              const Icon = item.icon;
+              return (
+                <Link
+                  key={item.name}
+                  to={item.href}
+                  className="flex items-center px-3 py-2 text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-md group transition-colors duration-200"
+                >
+                  <Icon
+                    className="w-5 h-5 mr-2 group-hover:text-blue-600"
+                    style={{ color: '#2560B9' }}
+                  />
+                  {item.name}
+                </Link>
+              );
+            })}
           </nav>
 
-          {/* Derecha */}
-          <div className="right-section">
-            <button className="btn-icon" aria-label="Ver notificaciones">
-              <BellIcon className="icon-md" />
+          {/* Right section */}
+          <div className="flex items-center space-x-6">
+            <button className="p-1 rounded-full text-gray-500 hover:text-gray-700 focus:outline-none">
+              <span className="sr-only">Ver notificaciones</span>
+              <BellIcon className="h-6 w-6" />
             </button>
-
-            {user ? (
-              <div className="profile">
-                <button className="profile-btn">
-                  <div className="profile-avatar">
-                    {user.user_metadata?.avatar_url ? (
-                      <img src={user.user_metadata.avatar_url} alt="avatar" />
-                    ) : (
-                      <UserIcon className="icon-gray" />
-                    )}
-                  </div>
-                  <span className="profile-name">
-                    {user.user_metadata?.full_name || 'Usuario'}
-                  </span>
-                </button>
-              </div>
-            ) : (
-              <Link to="/login" className="profile-btn">
-                <div className="profile-avatar">
-                  <UserIcon className="icon-gray" />
+            <div className="flex items-center">
+              <Link to="/profile" className="flex items-center space-x-3">
+                <div className="w-8 h-8 rounded-full bg-gray-200 flex items-center justify-center">
+                  <UserIcon className="w-5 h-5 text-gray-500" />
                 </div>
-                <span className="profile-name">Iniciar sesión</span>
+                <span className="hidden sm:block text-sm font-medium text-gray-700">
+                  Astor De La Fuente
+                </span>
               </Link>
-            )}
+            </div>
 
-            {/* Mobile Toggle */}
-            <div className="menu-toggle">
+            {/* Mobile menu button */}
+            <div className="flex md:hidden">
               <button
                 type="button"
-                aria-label="Abrir menú principal"
+                className="inline-flex items-center justify-center p-2 rounded-md text-gray-500 hover:text-gray-700 hover:bg-gray-100"
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               >
+                <span className="sr-only">Abrir menú principal</span>
                 {isMobileMenuOpen ? (
-                  <XIcon className="icon-md" />
+                  <XIcon className="block h-6 w-6" />
                 ) : (
-                  <MenuIcon className="icon-md" />
+                  <MenuIcon className="block h-6 w-6" />
                 )}
               </button>
             </div>
           </div>
         </div>
 
-        {/* Menú mobile */}
+        {/* Mobile menu */}
         {isMobileMenuOpen && (
-          <div className="menu-mobile" id="mobile-menu">
-            {navigation.map((item) => (
-              <Link key={item.name} to={item.to} className="nav-link-mobile">
-                <item.icon className="nav-icon-mobile" />
-                {item.name}
-              </Link>
-            ))}
-            {esAdmin && (
-              <Link to="/admin" className="nav-link-mobile">
-                <ShieldIcon className="nav-icon-mobile" />
-                Admin
-              </Link>
-            )}
+          <div className="md:hidden py-3">
+            <div className="space-y-1 px-2 pb-3 pt-2">
+              {navigation.map((item) => {
+                const Icon = item.icon;
+                return (
+                  <Link
+                    key={item.name}
+                    to={item.href}
+                    className="flex items-center px-3 py-2 rounded-md text-base font-medium text-gray-600 hover:text-gray-900 hover:bg-gray-50"
+                  >
+                    <Icon className="w-5 h-5 mr-3" style={{ color: '#2560B9' }} />
+                    {item.name}
+                  </Link>
+                );
+              })}
+            </div>
           </div>
         )}
       </div>
     </header>
-  )
+  );
 }
-
-export default Header

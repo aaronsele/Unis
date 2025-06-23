@@ -1,21 +1,19 @@
 import React from 'react'
 import { SearchIcon } from 'lucide-react'
 import { supabase } from '../lib/supabaseClient'
+import {useState, useEffect} from 'react'
 
 export function SearchSection() {
 
-async function traerUsuarios(){
-    const [usuarios, setUsuarios] = useState([])
-const {data} = supabase.from('Perfil').select('*');
-setUsuarios(data);
+  const [universities, setUniversities] = useState([])
 
-}
-
-async function traerCarreras(){
-    const [carreras, setCarreras] = useState([])
-const {data} = supabase.from('Carrera').select('*');
-setUsuarios(data);
-}
+  useEffect(() => {
+    async function fetchUniversities() {
+      const data = await getUniversidades()
+      setUniversities(data)
+    }
+    fetchUniversities()
+  }, [])
 
   return (
     <div className="bg-white py-12 border-b border-gray-200">
@@ -47,11 +45,12 @@ setUsuarios(data);
               ¿Dónde te gustaría estudiar?
             </label>
             <select className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-              <option value="">Selecciona una ubicación</option>
-              <option value="buenos-aires">Buenos Aires</option>
-              <option value="cordoba">Córdoba</option>
-              <option value="rosario">Rosario</option>
-              <option value="mendoza">Mendoza</option>
+            <option value="">Selecciona una universidad</option>
+            {universities.map((uni) => (
+              <option key={uni.id} value={uni.id}>
+                {uni.nombre}
+              </option>
+            ))}
             </select>
           </div>
         </div>
