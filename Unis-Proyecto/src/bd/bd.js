@@ -22,13 +22,50 @@ import { supabase } from '../lib/supabaseClient'
 //   }, [])
 
 export async function getUniversidades() {
-    const { data, error } = await supabase.from('Universidad').select('*')
-    if (error) {
-      console.error('Error al traer universidades:', error.message)
-      return []
-    }
-    return data
+  const { data, error } = await supabase
+    .from('Universidad')
+    .select(`
+      *,
+      InstalacionxUniversidad (
+        id,
+        Instalaciones (
+          nombre
+        )
+      ),
+      RequisitosAdmisionXUniversidad (
+        id,
+        RequisitosAdmision (
+          nombre
+        )
+      )
+    `)
+
+  if (error) {
+    console.error('Error al traer universidades:', error.message)
+    return []
   }
+
+
+  const universidades = data.map((u) => ({
+    ...u,
+    facilities: u.InstalacionxUniversidad?.map(iu => iu.Instalaciones?.nombre) || [],
+    admissionProcess: {
+      requirements: u.RequisitosAdmisionXUniversidad?.map(ru => ru.RequisitosAdmision?.nombre) || [],
+      cost: u.costoMensualPromedio || 'No especificado',
+      dates: u.fechaInscripcion || 'No disponible',
+    },
+    contact: {
+      address: u.direccion,
+      phone: u.telefono,
+      email: u.email,
+      website: u.sitioWeb,
+    },
+  }))
+  console.log('🔍 DATA DE SUPABASE:', data) // <-- ESTE ES EL IMPORTANTE
+
+  return universidades
+}
+
   
   export async function getCarreras() {
     const { data, error } = await supabase.from('Carrera').select('*')
@@ -36,6 +73,63 @@ export async function getUniversidades() {
       console.error('Error al traer universidades:', error.message)
       return []
     }
+    return data
+  }
+  
+  export async function getUniversidadById(id) {
+    const { data, error } = await supabase
+      .from('Universidad')
+      .select(`
+        *,
+        InstalacionxUniversidad (
+          id,
+          Instalaciones (
+            nombre
+          )
+        ),
+        RequisitosAdmisionXUniversidad (
+          id,
+          RequisitosAdmision (
+            nombre
+          )
+        )
+      `)
+      .eq('id', id)
+      .single()
+  
+    if (error) {
+      console.error('Error al traer universidad por ID:', error.message)
+      return null
+    }
+  
+    return {
+      ...data,
+      facilities: data.InstalacionxUniversidad?.map(iu => iu.Instalaciones?.nombre) || [],
+      admissionProcess: {
+        requirements: data.RequisitosAdmisionXUniversidad?.map(ru => ru.RequisitosAdmision?.nombre) || [],
+        cost: data.costoMensualPromedio || 'No especificado',
+        dates: data.fechaInscripcion || 'No disponible',
+      },
+      contact: {
+        address: data.direccion,
+        phone: data.telefono,
+        email: data.email,
+        website: data.sitioWeb,
+      },
+    }
+  }
+  
+  export async function getCarrerasByUniversidadId(universidadId) {
+    const { data, error } = await supabase
+      .from('Carrera')
+      .select('*')
+      .eq('universidadId', universidadId)
+  
+    if (error) {
+      console.error('Error al traer carreras por universidad:', error.message)
+      return []
+    }
+  
     return data
   }
   

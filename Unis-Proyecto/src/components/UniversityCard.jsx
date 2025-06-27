@@ -47,7 +47,9 @@ export function UniversityCard({ university }) {
             {university.cantCarreras} carreras disponibles
           </div>
         </div>
-        <Link>
+
+
+        <Link to={`/universities/${university.id}`}>
         <button
           className="w-full py-2 px-4 rounded-lg text-white font-medium hover:opacity-90 transition-opacity duration-200"
           style={{ backgroundColor: '#2560B9' }}

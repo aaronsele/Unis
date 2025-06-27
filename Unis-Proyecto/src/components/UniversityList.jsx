@@ -11,6 +11,9 @@ export function UniversityList() {
   useEffect(() => {
     async function fetchUniversities() {
       const data = await getUniversidades()
+      
+      console.log("Datos de universidades:", data);
+
       setUniversities(data)
     }
     fetchUniversities()

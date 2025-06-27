@@ -1,7 +1,7 @@
 import React from 'react'
 import { SearchIcon } from 'lucide-react'
-import { supabase } from '../lib/supabaseClient'
 import {useState, useEffect} from 'react'
+import { getUniversidades } from '../bd/bd.js';
 
 export function SearchSection() {
 
