@@ -1,0 +1,93 @@
+/* Sección general */
+.university-info-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+@media (min-width: 1024px) {
+  .university-info-grid {
+    grid-template-columns: 2fr 1fr;
+  }
+}
+
+/* Textos generales */
+.university-info-section h2 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #2f2f2f;
+  margin-bottom: 1rem;
+}
+
+.university-info-section p,
+.university-info-section li {
+  color: #4b5563;
+  line-height: 1.6;
+}
+
+/* Instalaciones */
+.university-info-facility {
+  display: flex;
+  align-items: center;
+  color: #4b5563;
+}
+
+.university-info-facility svg {
+  color: #2560b9;
+  margin-right: 0.5rem;
+}
+
+/* Admisión */
+.admission-box {
+  background-color: #f9fafb;
+  padding: 1.5rem;
+  border-radius: 0.75rem;
+}
+
+.admission-box h3 {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #2f2f2f;
+}
+
+.admission-box ul {
+  list-style: disc;
+  padding-left: 1rem;
+}
+
+/* Contacto */
+.contact-box {
+  background-color: #f9fafb;
+  padding: 1.5rem;
+  border-radius: 0.75rem;
+  position: sticky;
+  top: 1rem;
+}
+
+.contact-box h2 {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: #2f2f2f;
+  margin-bottom: 1rem;
+}
+
+.contact-item {
+  display: flex;
+  align-items: start;
+  color: #4b5563;
+  margin-bottom: 1rem;
+}
+
+.contact-item svg {
+  color: #2560b9;
+  margin-right: 0.75rem;
+  flex-shrink: 0;
+  margin-top: 0.25rem;
+}
+
+.contact-item a {
+  color: #2560b9;
+  text-decoration: underline;
+  word-break: break-all;
+}

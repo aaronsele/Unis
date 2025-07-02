@@ -2,6 +2,7 @@ import React from 'react'
 import { SearchIcon } from 'lucide-react'
 import {useState, useEffect} from 'react'
 import { getUniversidades } from '../bd/bd.js';
+import './SearchSections.css';
 
 export function SearchSection() {
 

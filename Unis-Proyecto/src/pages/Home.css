@@ -1,0 +1,101 @@
+/* General */
+.home-wrapper {
+  background-color: white;
+  min-height: 100vh;
+}
+
+/* Hero Section */
+.hero-section {
+  position: relative;
+  height: 500px;
+  background-image: url('https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=1800&h=500&fit=crop');
+  background-size: cover;
+  background-position: center;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.hero-content {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.hero-title {
+  font-size: 2.25rem;
+  font-weight: bold;
+  color: #ffffff;
+  margin-bottom: 1rem;
+  max-width: 640px;
+}
+
+@media (min-width: 768px) {
+  .hero-title {
+    font-size: 3rem;
+  }
+}
+
+.hero-subtitle {
+  font-size: 1.25rem;
+  color: #ffffff;
+  margin-bottom: 2rem;
+  max-width: 640px;
+}
+
+/* Botón compartido */
+.cta-button {
+  padding: 0.75rem 2rem;
+  border-radius: 0.5rem;
+  background-color: #2560b9;
+  color: white;
+  font-weight: 500;
+  transition: opacity 0.2s ease;
+  width: fit-content;
+  border: none;
+  cursor: pointer;
+}
+
+.cta-button:hover {
+  opacity: 0.9;
+}
+
+/* Secciones */
+.section-spacing {
+  padding: 4rem 1rem;
+}
+
+.bg-light {
+  background-color: #f9fafb;
+}
+
+/* CTA final */
+.cta-final-container {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  text-align: center;
+}
+
+.cta-final-title {
+  font-size: 1.875rem;
+  font-weight: bold;
+  color: #2f2f2f;
+  margin-bottom: 1rem;
+}
+
+.cta-final-text {
+  color: #4b5563;
+  font-size: 1rem;
+  margin-bottom: 2rem;
+  max-width: 640px;
+  margin-left: auto;
+  margin-right: auto;
+}

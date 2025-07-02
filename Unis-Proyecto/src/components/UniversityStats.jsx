@@ -5,6 +5,7 @@ import {
   AwardIcon,
   Building2Icon,
 } from 'lucide-react'
+import './UniversityStats.css'
 
 export function UniversityStats({ university }) {
   const stats = [
@@ -31,29 +32,14 @@ export function UniversityStats({ university }) {
   ]
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-      {stats.map(({ label, value, icon: Icon }, index) => (
-        <div
-          key={label} // mejor usar label que index para keys únicas
-          className="bg-white p-6 rounded-lg shadow-sm border border-gray-200"
-        >
-          <div className="flex items-center mb-2">
-            <Icon
-              className="w-5 h-5 mr-2"
-              style={{
-                color: '#2560B9',
-              }}
-            />
-            <h3 className="text-sm font-medium text-gray-500">{label}</h3>
+    <div className="stats-grid">
+      {stats.map(({ label, value, icon: Icon }) => (
+        <div key={label} className="stat-card">
+          <div className="stat-header">
+            <Icon className="stat-icon" />
+            <h3 className="stat-label">{label}</h3>
           </div>
-          <p
-            className="text-2xl font-semibold"
-            style={{
-              color: '#2F2F2F',
-            }}
-          >
-            {value || 'No disponible'}
-          </p>
+          <p className="stat-value">{value || 'No disponible'}</p>
         </div>
       ))}
     </div>

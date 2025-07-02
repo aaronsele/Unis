@@ -1,0 +1,182 @@
+.user-profile-container {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+.user-card {
+  background-color: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.04);
+}
+
+.user-banner {
+  height: 130px;
+  background: linear-gradient(to right, #2560B9, #2560B9);
+}
+
+.user-content {
+  padding: 0 2rem 2rem 2rem;
+}
+
+.user-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: -4rem;
+  margin-bottom: 2rem;
+}
+
+@media (min-width: 640px) {
+  .user-header {
+    flex-direction: row;
+    align-items: flex-end;
+  }
+}
+
+.user-avatar-container {
+  position: relative;
+}
+
+.user-avatar {
+  width: 8rem;
+  height: 8rem;
+  background-color: #e5e7eb;
+  border: 4px solid white;
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.user-icon {
+  width: 4rem;
+  height: 4rem;
+  color: #9ca3af;
+}
+
+.edit-avatar-btn {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 9999px;
+  padding: 0.35rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.06);
+  cursor: pointer;
+}
+
+.edit-avatar-icon {
+  width: 1rem;
+  height: 1rem;
+  color: #2560B9;
+}
+
+.user-name-section {
+  text-align: center;
+  margin-top: 1rem;
+}
+
+@media (min-width: 640px) {
+  .user-name-section {
+    margin-top: 0;
+    margin-left: 1.5rem;
+    text-align: left;
+  }
+}
+
+.user-name-section h1 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #2F2F2F;
+  margin-bottom: 0.25rem;
+}
+
+.user-name-section p {
+  color: #6b7280;
+}
+
+.user-info-grid {
+  display: grid;
+  gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .user-info-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.info-section h2 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: #2F2F2F;
+}
+
+.info-box {
+  background-color: #f9fafb;
+  padding: 1rem;
+  border-radius: 0.5rem;
+}
+
+.info-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.info-icon {
+  width: 1.25rem;
+  height: 1.25rem;
+  margin-right: 0.75rem;
+  color: #2560B9;
+  flex-shrink: 0;
+}
+
+.info-label {
+  font-size: 0.875rem;
+  color: #6b7280;
+  margin-bottom: 0.15rem;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.btn-primary {
+  flex: 1;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  background-color: #2560B9;
+  color: white;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+}
+
+.btn-primary:hover {
+  opacity: 0.9;
+}
+
+.btn-outline {
+  flex: 1;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  border: 1px solid #e5e7eb;
+  background-color: white;
+  color: #2F2F2F;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.btn-outline:hover {
+  background-color: #f3f4f6;
+}

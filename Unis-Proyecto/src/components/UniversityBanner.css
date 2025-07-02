@@ -1,0 +1,81 @@
+.university-banner {
+  position: relative;
+  height: 400px;
+  width: 100%;
+}
+
+.banner-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.banner-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.banner-overlay {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.banner-content {
+  position: relative;
+  height: 100%;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  display: flex;
+  align-items: flex-end;
+  z-index: 1;
+}
+
+.banner-details {
+  padding-bottom: 2rem;
+}
+
+.type-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  border-radius: 9999px;
+  color: white;
+  margin-bottom: 1rem;
+}
+
+.icon-small {
+  width: 16px;
+  height: 16px;
+  margin-right: 0.5rem;
+}
+
+.university-name {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: white;
+  margin-bottom: 1rem;
+}
+
+.university-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  color: white;
+  font-size: 1rem;
+}
+
+.meta-item {
+  display: flex;
+  align-items: center;
+}
+
+.icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 0.5rem;
+}
