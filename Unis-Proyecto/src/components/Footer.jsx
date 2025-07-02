@@ -10,6 +10,7 @@ import {
   InstagramIcon,
   LinkedinIcon,
 } from 'lucide-react';
+import './footer.css';
 
 const links = {
   explorar: [
@@ -33,121 +34,66 @@ const links = {
 
 export function Footer() {
   return (
-    <footer className="bg-white border-t border-gray-200">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {/* Logo y descripción */}
+    <footer>
+      <div className="footer-container">
+        <div className="footer-grid">
           <div className="space-y-4">
             <Link to="/" className="flex items-center">
-              <div
-                className="w-10 h-10 rounded-lg flex items-center justify-center"
-                style={{ backgroundColor: '#2560B9' }}
-              >
-                <GraduationCapIcon className="w-6 h-6 text-white" />
+              <div className="logo-icon">
+                <img src="/src/assets/logoUnis2.png" alt="Logo Unis" className="logo-img" />
               </div>
               <div className="ml-3">
-                <h3 className="text-xl font-bold" style={{ color: '#2F2F2F' }}>
-                  Unis
-                </h3>
+                <h3 className="text-xl font-bold">Unis</h3>
               </div>
             </Link>
-            <p className="text-gray-600">
+            <p>
               Ayudamos a estudiantes a encontrar su camino académico ideal y
               construir su futuro profesional.
             </p>
             <div className="flex space-x-4">
-              <a href="#" className="text-gray-400 hover:text-gray-500">
-                <FacebookIcon className="w-5 h-5" />
-              </a>
-              <a href="#" className="text-gray-400 hover:text-gray-500">
-                <TwitterIcon className="w-5 h-5" />
-              </a>
-              <a href="#" className="text-gray-400 hover:text-gray-500">
-                <InstagramIcon className="w-5 h-5" />
-              </a>
-              <a href="#" className="text-gray-400 hover:text-gray-500">
-                <LinkedinIcon className="w-5 h-5" />
-              </a>
+              <a href="#"><FacebookIcon className="w-5 h-5" /></a>
+              <a href="#"><TwitterIcon className="w-5 h-5" /></a>
+              <a href="#"><InstagramIcon className="w-5 h-5" /></a>
+              <a href="#"><LinkedinIcon className="w-5 h-5" /></a>
             </div>
           </div>
 
-          {/* Enlaces de Explorar */}
           <div>
-            <h3 className="text-sm font-semibold uppercase tracking-wider text-gray-400 mb-4">
-              Explorar
-            </h3>
+            <h3>Explorar</h3>
             <ul className="space-y-3">
               {links.explorar.map((link) => (
                 <li key={link.name}>
-                  <Link
-                    to={link.href}
-                    className="text-gray-600 hover:text-gray-900"
-                  >
-                    {link.name}
-                  </Link>
+                  <Link to={link.href}>{link.name}</Link>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Enlaces de Recursos */}
           <div>
-            <h3 className="text-sm font-semibold uppercase tracking-wider text-gray-400 mb-4">
-              Recursos
-            </h3>
-            <ul className="space-y-3">
-              {links.recursos.map((link) => (
-                <li key={link.name}>
-                  <Link
-                    to={link.href}
-                    className="text-gray-600 hover:text-gray-900"
-                  >
-                    {link.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Contacto */}
-          <div>
-            <h3 className="text-sm font-semibold uppercase tracking-wider text-gray-400 mb-4">
-              Contacto
-            </h3>
+            <h3>Contacto</h3>
             <ul className="space-y-3">
               <li className="flex items-start">
-                <MapPinIcon className="w-5 h-5 text-gray-400 mr-2 mt-0.5" />
-                <span className="text-gray-600">Av. Corrientes 1234, CABA</span>
+                <MapPinIcon className="w-5 h-5 mr-2 mt-0.5" />
+                <span>Av. Corrientes 1234, CABA</span>
               </li>
               <li className="flex items-center">
-                <PhoneIcon className="w-5 h-5 text-gray-400 mr-2" />
-                <span className="text-gray-600">+54 11 5555-5555</span>
+                <PhoneIcon className="w-5 h-5 mr-2" />
+                <span>+54 11 5555-5555</span>
               </li>
               <li className="flex items-center">
-                <MailIcon className="w-5 h-5 text-gray-400 mr-2" />
-                <span className="text-gray-600">contacto@unis.edu.ar</span>
+                <MailIcon className="w-5 h-5 mr-2" />
+                <span>contacto@unis.edu.ar</span>
               </li>
             </ul>
           </div>
         </div>
 
-        {/* Pie del footer */}
-        <div className="mt-12 pt-8 border-t border-gray-200">
-          <div className="flex flex-col md:flex-row justify-between items-center">
-            <p className="text-gray-500 text-sm">
-              © 2024 Unis. Todos los derechos reservados.
-            </p>
-            <div className="mt-4 md:mt-0 space-x-6">
-              {links.legal.map((link) => (
-                <Link
-                  key={link.name}
-                  to={link.href}
-                  className="text-sm text-gray-500 hover:text-gray-900"
-                >
-                  {link.name}
-                </Link>
-              ))}
-            </div>
+        <div className="footer-bottom">
+          <p>© 2024 Unis. Todos los derechos reservados.</p>
+          <div className="footer-links">
+            {links.legal.map((link) => (
+              <Link key={link.name} to={link.href}>{link.name}</Link>
+            ))}
           </div>
         </div>
       </div>
