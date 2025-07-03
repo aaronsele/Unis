@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@splinetool/viewer": "^1.10.20",
     "@supabase/supabase-js": "^2.50.2",
     "chart": "^0.1.2",
     "lucide": "^0.513.0",
