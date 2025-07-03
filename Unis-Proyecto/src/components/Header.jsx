@@ -63,7 +63,6 @@ export function Header() {
           {/* Right section */}
           <div className="right-section">
             <button className="notification-button">
-              <span className="sr-only">Ver notificaciones</span>
               <BellIcon className="h-6 w-6" />
             </button>
             <div className="user-profile">
