@@ -1,4 +1,4 @@
-/* Container general */
+
 .bg-white {
     background-color: #fff;
   }
@@ -172,19 +172,39 @@
   .mt-6 {
     margin-top: 1.5rem;
   }
-  
-  .px-8 {
-    padding-left: 2rem;
-    padding-right: 2rem;
-     padding: 0.75rem 2rem;
-  border-radius: 0.5rem;
-  background-color: #2560b9;
-  color: white;
-  font-weight: 500;
-  transition: opacity 0.2s ease;
-  width: fit-content;
-  border: none;
-  cursor: pointer;
+
+
+  .px-8{
+    background-color: #2560b9; 
+  color: white; 
+    width: 9em;
+    height: 3em;
+    border-radius: 30em;
+    font-size: 15px;
+    font-family: inherit;
+    border: none;
+    position: relative;
+    cursor: pointer;
+    overflow: hidden;
+    z-index: 1;
+    box-shadow: 6px 6px 12 px #c5c5c5, -6px -6px 12px #ffffff;
+  }
+  .px-8::before{
+    content: '';
+    width: 0;
+    height: 3em;
+    border-radius: 30em;
+    position: absolute;
+    top:0;
+    left: 0;
+    background-image: linear-gradient(to right, #4903fc 0%, #6da2d1 100%);
+    transition: .5s ease;
+    display: block;
+    z-index: -1;
+  }
+
+  .px-8:hover:before{
+    width: 9em;
   }
   
   .py-3 {

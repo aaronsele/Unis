@@ -93,21 +93,37 @@
   }
   
   .university-button {
-    margin-top: auto;
-    width: 100%;
-    padding: 0.5rem 1rem;
-    border-radius: 0.5rem;
-    background-color: #2560b9;
-    color: white;
-    font-weight: 500;
-    font-size: 0.875rem;
-    transition: opacity 0.2s ease;
-    text-align: center;
-    border: none;
-    cursor: pointer;
+     width: 100%;
+  background-color: #2560b9;
+  color: white;
+  font-size: 14px;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
   }
   
-  .university-button:hover {
-    opacity: 0.9;
-  }
-  
+.university-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 100%;
+  background-image: linear-gradient(to right, #4903fc, #6da2d1);
+  z-index: -1;
+  transition: width 0.4s ease;
+  border-radius: 8px; 
+}
+
+.university-button:hover::before {
+  width: 100%;
+}
+
+.university-button:hover {
+  color: white; 
+}

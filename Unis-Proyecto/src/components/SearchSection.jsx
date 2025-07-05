@@ -72,7 +72,6 @@ export function SearchSection() {
         <div className="flex justify-center mt-6">
           <button
             className="px-8 py-3 rounded-lg text-white font-medium hover:opacity-90 transition-opacity duration-200"
-            style={{ backgroundColor: '#2560B9' }}
             onClick={() => {
               console.log('🔎 Buscar con:', {
                 universidad: selectedUniversity,

@@ -50,24 +50,43 @@
   max-width: 640px;
 }
 
-/* Botón compartido */
+
 .cta-button {
-  padding: 0.75rem 2rem;
-  border-radius: 0.5rem;
+  width: 25%;
   background-color: #2560b9;
   color: white;
-  font-weight: 500;
-  transition: opacity 0.2s ease;
-  width: fit-content;
+  font-size: 14px;
+  padding: 10px 16px;
   border: none;
+  border-radius: 8px;
+  font-weight: 500;
   cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.cta-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 100%;
+  background-image: linear-gradient(to right, #4903fc, #6da2d1);
+  z-index: -1;
+  transition: width 0.4s ease;
+  border-radius: 8px; 
+}
+
+.cta-button:hover::before {
+  width: 100%;
 }
 
 .cta-button:hover {
-  opacity: 0.9;
+  color: white; 
 }
 
-/* Secciones */
 .section-spacing {
   padding: 4rem 1rem;
 }
