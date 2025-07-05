@@ -75,6 +75,20 @@ export async function getUniversidades() {
     }
     return data
   }
+
+  export async function getCarreraById(id) {
+  const { data, error } = await supabase
+    .from('Carrera')
+    .select('*')
+    .eq('id', id)
+    .single();
+
+  if (error) {
+    console.error('Error al traer carrera por ID:', error.message);
+    return null;
+  }
+  return data;
+}
   
   export async function getUniversidadById(id) {
     const { data, error } = await supabase

@@ -5,7 +5,7 @@ import  {Home}  from './pages/Home.jsx';
 import { UniversityList } from './components/UniversityList.jsx'
 import { UniversityDetail } from './components/UniversityDetail.jsx';
 import { CareerList } from './components/CareerList';
-import { CareerDetail } from './components/CareerDetail.jsx';
+import CareerDetail  from './components/CareerDetail.jsx';
 import { VocationalGuidance } from './components/VocationalGuidance';
 import { UserProfile } from './components/UserProfile';
 import {Faq} from './pages/Faq.jsx';

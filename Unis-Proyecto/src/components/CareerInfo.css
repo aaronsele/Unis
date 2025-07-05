@@ -1,0 +1,116 @@
+.career-info-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+@media (min-width: 1024px) {
+  .career-info-container {
+    flex-direction: row;
+  }
+}
+
+.career-info-main {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.career-section-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #2f2f2f;
+  margin-bottom: 1rem;
+}
+
+.career-description {
+  color: #555;
+  line-height: 1.6;
+}
+
+.career-skills-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+@media (min-width: 768px) {
+  .career-skills-list {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.career-skill-item {
+  display: flex;
+  align-items: center;
+  color: #555;
+}
+
+.career-icon-skill {
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+  color: #2560b9;
+}
+
+.career-sidebar {
+  flex: 1;
+  background-color: #f9f9f9;
+  padding: 1.5rem;
+  border-radius: 8px;
+  height: fit-content;
+  position: sticky;
+  top: 1rem;
+}
+
+.career-sidebar-title {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: #2f2f2f;
+  margin-bottom: 1rem;
+}
+
+.career-job-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.career-job-card {
+  background-color: white;
+  padding: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+}
+
+.career-job-title {
+  font-weight: 600;
+  color: #2f2f2f;
+  margin-bottom: 0.5rem;
+}
+
+.career-job-description {
+  font-size: 0.9rem;
+  color: #666;
+  margin-bottom: 0.75rem;
+}
+
+.career-job-details {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.875rem;
+  color: #666;
+}
+
+.career-job-detail {
+  display: flex;
+  align-items: center;
+}
+
+.career-job-icon {
+  width: 16px;
+  height: 16px;
+  margin-right: 4px;
+}

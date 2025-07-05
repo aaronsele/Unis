@@ -1,50 +1,41 @@
 import React from 'react'
 import { ClockIcon, TrendingUpIcon, BriefcaseIcon } from 'lucide-react'
 import { Link } from 'react-router-dom'
+import './CareerCard.css'
 
 function CareerCard({ career }) {
   return (
-    <div className="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden border border-gray-200">
-      <div className="relative h-48 overflow-hidden">
+    <div className="career-card">
+      <div className="career-image-container">
         <img
-          src={career.foto}
+          src={career.foto || 'https://via.placeholder.com/300x200.png'}
           alt={career.nombre}
-          className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+          className="career-image"
         />
-        <div className="absolute top-3 right-3">
-          <span className="px-2 py-1 text-xs font-medium text-white rounded-full bg-blue-700">
-            {career.area}
-          </span>
-        </div>
+        <span className="career-badge">{career.area}</span>
       </div>
-      <div className="p-6">
-        <h3 className="text-lg font-semibold mb-2" style={{ color: '#2F2F2F' }}>
-          {career.nombre}
-        </h3>
-        <p className="text-gray-600 text-sm mb-4 line-clamp-2">
-          {career.descripcion}
-        </p>
-        <div className="space-y-2 mb-4">
-          <div className="flex items-center text-sm text-gray-600">
-            <ClockIcon className="w-4 h-4 mr-2" />
-            Duración: {career.duracionGenericaEnAnios} años
+
+      <div className="career-content">
+        <h3 className="career-title">{career.nombre}</h3>
+        <p className="career-description">{career.descripcion}</p>
+
+        <div className="career-info">
+          <div className="career-info-item">
+            <ClockIcon className="career-icon" />
+            <span>Duración: {career.duracionGenericaEnAnios} años</span>
           </div>
-          <div className="flex items-center text-sm text-gray-600">
-            <BriefcaseIcon className="w-4 h-4 mr-2" />
-            Área: {career.area}
+          <div className="career-info-item">
+            <BriefcaseIcon className="career-icon" />
+            <span>Salida Laboral: Desarrollador de Software</span>
           </div>
-          <div className="flex items-center text-sm text-gray-600">
-            <TrendingUpIcon className="w-4 h-4 mr-2" />
-            Demanda: {career.nivelDemanda}
+          <div className="career-info-item">
+            <TrendingUpIcon className="career-icon" />
+            <span>Demanda: {career.nivelDemanda}</span>
           </div>
         </div>
-        <Link to={`/carrera/${career.id}`}>
-          <button
-            className="w-full py-2 px-4 rounded-lg text-white font-medium hover:opacity-90 transition-opacity duration-200"
-            style={{ backgroundColor: '#2560B9' }}
-          >
-            Ver Detalles
-          </button>
+
+        <Link to={`/careers/${career.id}`}>
+          <button className="career-button">Ver Detalles</button>
         </Link>
       </div>
     </div>

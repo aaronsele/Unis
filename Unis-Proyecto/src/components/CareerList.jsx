@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { supabase } from '../lib/supabaseClient'
 import CareerCard from './CareerCard.jsx'
 import { getCarreras } from '../bd/bd.js'
+import './CareerList.css'
 
 
 export function CareerList() {
@@ -10,6 +11,7 @@ export function CareerList() {
   useEffect(() => {
     async function fetchCareers() {
       const data = await getCarreras()
+          console.log('📦 DATA CARRERAS:', data)
       setCareers(data)
     }
     fetchCareers()
@@ -26,7 +28,9 @@ export function CareerList() {
             Descubre las diferentes carreras y encuentra tu vocación profesional.
           </p>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+
+        <div className="Careers-columns">
           {careers.map((career) => (
             <CareerCard key={career.id} career={career} />
           ))}

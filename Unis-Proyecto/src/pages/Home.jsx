@@ -39,6 +39,7 @@ export function Home() {
         <UniversityList />
       </section>
 
+
       <CareerList />
 
       <section className="section-spacing bg-light">
