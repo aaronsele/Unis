@@ -7,7 +7,10 @@ import { UniversityDetail } from './components/UniversityDetail.jsx';
 import { CareerList } from './components/CareerList';
 import CareerDetail  from './components/CareerDetail.jsx';
 import { VocationalGuidance } from './components/VocationalGuidance';
-import { UserProfile } from './components/UserProfile';
+import { UserProfile } from './components/UserProfile'
+import { Login } from './components/auth/Login'
+import { Register } from './components/auth/Register'
+import { AuthLayout } from './components/auth/AuthLayout'
 import {Faq} from './pages/Faq.jsx';
 import {Terms} from './pages/Terms.jsx';
 import {Privacy} from './pages/Privacy.jsx';
@@ -27,6 +30,10 @@ export function App() {
           <Route path="/faq" element={<Faq />} />
           <Route path="/legal/terms" element={<Terms />} />
           <Route path="/legal/privacy" element={<Privacy />} />
+        </Route>
+        <Route path="/auth" element={<AuthLayout />}>
+          <Route path="login" element={<Login />} />
+          <Route path="register" element={<Register />} />
         </Route>
       </Routes>
     </BrowserRouter>
