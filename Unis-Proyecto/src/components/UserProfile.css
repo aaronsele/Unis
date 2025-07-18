@@ -1,182 +1,164 @@
-.user-profile-container {
-  max-width: 1120px;
-  margin: 0 auto;
-  padding: 2rem 1rem;
+body {
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f0f2f5;
 }
 
-.user-card {
-  background-color: white;
-  border: 1px solid #e5e7eb;
-  border-radius: 0.5rem;
-  overflow: hidden;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.04);
-}
-
-.user-banner {
-  height: 130px;
-  background: linear-gradient(to right, #2560B9, #2560B9);
-}
-
-.user-content {
-  padding: 0 2rem 2rem 2rem;
-}
-
-.user-header {
+.profile-wrapper {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: -4rem;
-  margin-bottom: 2rem;
+  justify-content: center;
+  padding: 40px 20px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
-@media (min-width: 640px) {
-  .user-header {
-    flex-direction: row;
-    align-items: flex-end;
-  }
-}
-
-.user-avatar-container {
+.profile-card {
+  background: white;
+  width: 100%;
+  max-width: 900px;
+  border-radius: 16px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
   position: relative;
 }
 
-.user-avatar {
-  width: 8rem;
-  height: 8rem;
-  background-color: #e5e7eb;
-  border: 4px solid white;
-  border-radius: 9999px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.profile-header {
+  height: 140px;
+  background: linear-gradient(90deg, #0057d8, #2196f3);
+  position: relative;
 }
 
-.user-icon {
-  width: 4rem;
-  height: 4rem;
-  color: #9ca3af;
-}
-
-.edit-avatar-btn {
+.profile-avatar {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  border: 6px solid white;
   position: absolute;
-  bottom: 0;
-  right: 0;
-  background: white;
-  border: 1px solid #e5e7eb;
-  border-radius: 9999px;
-  padding: 0.35rem;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.06);
-  cursor: pointer;
+  top: 80px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  object-fit: cover;
+  background: #ddd;
 }
 
-.edit-avatar-icon {
-  width: 1rem;
-  height: 1rem;
-  color: #2560B9;
-}
-
-.user-name-section {
+.profile-info {
   text-align: center;
-  margin-top: 1rem;
+  margin-top: 70px;
+  padding: 10px;
 }
 
-@media (min-width: 640px) {
-  .user-name-section {
-    margin-top: 0;
-    margin-left: 1.5rem;
-    text-align: left;
-  }
+.profile-name {
+  font-size: 26px;
+  font-weight: bold;
+  margin: 10px 0 4px;
 }
 
-.user-name-section h1 {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: #2F2F2F;
-  margin-bottom: 0.25rem;
+.profile-role {
+  font-size: 14px;
+  color: #888;
+  margin-bottom: 16px;
 }
 
-.user-name-section p {
-  color: #6b7280;
-}
-
-.user-info-grid {
-  display: grid;
-  gap: 1.5rem;
-}
-
-@media (min-width: 768px) {
-  .user-info-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-.info-section h2 {
-  font-size: 1.125rem;
-  font-weight: 600;
-  margin-bottom: 1rem;
-  color: #2F2F2F;
-}
-
-.info-box {
-  background-color: #f9fafb;
-  padding: 1rem;
-  border-radius: 0.5rem;
-}
-
-.info-item {
+.profile-data {
   display: flex;
-  align-items: center;
-  margin-bottom: 1rem;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 0 40px 30px;
 }
 
-.info-icon {
-  width: 1.25rem;
-  height: 1.25rem;
-  margin-right: 0.75rem;
-  color: #2560B9;
-  flex-shrink: 0;
+.profile-section {
+  width: 100%;
+  max-width: 45%;
+  min-width: 250px;
+  margin-top: 20px;
 }
 
-.info-label {
-  font-size: 0.875rem;
-  color: #6b7280;
-  margin-bottom: 0.15rem;
+.profile-section h3 {
+  font-size: 16px;
+  margin-bottom: 10px;
+  color: #444;
 }
 
-.action-buttons {
+.profile-section p {
+  margin: 6px 0;
+  font-size: 15px;
+  color: #333;
+}
+
+.profile-buttons {
   display: flex;
-  gap: 1rem;
-  margin-top: 1.5rem;
+  justify-content: center;
+  gap: 20px;
+  padding: 20px 0 30px;
 }
 
-.btn-primary {
-  flex: 1;
-  padding: 0.5rem 1rem;
-  border-radius: 0.5rem;
-  background-color: #2560B9;
+.profile-buttons button {
+  padding: 10px 24px;
+  border-radius: 8px;
+  background: #0057d8;
   color: white;
-  font-weight: 500;
   border: none;
+  font-size: 14px;
   cursor: pointer;
-  transition: opacity 0.2s ease;
+  transition: background 0.2s ease;
 }
 
-.btn-primary:hover {
-  opacity: 0.9;
+.profile-buttons button:hover {
+  background: #0040a8;
 }
 
-.btn-outline {
-  flex: 1;
-  padding: 0.5rem 1rem;
-  border-radius: 0.5rem;
-  border: 1px solid #e5e7eb;
-  background-color: white;
-  color: #2F2F2F;
-  font-weight: 500;
+.profile-buttons .outline {
+  background: white;
+  color: #0057d8;
+  border: 2px solid #0057d8;
+}
+
+.profile-buttons .outline:hover {
+  background: #e7f0ff;
+}
+
+.login-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 100px;
+}
+
+.login-container form {
+  background: white;
+  padding: 24px;
+  border-radius: 10px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+.login-container input {
+  display: block;
+  width: 250px;
+  margin: 10px 0;
+  padding: 10px;
+  font-size: 14px;
+}
+
+.login-container button {
+  width: 100%;
+  padding: 10px;
+  background: #0057d8;
+  color: white;
+  border: none;
+  border-radius: 6px;
   cursor: pointer;
-  transition: background-color 0.2s ease;
 }
 
-.btn-outline:hover {
-  background-color: #f3f4f6;
+.login-container button:hover {
+  background: #0040a8;
+}
+
+.error {
+  color: red;
+  margin-top: 10px;
+}
+
+.loading {
+  text-align: center;
+  margin-top: 50px;
 }

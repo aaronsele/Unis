@@ -167,4 +167,19 @@ export async function getUniversidades() {
   
     return data;
   }
+
+  export async function getPerfilByUserId(user_id) {
+    const { data, error } = await supabase
+      .from('Perfil')
+      .select('*')
+      .eq('user_id', user_id)
+      .limit(1) 
+  
+    if (error) {
+      console.error('Error al traer el perfil:', error.message)
+      return null
+    }
+  
+    return data?.[0] || null
+  }
   
