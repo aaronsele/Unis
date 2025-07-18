@@ -147,3 +147,24 @@ export async function getUniversidades() {
     return data
   }
   
+  export async function getCursosOV() {
+    const { data, error } = await supabase
+      .from('cursoOV')
+      .select(`
+        *,
+        Profesional (
+          nombre,
+          apellido,
+          foto,
+          especialidad
+        )
+      `);
+  
+    if (error) {
+      console.error('Error al traer cursos vocacionales:', error.message);
+      return [];
+    }
+  
+    return data;
+  }
+  

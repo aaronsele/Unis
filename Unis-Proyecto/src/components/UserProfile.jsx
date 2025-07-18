@@ -1,94 +1,48 @@
-import React from 'react'
-import {
-  UserIcon,
-  PhoneIcon,
-  MailIcon,
-  BookOpenIcon,
-  PencilIcon,
-} from 'lucide-react'
+import React, { useState } from 'react'
+import {auth} from './auth/auth'
 
-import './UserProfile.css'
-
-const userData = {
-  name: 'Astor De La Fuente',
-  phone: '113788956',
-  email: 'BrbrAstor@gmail.com',
-  education: {
-    highSchool: 'Ort',
-  },
-}
-
-// hardcodeadoooo y deberia estar en "pages"
 export function UserProfile() {
-  return (
-    <div className="user-profile-container">
-      <div className="user-card">
-        {/* Banner decorativo */}
-        <div className="user-banner" />
+  const { user, signIn, signOut } = auth()
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [error, setError] = useState(null)
 
-        <div className="user-content">
-          {/* Perfil */}
-          <div className="user-header">
-            <div className="user-avatar-container">
-              <div className="user-avatar">
-                <UserIcon className="user-icon" />
-              </div>
-              <button className="edit-avatar-btn">
-                <PencilIcon className="edit-avatar-icon" />
-              </button>
-            </div>
+  if (!user) {
+    // No está logueado: muestro formulario para loguearse
+    const handleLogin = async (e) => {
+      e.preventDefault()
+      const { error } = await signIn({ email, password })
+      if (error) setError(error.message)
+    }
 
-            <div className="user-name-section">
-              <h1>{userData.name}</h1>
-              <p>Estudiante</p>
-            </div>
-          </div>
-
-          {/* Info */}
-          <div className="user-info-grid">
-            {/* Contacto */}
-            <div className="info-section">
-              <h2>Información de Contacto</h2>
-              <div className="info-box">
-                <div className="info-item">
-                  <PhoneIcon className="info-icon" />
-                  <div>
-                    <p className="info-label">Teléfono</p>
-                    <p>{userData.phone}</p>
-                  </div>
-                </div>
-                <div className="info-item">
-                  <MailIcon className="info-icon" />
-                  <div>
-                    <p className="info-label">Email</p>
-                    <p>{userData.email}</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Educación */}
-            <div className="info-section">
-              <h2>Información Académica</h2>
-              <div className="info-box">
-                <div className="info-item">
-                  <BookOpenIcon className="info-icon" />
-                  <div>
-                    <p className="info-label">Secundaria</p>
-                    <p>{userData.education.highSchool}</p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Acciones */}
-              <div className="action-buttons">
-                <button className="btn-primary">Editar Perfil</button>
-                <button className="btn-outline">Cambiar Contraseña</button>
-              </div>
-            </div>
-          </div>
-        </div>
+    return (
+      <div>
+        <h2>Iniciar Sesión</h2>
+        <form onSubmit={handleLogin}>
+          <input
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={e => setEmail(e.target.value)}
+          />
+          <input
+            type="password"
+            placeholder="Contraseña"
+            value={password}
+            onChange={e => setPassword(e.target.value)}
+          />
+          <button type="submit">Iniciar Sesión</button>
+          {error && <p style={{ color: 'red' }}>{error}</p>}
+        </form>
       </div>
+    )
+  }
+
+  // Usuario logueado: muestro perfil y botón logout
+  return (
+    <div>
+      <h2>Hola, {user.email}</h2>
+      <button onClick={() => signOut()}>Cerrar sesión</button>
     </div>
   )
 }

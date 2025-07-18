@@ -9,11 +9,13 @@ import CareerDetail  from './components/CareerDetail.jsx';
 import { VocationalGuidance } from './components/VocationalGuidance';
 import { UserProfile } from './components/UserProfile'
 import { Login } from './components/auth/Login'
-import { Register } from './components/auth/Register'
 import { AuthLayout } from './components/auth/AuthLayout'
 import {Faq} from './pages/Faq.jsx';
 import {Terms} from './pages/Terms.jsx';
 import {Privacy} from './pages/Privacy.jsx';
+import { Register } from './components/Register'
+import { ChangePassword } from './components/ChangePassword'
+
 
 export function App() {
   return (
@@ -30,6 +32,8 @@ export function App() {
           <Route path="/faq" element={<Faq />} />
           <Route path="/legal/terms" element={<Terms />} />
           <Route path="/legal/privacy" element={<Privacy />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/change-password" element={<ChangePassword />} />
         </Route>
         <Route path="/auth" element={<AuthLayout />}>
           <Route path="login" element={<Login />} />
