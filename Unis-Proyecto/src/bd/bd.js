@@ -189,7 +189,7 @@ export async function insertCarrera(carrera) {
     .insert([carrera]);
 
   if (error) {
-    console.error('Error al insertar carrera:', error.message);
+    console.log('Error al insertar carrera:', error);
     return null;
   }
 
