@@ -183,3 +183,15 @@ export async function getUniversidades() {
     return data?.[0] || null
   }
   
+export async function insertCarrera(carrera) {
+  const { data, error } = await supabase
+    .from('Carrera')
+    .insert([carrera]);
+
+  if (error) {
+    console.error('Error al insertar carrera:', error.message);
+    return null;
+  }
+
+  return data;
+}

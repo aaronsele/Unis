@@ -1,20 +1,23 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import  {Layout}  from './components/Layout';
-import  {Home}  from './pages/Home.jsx';
-import { UniversityList } from './components/UniversityList.jsx'
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { Layout } from './components/Layout';
+import { Home } from './pages/Home.jsx';
+import { UniversityList } from './components/UniversityList.jsx';
 import { UniversityDetail } from './components/UniversityDetail.jsx';
 import { CareerList } from './components/CareerList';
-import CareerDetail  from './components/CareerDetail.jsx';
+import CareerDetail from './components/CareerDetail.jsx';
 import { VocationalGuidance } from './components/VocationalGuidance';
-import { UserProfile } from './components/UserProfile'
-import { Login } from './components/auth/Login'
-import { AuthLayout } from './components/auth/AuthLayout'
-import {Faq} from './pages/Faq.jsx';
-import {Terms} from './pages/Terms.jsx';
-import {Privacy} from './pages/Privacy.jsx';
-import { Register } from './components/Register'
-import { ChangePassword } from './components/ChangePassword'
+import { UserProfile } from './components/UserProfile';
+import { Login } from './components/auth/Login';
+import { AuthLayout } from './components/auth/AuthLayout';
+import { Faq } from './pages/Faq.jsx';
+import { Terms } from './pages/Terms.jsx';
+import { Privacy } from './pages/Privacy.jsx';
+import { Register } from './components/Register';
+import { ChangePassword } from './components/ChangePassword';
+import { AddCareer } from './components/admin/AddCareer';
+import { usePerfil } from './contexts/UsePerfil';
+import { ProtectedAdminRoute } from './components/ProtectedAdminRoute';
 
 
 export function App() {
@@ -32,8 +35,13 @@ export function App() {
           <Route path="/faq" element={<Faq />} />
           <Route path="/legal/terms" element={<Terms />} />
           <Route path="/legal/privacy" element={<Privacy />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/change-password" element={<ChangePassword />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/change-password" element={<ChangePassword />} />
+        <Route path="add-career" element={
+  <ProtectedAdminRoute>
+    <AddCareer />
+  </ProtectedAdminRoute>
+} />
         </Route>
         <Route path="/auth" element={<AuthLayout />}>
           <Route path="login" element={<Login />} />

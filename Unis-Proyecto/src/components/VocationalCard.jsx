@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { getCursosOV } from '../bd/bd';
 import './VocationalCard.css';
+import { FaCalendarAlt, FaLaptop, FaClipboardCheck, FaUserCheck, FaFileAlt } from 'react-icons/fa';
 
 export function VocationalCard() {
   const [cursos, setCursos] = useState([]);
@@ -8,57 +9,61 @@ export function VocationalCard() {
   useEffect(() => {
     async function fetchCursos() {
       const data = await getCursosOV();
-      console.log('Cursos que llegaron:', data);
       setCursos(data);
+      console.log('Cursos que llegaron:', data);
+
     }
     fetchCursos();
   }, []);
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-4">
+    <div className="cursos-container">
       {cursos.map((curso) => (
-        <div
-          key={curso.id}
-          className="bg-white shadow-md rounded-lg p-4 border border-gray-200"
-        >
-          <img
-            src={curso.foto}
-            alt={curso.titulo}
-            className="w-full h-48 object-cover rounded-md mb-4"
-          />
-          <h3 className="text-xl font-bold text-gray-800 mb-1">{curso.titulo}</h3>
-          <p className="text-sm text-gray-600 mb-2">{curso.descripcion}</p>
+        <div className="curso-wrapper" key={curso.id}>
+          <img src={curso.foto} alt={curso.titulo} className="curso-imagen" />
 
-          <div className="flex items-center mb-3 gap-3">
-            <img
-              src={curso.profesional?.fotoPerfil}
-              alt={`${curso.profesional?.nombre} ${curso.profesional?.apellido}`}
-              className="w-12 h-12 object-cover rounded-full border"
-            />
-            <div>
-              <p className="font-semibold text-gray-800">
-                {curso.profesional?.nombre} {curso.profesional?.apellido}
-              </p>
-              <p className="text-sm text-gray-500">
-                {curso.profesional?.profesion}
+          <div className="curso-detalle">
+            <div className="curso-header">
+              <h3>{curso.titulo}</h3>
+              <p className="curso-precio">
+                ${String(curso.precio).slice(0, 2)}<span>000</span>
               </p>
             </div>
-          </div>
 
-          <div className="text-sm text-gray-700 mb-1">
-            <strong>Modalidad:</strong> {curso.modalidad}
-          </div>
-          <div className="text-sm text-gray-700 mb-1">
-            <strong>Inicio:</strong> {curso.fechaInicio}
-          </div>
-          <div className="text-sm text-gray-700 mb-1">
-            <strong>Sesiones:</strong> {curso.cantSesiones}
-          </div>
-          <div className="text-sm text-gray-700 mb-4">
-            <strong>Precio:</strong> ${curso.precio}
-          </div>
+            <div className="profesional-info">
+              <img
+                src={curso.profesional?.fotoPerfil}
+                alt="profesional"
+                className="profesional-foto"
+              />
+              <div>
+                <p className="profesional-nombre">
+                   {curso.profesional?.nombre} {curso.profesional?.apellido}
+                </p>
+                <p className="profesional-profesion">{curso.profesional?.profesion}</p>
+              </div>
+            </div>
 
-          <button className="career-button">Inscribirme</button>
+            <p className="curso-descripcion">{curso.descripcion}</p>
+
+            <div className="curso-datos">
+              <div><FaClipboardCheck /> {curso.cantSesiones} sesiones</div>
+              <div><FaLaptop /> {curso.modalidad}</div>
+              <div><FaCalendarAlt /> Próximo inicio: {curso.fechaInicio}</div>
+            </div>
+
+            <div className="curso-beneficios">
+              <div><FaClipboardCheck /> Test de aptitudes</div>
+              <div><FaUserCheck /> Evaluación de intereses</div>
+              <div><FaUserCheck /> Entrevista personal</div>
+              <div><FaFileAlt /> Informe detallado</div>
+            </div>
+
+            <div className="curso-botones">
+              <button className="boton-inscribirme">Inscribirme</button>
+              <button className="boton-mas-info">Más información</button>
+            </div>
+          </div>
         </div>
       ))}
     </div>
