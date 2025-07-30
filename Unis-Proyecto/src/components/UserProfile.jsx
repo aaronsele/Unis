@@ -44,8 +44,30 @@ export function UserProfile() {
             value={password}
             onChange={e => setPassword(e.target.value)}
           />
+          <div className="options-row">
+            <label>
+              <input type="checkbox" /> Recordarme
+            </label>
+            <a href="#" className="link">¿Olvidaste tu contraseña?</a>
+          </div>
           <button type="submit">Iniciar Sesión</button>
-          {error && <p className="error">{error}</p>}
+          {error && <p className="error-message">{error}</p>}
+
+          <div className="separator">o continuá con</div>
+
+          <button type="button" className="social-btn google">
+            <img src="src/icons/google.png" alt="Google" />
+            Continuar con Google
+          </button>
+
+          <button type="button" className="social-btn facebook">
+            <img src="src\icons\facebook.png" alt="Facebook" />
+            Continuar con Facebook
+          </button>
+
+          <p className="register-text">
+            ¿No tienes una cuenta? <a href="#" className="link">Registrate</a>
+          </p>
         </form>
       </div>
     )
@@ -58,8 +80,8 @@ export function UserProfile() {
       <div className="profile-card">
         <div className="profile-header"></div>
         <div className="profile-info">
-        <img src={perfil.foto || "/default-avatar.png"} alt="Foto de perfil" className="profile-avatar" />
-  <h2 className="profile-name">{perfil.nombre} {perfil.apellido}</h2>
+          <img src={perfil.foto || "/default-avatar.png"} alt="Foto de perfil" className="profile-avatar" />
+          <h2 className="profile-name">{perfil.nombre} {perfil.apellido}</h2>
           <p className="profile-role">Estudiante</p>
         </div>
         <div className="profile-data">
