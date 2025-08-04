@@ -32,15 +32,15 @@ export function VocationalCard() {
 
             <div className="profesional-info">
               <img
-                src={curso.profesional?.fotoPerfil}
+                src={curso.Profesional?.foto}
                 alt="profesional"
                 className="profesional-foto"
               />
               <div>
                 <p className="profesional-nombre">
-                   {curso.profesional?.nombre} {curso.profesional?.apellido}
+                   {curso.Profesional?.nombre} {curso.Profesional?.apellido}
                 </p>
-                <p className="profesional-profesion">{curso.profesional?.profesion}</p>
+                <p className="profesional-profesion">{curso.Profesional?.profesion}</p>
               </div>
             </div>
 
