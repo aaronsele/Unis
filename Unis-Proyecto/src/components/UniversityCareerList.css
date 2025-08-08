@@ -1,0 +1,66 @@
+.university-career-section {
+    padding: 20px;
+  }
+  
+  .header {
+    margin-bottom: 20px;
+  }
+  
+  .university-career-section h2 {
+    font-size: 24px;
+    font-weight: bold;
+    color: #2F2F2F;
+  }
+  
+  .university-career-section p {
+    color: #666;
+  }
+  
+  .slider-container {
+    display: flex;
+    align-items: center;
+  }
+  
+  .cards-viewport {
+    overflow: hidden;
+    flex: 1;
+  }
+  
+  .cards-track {
+    display: flex;
+    gap: 20px;
+    transition: transform 0.5s ease-in-out; /* transición suave */
+  }
+  
+  .card-item {
+    flex: 0 0 calc(33.333% - 13.33px); /* 3 por fila */
+    box-sizing: border-box;
+  }
+  
+  .slider-btn {
+    background-color: #ddd;
+    border: none;
+    padding: 10px;
+    font-size: 18px;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+  }
+  
+  .slider-btn:hover:not(:disabled) {
+    background-color: #bbb;
+  }
+  
+  .slider-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  
+  .slider-btn.left {
+    margin-right: 10px;
+  }
+  
+  .slider-btn.right {
+    margin-left: 10px;
+  }
+  

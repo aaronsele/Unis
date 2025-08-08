@@ -135,17 +135,43 @@ export async function getUniversidades() {
   
   export async function getCarrerasByUniversidadId(universidadId) {
     const { data, error } = await supabase
-      .from('Carrera')
-      .select('*')
-      .eq('universidadId', universidadId)
+      .from('CarreraXUniversidad')
+      .select(`
+        id,
+        duracionAnios,
+        modalidad,
+        costoMensual,
+        direccion,
+        telefono,
+        email,
+        horarioAtencion,
+        carrera:Carrera (
+          id,
+          nombre,
+          descripcion,
+          foto
+        )
+      `)
+      .eq('idUniversidad', universidadId) // <-- nombre correcto de la columna
   
     if (error) {
       console.error('Error al traer carreras por universidad:', error.message)
       return []
     }
   
-    return data
+    // devolvemos solo la info de la carrera + datos extra de la tabla intermedia
+    return data.map(item => ({
+      ...item.carrera,
+      duracionAnios: item.duracionAnios,
+      modalidad: item.modalidad,
+      costoMensual: item.costoMensual,
+      direccion: item.direccion,
+      telefono: item.telefono,
+      email: item.email,
+      horarioAtencion: item.horarioAtencion
+    }))
   }
+  
   
   export async function getCursosOV() {
     const { data, error } = await supabase
