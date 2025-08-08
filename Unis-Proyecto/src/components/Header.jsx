@@ -49,7 +49,7 @@ export function Header() {
               );
             })}
 
-            {/* 👑 Admin Dropdown */}
+          
             {perfil?.esAdmin && (
               <div className="nav-link dropdown">
                 <SettingsIcon className="w-5 h-5" />
@@ -59,7 +59,7 @@ export function Header() {
                     <PlusCircleIcon className="w-4 h-4" /> Agregar Carrera
                   </Link>
                   <Link to="/admin/universidades" className="dropdown-item">
-                    <BuildingIcon className="w-4 h-4" /> Universidades
+                    <BuildingIcon className="w-4 h-4" /> Agregar Universidades
                   </Link>
                   <Link to="/admin/usuarios" className="dropdown-item">
                     <UserIcon className="w-4 h-4" /> Usuarios
@@ -69,7 +69,7 @@ export function Header() {
             )}
           </nav>
 
-          {/* Right section */}
+          
           <div className="right-section">
             <button className="notification-button">
               <BellIcon className="h-6 w-6" />

@@ -26,7 +26,7 @@ function CareerCard({ career }) {
           </div>
           <div className="career-info-item">
             <BriefcaseIcon className="career-icon" />
-            <span>Salida Laboral: Desarrollador de Software</span>
+            <span>Salida Laboral: Gran cantidad</span>
           </div>
           <div className="career-info-item">
             <TrendingUpIcon className="career-icon" />

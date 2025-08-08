@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-// import { CareerCard } from './CareerCard'
+// import { CareerCard } from './CareerCard';
 import { getCarrerasByUniversidadId } from '../bd/bd'
 import './UniversityCareerList.css'
 
