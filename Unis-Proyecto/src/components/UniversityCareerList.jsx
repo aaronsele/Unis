@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import CareerCard from './CareerCard'
+import CareerInUniversityCard from './CareerInUniversityCard' // el componente correcto
 import { getCarrerasByUniversidadId } from '../bd/bd'
 import './UniversityCareerList.css'
 
@@ -11,11 +11,15 @@ export function UniversityCareerList({ universityId }) {
 
   useEffect(() => {
     async function fetchCareers() {
+      setLoading(true)
       const data = await getCarrerasByUniversidadId(universityId)
-      setCareers(data)
+      setCareers(data || [])
+      setStartIndex(0) // reset slider al cambiar universidad
       setLoading(false)
     }
-    fetchCareers()
+    if (universityId) {
+      fetchCareers()
+    }
   }, [universityId])
 
   const handlePrev = () => {
@@ -54,11 +58,22 @@ export function UniversityCareerList({ universityId }) {
               className="cards-track"
               style={{
                 transform: `translateX(-${(100 / cardsPerPage) * startIndex}%)`,
+                display: 'flex',
+                transition: 'transform 0.3s ease',
+                width: `${(100 / cardsPerPage) * careers.length}%`,
               }}
             >
               {careers.map((career) => (
-                <div key={career.id} className="card-item">
-                  <CareerCard career={career} />
+                <div
+                  key={career.id}
+                  className="card-item"
+                  style={{ flex: `0 0 ${100 / cardsPerPage}%` }}
+                >
+                  {/* Pasamos el universityId a CareerInUniversityCard */}
+                  <CareerInUniversityCard
+                    career={career}
+                    universityId={universityId}
+                  />
                 </div>
               ))}
             </div>

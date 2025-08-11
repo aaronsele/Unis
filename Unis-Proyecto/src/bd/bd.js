@@ -221,3 +221,17 @@ export async function insertCarrera(carrera) {
 
   return data;
 }
+export async function getCareerInUniversity(universityId, careerId) {
+  const { data, error } = await supabase
+    .from('CarreraXUniversidad')
+    .select('duracionAnios, modalidad, costoMensual, direccion, telefono, email, horarioAtencion, idUniversidad, idCarrera, foto')
+    .eq('idUniversidad', universityId)
+    .eq('idCarrera', careerId)
+    .single(); // porque esperás un solo registro
+
+  if (error) {
+    console.error('Error al traer carrera en universidad:', error);
+    return null;
+  }
+  return data;
+}
