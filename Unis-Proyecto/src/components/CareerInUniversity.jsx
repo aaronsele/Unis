@@ -24,18 +24,54 @@ export default function CareerInUniversity() {
   }, [universityId, careerId]);
 
   if (loading) return <p>Cargando info de la carrera en la universidad...</p>;
-  if (error) return <p style={{color:'red'}}>{error}</p>;
+  if (error) return <p className="error-text">{error}</p>;
 
   return (
-    <div style={{ padding: '20px' }}>
-      <h1>Detalles de la Carrera en la Universidad</h1>
-      <p><strong>Duración (años):</strong> {info.duracionAnios}</p>
-      <p><strong>Modalidad:</strong> {info.modalidad}</p>
-      <p><strong>Costo mensual:</strong> ${info.costoMensual}</p>
-      <p><strong>Dirección:</strong> {info.direccion}</p>
-      <p><strong>Teléfono:</strong> {info.telefono}</p>
-      <p><strong>Email:</strong> {info.email}</p>
-      <p><strong>Horario de atención:</strong> {info.horarioAtencion}</p>
+    <div className="career-page">
+      <div className="career-header">
+  <div className="career-texts">
+    <h1 className="career-title">{info.nombreCarrera}</h1>
+    <h2 className="career-university">en {info.nombreUniversidad}</h2>
+  </div>
+  <img src={info.foto} alt={`Carrera ${info.nombreCarrera}`} className="career-image" />
+</div>
+      
+      
+      <div className="career-info-grid">
+        <div className="career-info-card">
+          <p className="label">Duración</p>
+          <p className="value">{info.duracionAnios} años</p>
+        </div>
+        <div className="career-info-card">
+          <p className="label">Modalidad</p>
+          <p className="value">{info.modalidad}</p>
+        </div>
+        <div className="career-info-card">
+          <p className="label">Costo Mensual</p>
+          <p className="value">${info.costoMensual}</p>
+        </div>
+      </div>
+
+      <div className="career-section">
+        <h3>Proceso de Admisión</h3>
+        <div className="career-section-content">
+          Contenido y requisitos de ingreso según la universidad...
+        </div>
+      </div>
+
+      <div className="career-section">
+        <h3>Programa de Estudios</h3>
+        <div className="career-section-content">
+          Plan de materias, asignaturas y descripción...
+        </div>
+      </div>
+
+      <div className="career-contact">
+        <p><strong>Dirección:</strong> {info.direccion}</p>
+        <p><strong>Teléfono:</strong> {info.telefono}</p>
+        <p><strong>Email:</strong> {info.email}</p>
+        <p><strong>Horario de atención:</strong> {info.horarioAtencion}</p>
+      </div>
     </div>
   );
 }

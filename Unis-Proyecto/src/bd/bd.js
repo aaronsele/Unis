@@ -221,17 +221,44 @@ export async function insertCarrera(carrera) {
 
   return data;
 }
+
+
+
 export async function getCareerInUniversity(universityId, careerId) {
   const { data, error } = await supabase
     .from('CarreraXUniversidad')
-    .select('duracionAnios, modalidad, costoMensual, direccion, telefono, email, horarioAtencion, idUniversidad, idCarrera, foto')
+    .select(`
+      duracionAnios,
+      modalidad,
+      costoMensual,
+      direccion,
+      telefono,
+      email,
+      horarioAtencion,
+      foto,
+      Universidad ( nombre ),
+      Carrera ( nombre )
+    `)
     .eq('idUniversidad', universityId)
     .eq('idCarrera', careerId)
-    .single(); // porque esperás un solo registro
+    .single();
 
   if (error) {
     console.error('Error al traer carrera en universidad:', error);
     return null;
   }
-  return data;
+
+  return {
+    duracionAnios: data.duracionAnios,
+    modalidad: data.modalidad,
+    costoMensual: data.costoMensual,
+    direccion: data.direccion,
+    telefono: data.telefono,
+    email: data.email,
+    horarioAtencion: data.horarioAtencion,
+    foto: data.foto,
+    nombreUniversidad: data.Universidad?.nombre || '',
+    nombreCarrera: data.Carrera?.nombre || ''
+  };
 }
+
