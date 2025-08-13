@@ -262,3 +262,16 @@ export async function getCareerInUniversity(universityId, careerId) {
   };
 }
 
+export async function getUniversitiesForCareer(careerId) {
+  const { data, error } = await supabase
+    .from('CarreraXUniversidad')
+    .select('Universidad(id,nombre,descripcion,foto,direccion,cantEstudiantes,cantCarreras,publica)')
+    .eq('idCarrera', careerId);
+
+  if (error) {
+    console.error(error);
+    return [];
+  }
+
+  return data.map(item => item.Universidad);
+}

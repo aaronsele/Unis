@@ -1,13 +1,29 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
-  BriefcaseIcon,
   TrendingUpIcon,
   DollarSignIcon,
   CheckIcon,
 } from 'lucide-react';
 import './CareerInfo.css';
+import UniversityInCareerCard from './UniversityInCareerCard';
+import { getUniversitiesForCareer } from '../bd/bd.js';
 
 export default function CareerInfo({ career }) {
+  const [universities, setUniversities] = useState([]);
+  const [loadingUnis, setLoadingUnis] = useState(true);
+
+  useEffect(() => {
+    async function fetchUnis() {
+      if (career?.id) {
+        setLoadingUnis(true);
+        const data = await getUniversitiesForCareer(career.id);
+        setUniversities(data);
+        setLoadingUnis(false);
+      }
+    }
+    fetchUnis();
+  }, [career]);
+
   if (!career) return null;
 
   return (
@@ -19,6 +35,7 @@ export default function CareerInfo({ career }) {
             {career.description || career.descripcion || 'Descripción no disponible'}
           </p>
         </section>
+
         <section className="career-section">
           <h2 className="career-section-title">Habilidades que Desarrollarás</h2>
           <div className="career-skills-list">
@@ -53,6 +70,28 @@ export default function CareerInfo({ career }) {
           ))}
         </div>
       </div>
+
+      {/* Sección de universidades */}
+      <section className="career-section-career-universities">
+        <h2 className="career-section-title">
+          Dónde estudiar {career.name || career.nombre}
+        </h2>
+        <div className="university-cards-container">
+          {loadingUnis ? (
+            <p>Cargando universidades...</p>
+          ) : universities.length > 0 ? (
+            universities.map((uni) => (
+              <UniversityInCareerCard
+                key={uni.id}
+                university={uni}
+                career={career}
+              />
+            ))
+          ) : (
+            <p>No hay universidades disponibles para esta carrera.</p>
+          )}
+        </div>
+      </section>
     </div>
   );
 }
