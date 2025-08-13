@@ -1,3 +1,4 @@
+/* Contenedor principal */
 .career-info-container {
   display: flex;
   flex-direction: column;
@@ -5,12 +6,7 @@
   margin-bottom: 3rem;
 }
 
-@media (min-width: 1024px) {
-  .career-info-container {
-    flex-direction: row;
-  }
-}
-
+/* Main + Sidebar */
 .career-info-main {
   flex: 2;
   display: flex;
@@ -18,11 +14,12 @@
   gap: 2rem;
 }
 
+/* Sección sobre la carrera */
 .career-section-title {
   font-size: 1.5rem;
   font-weight: bold;
   color: #2f2f2f;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
 }
 
 .career-description {
@@ -30,6 +27,7 @@
   line-height: 1.6;
 }
 
+/* Skills */
 .career-skills-list {
   display: grid;
   grid-template-columns: 1fr;
@@ -55,13 +53,13 @@
   color: #2560b9;
 }
 
+/* Sidebar */
 .career-sidebar {
   flex: 1;
   background-color: #f9f9f9;
   padding: 1.5rem;
   border-radius: 8px;
   height: fit-content;
-  position: sticky;
   top: 1rem;
 }
 
@@ -72,6 +70,7 @@
   margin-bottom: 1rem;
 }
 
+/* Jobs */
 .career-job-list {
   display: flex;
   flex-direction: column;
@@ -115,68 +114,39 @@
   margin-right: 4px;
 }
 
-.career-section-career-universities {
-  padding: 20px;
-}
-
-.header {
-  margin-bottom: 20px;
-}
-
-.career-section-career-universities h2 {
-  font-size: 24px;
-  font-weight: bold;
-  color: #2F2F2F;
-}
-
-.career-section-career-universities p {
-  color: #666;
-}
-
-.slider-container {
-  display: flex;
-  align-items: center;
-}
-
-.cards-viewport {
+/* UNIVERSITIES HERO CARD */
+.career-hero {
+  position: relative;
+  width: 100%;
+  height: 250px; /* más chica que la original */
+  margin-bottom: 1.5rem;
+  border-radius: 12px;
   overflow: hidden;
-  flex: 1;
 }
 
-.cards-track {
+.career-hero img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.career-hero-title {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  color: white;
+  font-size: 2rem;
+  font-weight: bold;
+  text-shadow: 1px 1px 6px rgba(0,0,0,0.7);
+}
+
+/* Universities cards */
+.career-section-career-universities {
+  padding: 20px 0;
+}
+
+.university-cards-container {
   display: flex;
+  flex-wrap: wrap;
   gap: 20px;
-  transition: transform 0.5s ease-in-out; /* transición suave */
-}
-
-.card-item {
-  flex: 0 0 calc(33.333% - 13.33px); /* 3 por fila */
-  box-sizing: border-box;
-}
-
-.slider-btn {
-  background-color: #ddd;
-  border: none;
-  padding: 10px;
-  font-size: 18px;
-  cursor: pointer;
-  border-radius: 4px;
-  transition: background-color 0.2s;
-}
-
-.slider-btn:hover:not(:disabled) {
-  background-color: #bbb;
-}
-
-.slider-btn:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-.slider-btn.left {
-  margin-right: 10px;
-}
-
-.slider-btn.right {
-  margin-left: 10px;
 }
