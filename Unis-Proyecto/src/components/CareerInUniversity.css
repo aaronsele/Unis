@@ -1,189 +1,133 @@
-/*
-  CSS corregido para el componente CareerInUniversity.
-  Se ha modificado la estructura para que se asemeje a la imagen,
-  usando técnicas estándar de CSS como Flexbox, Grid y Media Queries.
-*/
-
-/* Estilos globales para el contenedor principal.
-  Se usa un color de fondo claro y se establece la tipografía.
-*/
 .career-page {
   background-color: #f4f6f9;
-  padding: 2rem;
   font-family: 'Inter', sans-serif;
   color: #333;
 }
 
-/* Cabecera de la página con imagen de fondo y superposición oscura.
-  La imagen se define aquí para el fondo del div.
-*/
+/* HEADER */
 .career-header {
-  position: relative; /* Es necesario para que la superposición sea absoluta */
+  position: relative;
   height: 300px;
-  border-radius: 8px;
-  overflow: hidden; /* Oculta cualquier parte de la imagen que sobresalga de los bordes redondeados */
-  margin-bottom: 2rem;
+  overflow: hidden;
 }
 
-/* La imagen de fondo real. Se coloca dentro del div .career-header.
-  El uso de una etiqueta `img` en el JSX original permite esto.
-  Se adapta para cubrir todo el espacio sin distorsión.
-*/
 .career-image {
-  position: absolute;
-  top: 0;
-  left: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  z-index: 1; /* Se asegura de que la imagen esté detrás de la superposición y el texto */
 }
 
-/* Superposición oscura para la imagen de fondo de la cabecera.
-  Hace que el texto blanco sea legible.
-*/
-.career-header::before {
-  content: '';
+.overlay {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 2; /* Se asegura de que la superposición esté encima de la imagen */
-  border-radius: 8px;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
 }
 
-/* Contenedor para el texto de la cabecera.
-  Se posiciona en la parte inferior izquierda de la cabecera.
-*/
-.career-texts {
+.career-header-text {
   position: absolute;
   bottom: 2rem;
   left: 2rem;
-  z-index: 3; /* Se asegura de que el texto esté encima de la superposición */
   color: #fff;
-  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
 }
 
-.career-title {
+.career-header-text h1 {
   font-size: 2.5rem;
-  font-weight: bold;
-  margin: 0;
+  margin: 0.3rem 0;
 }
 
-.career-university {
-  font-size: 1.5rem;
-  font-weight: 400;
-  margin: 0;
+.career-header-text h2 {
+  font-size: 1.2rem;
+  font-weight: normal;
+  margin-bottom: 0.5rem;
 }
 
-/* Contenedor principal de 2 columnas para el contenido.
-  Se usa Grid para crear la disposición de 2 columnas en pantallas grandes.
-*/
-.main-content {
+.career-tag {
+  background: #1a73e8;
+  color: white;
+  padding: 0.2rem 0.6rem;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  margin-right: 0.4rem;
+}
+
+.career-meta span {
+  margin-right: 1rem;
+  font-size: 0.9rem;
+  opacity: 0.9;
+}
+
+/* MAIN LAYOUT */
+.career-main {
   display: grid;
-  grid-template-columns: 2fr 1fr; /* Columna izquierda 2/3, derecha 1/3 */
-  gap: 2rem; /* Espacio entre columnas */
+  grid-template-columns: 2fr 1fr;
+  gap: 2rem;
+  padding: 2rem;
 }
 
-/*
-  Para pantallas pequeñas (móvil), se muestra el contenido en una sola columna.
-*/
-@media (max-width: 768px) {
-  .main-content {
+@media (max-width: 900px) {
+  .career-main {
     grid-template-columns: 1fr;
   }
 }
 
-/*
-  Estilos para las tarjetas de información de la carrera.
-  Se usa Flexbox para que las tarjetas se adapten a una fila en pantallas grandes.
-*/
+/* INFO CARDS */
 .career-info-grid {
   display: flex;
   gap: 1rem;
   margin-bottom: 2rem;
 }
 
-@media (max-width: 640px) {
-  .career-info-grid {
-    flex-direction: column; /* En móviles, las tarjetas se apilan */
-  }
-}
-
 .career-info-card {
-  background-color: #fff;
+  flex: 1;
+  background: white;
   padding: 1.5rem;
   border-radius: 8px;
-  flex: 1; /* Permite que las tarjetas ocupen el mismo espacio */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
   text-align: center;
 }
 
 .label {
-  font-size: 0.9rem;
-  font-weight: 500;
+  font-size: 0.85rem;
   color: #666;
-  margin-bottom: 0.25rem;
 }
 
 .value {
-  font-size: 1.25rem;
+  font-size: 1.3rem;
   font-weight: bold;
-  color: #000;
 }
 
-/* Estilos para las secciones principales (Admisión, Programa) */
+/* SECTIONS */
 .career-section {
-  background-color: #fff;
-  padding: 2rem;
+  background: white;
+  padding: 1.5rem;
   border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
   margin-bottom: 2rem;
 }
 
 .career-section h3 {
-  font-size: 1.5rem;
-  font-weight: bold;
-  margin-top: 0;
   margin-bottom: 1rem;
-  color: #333;
 }
 
-.career-section-content ul {
-  list-style: none; /* Elimina los puntos predeterminados */
-  padding: 0;
-}
-
-.career-section-content li {
-  display: flex;
-  align-items: center;
-  margin-bottom: 0.5rem;
-}
-
-.career-section-content li::before {
-  content: '✓'; /* Usa un checkmark como viñeta */
-  color: #1a73e8;
-  margin-right: 0.5rem;
-  font-weight: bold;
-}
-
-/* Estilos para la tarjeta de contacto */
-.career-contact {
-  background-color: #fff;
-  padding: 2rem;
+/* SIDEBAR */
+.career-side-card {
+  background: white;
+  padding: 1.5rem;
   border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+  margin-bottom: 2rem;
 }
 
-.career-contact p {
-  margin: 0.5rem 0;
-  font-size: 1rem;
+.career-side-card h4 {
+  margin-bottom: 1rem;
 }
 
-.career-contact p strong {
-  font-weight: bold;
+.career-side-card ul {
+  padding-left: 1rem;
+}
+
+.career-side-card li {
+  margin-bottom: 0.5rem;
 }
 
 .error-text {
