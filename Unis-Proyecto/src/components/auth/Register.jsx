@@ -55,9 +55,11 @@ export function Register() {
     e.preventDefault()
     if (validarFormulario()) {
       console.log('Registrando con:', formData)
-      navigate('/')
+      navigate('/');
     }
-  }
+  }//seguir acá:
+  //falta preguntarle si es estudiante o profesional y si es profesional pedirle especialidad
+  //esos datos se guardan en el objeto formData y con manejarEnvio() deben agregarse a la bd
 
   const manejarLoginSocial = (proveedor) => {
     console.log(`Registrarse con ${proveedor}`)

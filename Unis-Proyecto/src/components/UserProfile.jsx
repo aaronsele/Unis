@@ -66,7 +66,8 @@ export function UserProfile() {
           </button>
 
           <p className="register-text">
-            ¿No tienes una cuenta? <a href="#" className="link">Registrate</a>
+            ¿No tienes una cuenta?
+            <Link to='/register'>Registrate</Link>
           </p>
         </form>
       </div>
@@ -89,7 +90,7 @@ export function UserProfile() {
             <h3>Información de Contacto</h3>
             <p><strong>Teléfono:</strong> {perfil.telefono || 'Sin registrar'}</p>
             <p><strong>Email:</strong> {user.email}</p>
-            <p><strong>¿Es Admin?:</strong> {perfil.esAdmin ? 'Sí' : 'No'}</p>
+            {perfil.esAdmin ? <p><strong>Rol: Administrador</strong></p> : null}
           </div>
           <div className="profile-section">
             <h3>Información Académica</h3>

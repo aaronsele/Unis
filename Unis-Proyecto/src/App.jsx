@@ -1,3 +1,9 @@
+//falta terminar register, seguir instrucciones en componente (componente en linea 25, ultimo import)
+//extra:
+//en la bd, perfil tiene rol donde guarda "admin", "profesion" o "usuario"
+//por lo q HABRÍA q borrar esAdmin
+
+
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Layout } from './components/Layout';
@@ -14,10 +20,10 @@ import { AuthLayout } from './components/auth/AuthLayout';
 import { Faq } from './pages/Faq.jsx';
 import { Terms } from './pages/Terms.jsx';
 import { Privacy } from './pages/Privacy.jsx';
-import { Register } from './components/Register';
 import { ChangePassword } from './components/ChangePassword';
 import { AddCareer } from './components/admin/AddCareer';
 import { ProtectedAdminRoute } from './components/ProtectedAdminRoute';
+import {Register} from './components/auth/Register.jsx'
 
 export function App() {
   return (

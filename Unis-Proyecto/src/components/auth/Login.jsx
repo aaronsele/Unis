@@ -63,7 +63,7 @@ export function Login() {
           <div>
             <label
               htmlFor="email"
-              className="block text-sm font-medium text-gray-700 mb-1"
+              className="bxlock text-sm font-medium text-gray-700 mb-1"
             >
               Email
             </label>

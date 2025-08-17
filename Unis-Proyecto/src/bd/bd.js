@@ -178,7 +178,7 @@ export async function getUniversidades() {
       .from('cursoOV')
       .select(`
         *,
-        Profesional (
+        Perfil (
           nombre,
           apellido,
           foto,
