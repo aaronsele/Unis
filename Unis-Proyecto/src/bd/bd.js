@@ -67,20 +67,53 @@ export async function getUniversidades() {
 }
 
 export async function crearPerfil(payload) {
-  // convierte rol a número antes de insertar
-  const insertPayload = { ...payload, rol: Number(payload.rol) };
+  try {
+    // 1️⃣ Crear usuario en Auth
+    const { data: authData, error: authError } = await supabase.auth.signUp({
+      email: payload.email,
+      password: payload.contraseña
+    });
 
-  const { data, error } = await supabase
-    .from("Perfil")
-    .insert([insertPayload]);
+    if (authError) {
+      console.error("Error al crear usuario Auth:", authError.message);
+      return null;
+    }
 
-  if (error) {
-    console.error("Error al insertar en Perfil:", error.message);
+    // 2️⃣ Preparar payload solo con columnas válidas para Perfil
+    const perfilPayload = {
+      nombre: payload.nombre,
+      email: payload.email,
+      idRol: payload.idRol ? Number(payload.idRol) : null,
+      especialidad: payload.especialidad || null,
+      empresa: payload.empresa || null,
+      esAdmin: false,
+      user_id: authData.user.id,
+      foto: payload.foto || null
+    };
+
+    // 3️⃣ Insertar en tabla Perfil
+    const { data: perfilData, error: perfilError } = await supabase
+      .from("Perfil")
+      .insert([perfilPayload]);
+
+    if (perfilError) {
+      console.error("Error al insertar en Perfil:", perfilError.message);
+      return null;
+    }
+
+    return perfilData;
+
+  } catch (err) {
+    console.error("Error inesperado en crearPerfil:", err);
     return null;
   }
-
-  return data; // devuelve el perfil recién creado
 }
+
+
+
+
+
+
 
 
   

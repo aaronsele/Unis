@@ -11,6 +11,8 @@ import {
 } from 'lucide-react'
 import { SocialLoginButton } from './SocialLoginButton'
 import { crearPerfil } from '../../bd/bd'
+import { supabase } from '../../lib/supabaseClient'
+
 
 export function Register() {
   const [formData, setFormData] = useState({
@@ -19,6 +21,7 @@ export function Register() {
     contraseña: '',
     confirmarContraseña: '',
     aceptarTerminos: false,
+    foto:"",
     rol: 1,
     especialidad: "",
     empresa: ""
@@ -58,34 +61,69 @@ export function Register() {
     return Object.keys(nuevosErrores).length === 0
   }
 
-  const manejarEnvio = async (e) => {//falta agregar contraseña a perfil en supabase y anda
-    e.preventDefault();
-  
-    if (!validarFormulario()) return;
-  
-    console.log("Registrando con:", formData);
-  
-    const { confirmarContraseña, aceptarTerminos, ...formDataFiltrado } = formData;
-  
-    const data = await crearPerfil(formDataFiltrado);
-  
-    if (data) {
-      console.log("Perfil agregado:", data);
-  
-      setFormData({
-        nombre: "",
-        email: "",
-        contraseña: "",
-        confirmarContraseña: "",
-        aceptarTerminos: false,
-        rol: "",
-        especialidad: "",
-        empresa: ""
-      });
-  
-      navigate("/");
+  const manejarEnvio = async (e) => {
+  e.preventDefault();
+
+  if (!validarFormulario()) return;
+
+  console.log("Registrando con:", formData);
+
+  const { contraseña, confirmarContraseña, rol, aceptarTerminos, foto, ...otrosCampos } = formData;
+
+  let fotoURL = null;
+
+  // 1️⃣ Subir la foto si hay archivo
+  if (foto) {
+    const fileExt = foto.name.split('.').pop();
+    const fileName = `${Date.now()}.${fileExt}`;
+    const filePath = `fotos/${fileName}`;
+
+    const { data: uploadData, error: uploadError } = await supabase.storage
+      .from('perfil') // nombre del bucket
+      .upload(filePath, foto);
+
+    if (uploadError) {
+      console.error("Error al subir la foto:", uploadError.message);
+    } else {
+      // Obtener URL pública
+      const { publicUrl } = supabase
+        .storage
+        .from('perfil')
+        .getPublicUrl(filePath);
+      fotoURL = publicUrl;
     }
+  }
+
+  const payload = {
+    ...otrosCampos,
+    contraseña,
+    idRol: rol,
+    foto: fotoURL
   };
+
+  const data = await crearPerfil(payload);
+
+  if (data) {
+    console.log("Perfil agregado:", data);
+
+    setFormData({
+      nombre: "",
+      email: "",
+      contraseña: "",
+      confirmarContraseña: "",
+      aceptarTerminos: false,
+      foto: null,
+      rol: "",
+      especialidad: "",
+      empresa: ""
+    });
+
+    navigate("/");
+  }
+};
+
+  
+  
 
   const manejarLoginSocial = (proveedor) => {
     console.log(`Registrarse con ${proveedor}`)
@@ -129,6 +167,47 @@ export function Register() {
               </p>
             )}
           </div>
+
+          {/* Foto de perfil */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Foto de perfil
+              </label>
+
+              <div
+                onDragOver={(e) => e.preventDefault()}
+                onDrop={(e) => {
+                  e.preventDefault()
+                  const file = e.dataTransfer.files[0]
+                  if (file && file.type.startsWith('image/')) {
+                    setFormData({ ...formData, foto: file })
+                  }
+                }}
+                className="w-full h-32 border-2 border-dashed border-gray-300 rounded-md flex items-center justify-center cursor-pointer hover:border-blue-500"
+                onClick={() => document.getElementById('fotoInput').click()}
+              >
+                {formData.foto ? (
+                  <img
+                    src={URL.createObjectURL(formData.foto)}
+                    alt="Preview"
+                    className="h-28 object-contain"
+                  />
+                ) : (
+                  <span className="text-gray-400">Arrastra tu foto aquí o haz click</span>
+                )}
+              </div>
+
+              <input
+                type="file"
+                id="fotoInput"
+                accept="image/*"
+                className="hidden"
+                onChange={(e) => {
+                  const file = e.target.files[0]
+                  if (file) setFormData({ ...formData, foto: file })
+                }}
+              />
+            </div>
 
           {/* Email */}
           <div>
