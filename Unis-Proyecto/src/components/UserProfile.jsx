@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { auth } from './auth/auth'
 import { getPerfilByUserId } from '../bd/bd.js'
 import './UserProfile.css'
+import {Link} from 'react-router-dom'
 
 export function UserProfile() {
   const { user, signIn, signOut } = auth()

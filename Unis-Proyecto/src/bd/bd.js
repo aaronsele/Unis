@@ -66,6 +66,23 @@ export async function getUniversidades() {
   return universidades
 }
 
+export async function crearPerfil(payload) {
+  // convierte rol a número antes de insertar
+  const insertPayload = { ...payload, rol: Number(payload.rol) };
+
+  const { data, error } = await supabase
+    .from("Perfil")
+    .insert([insertPayload]);
+
+  if (error) {
+    console.error("Error al insertar en Perfil:", error.message);
+    return null;
+  }
+
+  return data; // devuelve el perfil recién creado
+}
+
+
   
   export async function getCarreras() {
     const { data, error } = await supabase.from('Carrera').select('*')

@@ -10,6 +10,7 @@ import {
   FacebookIcon,
 } from 'lucide-react'
 import { SocialLoginButton } from './SocialLoginButton'
+import { crearPerfil } from '../../bd/bd'
 
 export function Register() {
   const [formData, setFormData] = useState({
@@ -18,6 +19,9 @@ export function Register() {
     contraseña: '',
     confirmarContraseña: '',
     aceptarTerminos: false,
+    rol: 1,
+    especialidad: "",
+    empresa: ""
   })
   const [errores, setErrores] = useState({})
   const [mostrarContraseña, setMostrarContraseña] = useState(false)
@@ -47,19 +51,41 @@ export function Register() {
     if (!formData.aceptarTerminos) {
       nuevosErrores.aceptarTerminos = 'Debes aceptar los términos y condiciones'
     }
+    if(!rol){
+      nuevosErrores.rol = 'Seleccione su rol'
+    }
     setErrores(nuevosErrores)
     return Object.keys(nuevosErrores).length === 0
   }
 
-  const manejarEnvio = (e) => {
-    e.preventDefault()
-    if (validarFormulario()) {
-      console.log('Registrando con:', formData)
-      navigate('/');
+  const manejarEnvio = async (e) => {//falta agregar contraseña a perfil en supabase y anda
+    e.preventDefault();
+  
+    if (!validarFormulario()) return;
+  
+    console.log("Registrando con:", formData);
+  
+    const { confirmarContraseña, aceptarTerminos, ...formDataFiltrado } = formData;
+  
+    const data = await crearPerfil(formDataFiltrado);
+  
+    if (data) {
+      console.log("Perfil agregado:", data);
+  
+      setFormData({
+        nombre: "",
+        email: "",
+        contraseña: "",
+        confirmarContraseña: "",
+        aceptarTerminos: false,
+        rol: "",
+        especialidad: "",
+        empresa: ""
+      });
+  
+      navigate("/");
     }
-  }//seguir acá:
-  //falta preguntarle si es estudiante o profesional y si es profesional pedirle especialidad
-  //esos datos se guardan en el objeto formData y con manejarEnvio() deben agregarse a la bd
+  };
 
   const manejarLoginSocial = (proveedor) => {
     console.log(`Registrarse con ${proveedor}`)
@@ -205,6 +231,76 @@ export function Register() {
               </p>
             )}
           </div>
+{/* Rol */}
+          <div>
+            <label htmlFor="rol" className="block text-sm font-medium text-gray-700 mb-1">
+              Rol
+            </label>
+            <div className="relative">
+              <select
+                id="rol"
+                value={formData.rol}
+                onChange={(e) => setFormData({ ...formData, rol: e.target.value })}
+                className="w-full pl-3 pr-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              >
+                <option value={1}>Estudiante</option>
+                <option value={2}>Profesional</option>
+              </select>
+            </div>
+            {errores.rol && (
+              <p className="text-red-500 text-sm mt-1 flex items-center">
+                <AlertCircleIcon className="w-4 h-4 mr-1" />
+                {errores.rol}
+              </p>
+            )}
+          </div>
+
+        {/* Inputs extra solo si es profesional */}
+        {formData.rol === "2" && (
+          <>
+            {/* Especialidad */}
+            <div>
+              <label htmlFor="especialidad" className="block text-sm font-medium text-gray-700 mb-1">
+                Especialidad
+              </label>
+              <input
+                id="especialidad"
+                type="text"
+                value={formData.especialidad}
+                onChange={(e) => setFormData({ ...formData, especialidad: e.target.value })}
+                className="w-full pl-3 pr-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                placeholder="Ej: Ingeniería, Medicina, Diseño..."
+              />
+              {errores.especialidad && (
+                <p className="text-red-500 text-sm mt-1 flex items-center">
+                  <AlertCircleIcon className="w-4 h-4 mr-1" />
+                  {errores.especialidad}
+                </p>
+              )}
+            </div>
+
+              {/* Empresa */}
+              <div>
+                <label htmlFor="empresa" className="block text-sm font-medium text-gray-700 mb-1">
+                  Empresa
+                </label>
+                <input
+                  id="empresa"
+                  type="text"
+                  value={formData.empresa}
+                  onChange={(e) => setFormData({ ...formData, empresa: e.target.value })}
+                  className="w-full pl-3 pr-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  placeholder="Ej: Google, Hospital Central..."
+                />
+                {errores.empresa && (
+                  <p className="text-red-500 text-sm mt-1 flex items-center">
+                    <AlertCircleIcon className="w-4 h-4 mr-1" />
+                    {errores.empresa}
+                  </p>
+                )}
+              </div>
+              </>
+            )}
 
           {/* Términos y condiciones */}
           <div className="flex items-start">
