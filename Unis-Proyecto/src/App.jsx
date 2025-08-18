@@ -22,6 +22,8 @@ import { Terms } from './pages/Terms.jsx';
 import { Privacy } from './pages/Privacy.jsx';
 import { ChangePassword } from './components/ChangePassword';
 import { AddCareer } from './components/admin/AddCareer';
+import AddCareerInUniversity  from './components/admin/AddCareerInUniversity'; // 👈 NUEVO
+
 import { ProtectedAdminRoute } from './components/ProtectedAdminRoute';
 import {Register} from './components/auth/Register.jsx'
 
@@ -54,6 +56,17 @@ export function App() {
               </ProtectedAdminRoute>
             }
           />
+
+<Route
+  path="admin/universidades"
+  element={
+    <ProtectedAdminRoute>
+      <AddCareerInUniversity />
+    </ProtectedAdminRoute>
+  }
+/>
+
+
         </Route>
         <Route path="/auth" element={<AuthLayout />}>
           <Route path="login" element={<Login />} />

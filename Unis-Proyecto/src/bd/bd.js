@@ -230,7 +230,6 @@ export async function crearPerfil(payload) {
         *,
         Perfil (
           nombre,
-          apellido,
           foto,
           especialidad
         )
@@ -324,4 +323,31 @@ export async function getUniversitiesForCareer(careerId) {
   }
 
   return data.map(item => item.Universidad);
+}
+
+export async function addCareerInUniversity(data) {
+  const { data: insertedData, error } = await supabase
+    .from("CarreraXUniversidad")
+    .insert([
+      {
+        duracionAnios: data.duracionAnios,
+        modalidad: data.modalidad,
+        costoMensual: data.costoMensual,
+        direccion: data.direccion,
+        telefono: data.telefono,
+        email: data.email,
+        horarioAtencion: data.horarioAtencion,
+        idUniversidad: data.idUniversidad,
+        idCarrera: data.idCarrera,
+        foto: data.foto,
+      },
+    ])
+    .select();
+
+  if (error) {
+    console.error("Error insertando carrera en universidad:", error);
+    throw error;
+  }
+
+  return insertedData;
 }

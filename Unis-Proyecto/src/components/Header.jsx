@@ -59,7 +59,7 @@ export function Header() {
                     <PlusCircleIcon className="w-4 h-4" /> Agregar Carrera
                   </Link>
                   <Link to="/admin/universidades" className="dropdown-item">
-                    <BuildingIcon className="w-4 h-4" /> Agregar Universidades
+                    <BuildingIcon className="w-4 h-4" /> Linkear Carrera a Universidad
                   </Link>
                   <Link to="/admin/usuarios" className="dropdown-item">
                     <UserIcon className="w-4 h-4" /> Usuarios
