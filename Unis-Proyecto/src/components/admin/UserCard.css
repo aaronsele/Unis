@@ -15,12 +15,13 @@
 }
 
 .user-card-img {
-  width: 70px;
-  height: 70px;
-  border-radius: 50%;
-  object-fit: cover;
-  margin: 0 auto 0.5rem auto;
-  border: 2px solid #2560B9;
+  width: 70px;               /* Tamaño adecuado */
+  height: 70px;              /* Mantener la proporción cuadrada */
+  border-radius: 50%;        /* Redondear la imagen */
+  object-fit: cover;         /* Asegurar que la imagen se recorte si es necesario */
+  margin: 0 auto 0.5rem auto;/* Centrando la imagen en el contenedor */
+  border: 2px solid #2560B9; /* Borde alrededor de la imagen */
+  background-color: #f0f0f0; /* Fondo claro si la imagen no carga */
 }
 
 .user-card-name {

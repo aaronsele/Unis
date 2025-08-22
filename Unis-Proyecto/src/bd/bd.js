@@ -369,9 +369,13 @@ export async function getUsuariosAdminView() {
   try {
     const { data, error } = await supabase
       .from('Perfil')
-      .select('id, nombre, email, foto, idRol, especialidad, empresa, secundario');
+      .select('*');
 
     if (error) throw error;
+    
+    // Verifica los datos que recibes
+    console.log(data);
+    
     return data;
   } catch (err) {
     console.error('Error al obtener usuarios:', err.message);
