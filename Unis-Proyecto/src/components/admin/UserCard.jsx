@@ -1,4 +1,3 @@
-// UserCard.jsx
 import React from "react";
 import './UserCard.css';
 
@@ -6,7 +5,7 @@ export default function UserCard({ nombre, foto, rol }) {
   return (
     <div className="user-card">
       <img
-        src={foto || "https://via.placeholder.com/100"} // placeholder si no hay foto
+        src={foto || "https://via.placeholder.com/70"} // Smaller placeholder
         alt={nombre}
         className="user-card-img"
       />
