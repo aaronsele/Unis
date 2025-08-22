@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { addUniversity } from "../../bd/bd.js";
+import './AddUniversity.css';
 
 export default function AddUniversity() {
   const navigate = useNavigate();
@@ -73,116 +74,116 @@ export default function AddUniversity() {
   };
 
   return (
-    <div className="p-4 max-w-lg mx-auto">
-      <h2 className="text-xl font-bold mb-4">Agregar Universidad</h2>
+    <div className="add-university-container">
+      <h2 className="add-university-title">Agregar Universidad</h2>
       {error && <p className="text-red-500">{error}</p>}
       
-      <form onSubmit={handleSubmit} className="space-y-4">
+      <form onSubmit={handleSubmit} className="add-university-form">
         
-        <div>
-          <label className="block font-medium">Nombre</label>
+        <div className="form-group">
+          <label className="form-label">Nombre</label>
           <input
             type="text"
             name="nombre"
             value={form.nombre}
             onChange={handleChange}
-            className="border p-2 w-full"
+            className="form-input"
             required
           />
         </div>
 
-        <div>
-          <label className="block font-medium">Dirección</label>
+        <div className="form-group">
+          <label className="form-label">Dirección</label>
           <input
             type="text"
             name="direccion"
             value={form.direccion}
             onChange={handleChange}
-            className="border p-2 w-full"
+            className="form-input"
             required
           />
         </div>
 
-        <div>
-          <label className="block font-medium">¿Es pública?</label>
-          <select name="publica" value={form.publica} onChange={handleChange} className="border p-2 w-full">
+        <div className="form-group">
+          <label className="form-label">¿Es pública?</label>
+          <select name="publica" value={form.publica} onChange={handleChange} className="form-select">
             <option value={true}>Sí (pública)</option>
             <option value={false}>No (privada)</option>
           </select>
         </div>
 
-        <div>
-          <label className="block font-medium">Fecha de Fundación</label>
-          <input type="date" name="fechaFundacion" value={form.fechaFundacion} onChange={handleChange} className="border p-2 w-full" />
+        <div className="form-group">
+          <label className="form-label">Fecha de Fundación</label>
+          <input type="date" name="fechaFundacion" value={form.fechaFundacion} onChange={handleChange} className="form-input" />
         </div>
 
-        <div>
-          <label className="block font-medium">Cantidad de Estudiantes</label>
-          <input type="number" name="cantEstudiantes" value={form.cantEstudiantes} onChange={handleChange} className="border p-2 w-full" />
+        <div className="form-group">
+          <label className="form-label">Cantidad de Estudiantes</label>
+          <input type="number" name="cantEstudiantes" value={form.cantEstudiantes} onChange={handleChange} className="form-input" />
         </div>
 
-        <div>
-          <label className="block font-medium">Cantidad de Carreras</label>
-          <input type="number" name="cantCarreras" value={form.cantCarreras} onChange={handleChange} className="border p-2 w-full" />
+        <div className="form-group">
+          <label className="form-label">Cantidad de Carreras</label>
+          <input type="number" name="cantCarreras" value={form.cantCarreras} onChange={handleChange} className="form-input" />
         </div>
 
-        <div>
-          <label className="block font-medium">Descripción</label>
-          <textarea name="descripcion" value={form.descripcion} onChange={handleChange} className="border p-2 w-full" />
+        <div className="form-group">
+          <label className="form-label">Descripción</label>
+          <textarea name="descripcion" value={form.descripcion} onChange={handleChange} className="form-textarea" />
         </div>
 
-        <div>
-          <label className="block font-medium">Logo (URL o archivo)</label>
-          <input type="text" name="logo" value={form.logo} onChange={handleChange} className="border p-2 w-full" />
+        <div className="form-group">
+          <label className="form-label">Logo (URL o archivo)</label>
+          <input type="text" name="logo" value={form.logo} onChange={handleChange} className="form-input" />
         </div>
 
-        <div>
-          <label className="block font-medium">Foto (URL o archivo)</label>
-          <input type="text" name="foto" value={form.foto} onChange={handleChange} className="border p-2 w-full" />
+        <div className="form-group">
+          <label className="form-label">Foto (URL o archivo)</label>
+          <input type="text" name="foto" value={form.foto} onChange={handleChange} className="form-input" />
         </div>
 
-        <div>
-          <label className="block font-medium">Ranking</label>
+        <div className="form-group">
+          <label className="form-label">Ranking</label>
           <div className="flex gap-2">
-            <input type="number" name="rankingNumero" value={form.rankingNumero} onChange={handleChange} className="border p-2 w-1/2" />
-            <select name="rankingTipo" value={form.rankingTipo} onChange={handleChange} className="border p-2 w-1/2">
+            <input type="number" name="rankingNumero" value={form.rankingNumero} onChange={handleChange} className="form-input w-1/2" />
+            <select name="rankingTipo" value={form.rankingTipo} onChange={handleChange} className="form-select w-1/2">
               <option value="nacional">Nacional</option>
               <option value="mundial">Mundial</option>
             </select>
           </div>
         </div>
 
-        <div>
-          <label className="block font-medium">Acreditación</label>
-          <input type="text" name="acreditacion" value={form.acreditacion} onChange={handleChange} className="border p-2 w-full" />
+        <div className="form-group">
+          <label className="form-label">Acreditación</label>
+          <input type="text" name="acreditacion" value={form.acreditacion} onChange={handleChange} className="form-input" />
         </div>
 
-        <div>
-          <label className="block font-medium">Teléfono</label>
-          <input type="text" name="telefono" value={form.telefono} onChange={handleChange} className="border p-2 w-full" />
+        <div className="form-group">
+          <label className="form-label">Teléfono</label>
+          <input type="text" name="telefono" value={form.telefono} onChange={handleChange} className="form-input" />
         </div>
 
-        <div>
-          <label className="block font-medium">Sitio Web</label>
-          <input type="text" name="sitioWeb" value={form.sitioWeb} onChange={handleChange} className="border p-2 w-full" />
+        <div className="form-group">
+          <label className="form-label">Sitio Web</label>
+          <input type="text" name="sitioWeb" value={form.sitioWeb} onChange={handleChange} className="form-input" />
         </div>
 
-        <div>
-          <label className="block font-medium">Email</label>
-          <input type="email" name="email" value={form.email} onChange={handleChange} className="border p-2 w-full" />
+        <div className="form-group">
+          <label className="form-label">Email</label>
+          <input type="email" name="email" value={form.email} onChange={handleChange} className="form-input" />
         </div>
 
-        <div>
-          <label className="block font-medium">Fecha de Inscripción</label>
-          <input type="date" name="fechaInscripcion" value={form.fechaInscripcion} onChange={handleChange} className="border p-2 w-full" />
+        <div className="form-group">
+          <label className="form-label">Fecha de Inscripción</label>
+          <input type="date" name="fechaInscripcion" value={form.fechaInscripcion} onChange={handleChange} className="form-input" />
         </div>
 
-        <div>
-          <label className="block font-medium">Costo Mensual Promedio</label>
-          <input type="number" name="costoMensualPromedio" value={form.costoMensualPromedio} onChange={handleChange} className="border p-2 w-full" />
+        <div className="form-group">
+          <label className="form-label">Costo Mensual Promedio</label>
+          <input type="number" name="costoMensualPromedio" value={form.costoMensualPromedio} onChange={handleChange} className="form-input" />
         </div>
 
-        <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded">
+        <button type="submit" className="submit-button">
           Guardar
         </button>
       </form>
