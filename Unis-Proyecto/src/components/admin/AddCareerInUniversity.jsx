@@ -34,7 +34,7 @@ export default function AddCareerInUniversity() {
 
   return (
     <div className="max-w-xl mx-auto p-6 bg-white rounded-2xl shadow-md">
-      <h2 className="text-2xl font-bold mb-4">Agregar Carrera en Universidad</h2>
+      <h2 className="text-2xl font-bold mb-4">Vincular Carrera a una Universidad</h2>
       <form onSubmit={handleSubmit} className="space-y-4">
         {Object.keys(form).map((field) => (
           <div key={field} className="flex flex-col">

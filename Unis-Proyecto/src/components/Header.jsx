@@ -11,6 +11,7 @@ import {
   BellIcon,
   SettingsIcon,
   PlusCircleIcon,
+  HandIcon,
 } from 'lucide-react';
 import './header.css';
 import { usePerfil } from '../contexts/UsePerfil';
@@ -58,8 +59,13 @@ export function Header() {
                   <Link to="/add-career" className="dropdown-item">
                     <PlusCircleIcon className="w-4 h-4" /> Agregar Carrera
                   </Link>
+
+                  <Link to="/add-university" className="dropdown-item">
+                    <PlusCircleIcon className="w-4 h-4" /> Agregar Universidad
+                  </Link>
+
                   <Link to="/admin/universidades" className="dropdown-item">
-                    <BuildingIcon className="w-4 h-4" /> Linkear Carrera a Universidad
+                    <HandIcon className="w-4 h-4" /> Vincular Carrera a Universidad
                   </Link>
                   <Link to="/admin/usuarios" className="dropdown-item">
                     <UserIcon className="w-4 h-4" /> Usuarios
