@@ -351,3 +351,16 @@ export async function addCareerInUniversity(data) {
 
   return insertedData;
 }
+
+export async function addUniversity(universityData) {
+  const { data, error } = await supabase
+    .from("Universidad")
+    .insert([universityData])
+    .select();
+
+  if (error) {
+    console.error("Error insertando universidad:", error);
+    throw error;
+  }
+  return data[0];
+}

@@ -1,9 +1,3 @@
-//falta terminar register, seguir instrucciones en componente (componente en linea 25, ultimo import)
-//extra:
-//en la bd, perfil tiene rol donde guarda "admin", "profesion" o "usuario"
-//por lo q HABRÍA q borrar esAdmin
-
-
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Layout } from './components/Layout';
@@ -22,10 +16,11 @@ import { Terms } from './pages/Terms.jsx';
 import { Privacy } from './pages/Privacy.jsx';
 import { ChangePassword } from './components/ChangePassword';
 import { AddCareer } from './components/admin/AddCareer';
-import AddCareerInUniversity  from './components/admin/AddCareerInUniversity'; // 👈 NUEVO
+import AddCareerInUniversity from './components/admin/AddCareerInUniversity'; // 👈 NUEVO
+import AddUniversity from './components/admin/AddUniversity.jsx'; // 👈 SOLO AGREGADO
 
 import { ProtectedAdminRoute } from './components/ProtectedAdminRoute';
-import {Register} from './components/auth/Register.jsx'
+import { Register } from './components/auth/Register.jsx';
 
 export function App() {
   return (
@@ -48,6 +43,7 @@ export function App() {
           <Route path="/legal/privacy" element={<Privacy />} />
           <Route path="/register" element={<Register />} />
           <Route path="/change-password" element={<ChangePassword />} />
+
           <Route
             path="add-career"
             element={
@@ -57,17 +53,26 @@ export function App() {
             }
           />
 
-<Route
-  path="admin/universidades"
-  element={
-    <ProtectedAdminRoute>
-      <AddCareerInUniversity />
-    </ProtectedAdminRoute>
-  }
-/>
+          <Route
+            path="admin/universidades"
+            element={
+              <ProtectedAdminRoute>
+                <AddCareerInUniversity />
+              </ProtectedAdminRoute>
+            }
+          />
 
-
+          
+          <Route
+            path="add-university"
+            element={
+              <ProtectedAdminRoute>
+                <AddUniversity />
+              </ProtectedAdminRoute>
+            }
+          />
         </Route>
+
         <Route path="/auth" element={<AuthLayout />}>
           <Route path="login" element={<Login />} />
           <Route path="register" element={<Register />} />
