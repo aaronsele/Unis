@@ -168,7 +168,7 @@ export function Register() {
             )}
           </div>
 
-          {/* Foto de perfil */}
+          {/* Foto de perfil
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
                 Foto de perfil
@@ -207,7 +207,7 @@ export function Register() {
                   if (file) setFormData({ ...formData, foto: file })
                 }}
               />
-            </div>
+            </div> */}
 
           {/* Email */}
           <div>
