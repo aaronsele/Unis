@@ -364,3 +364,17 @@ export async function addUniversity(universityData) {
   }
   return data[0];
 }
+
+export async function getUsuariosAdminView() {
+  try {
+    const { data, error } = await supabase
+      .from('Perfil')
+      .select('id, nombre, email, foto, idRol, especialidad, empresa, secundario');
+
+    if (error) throw error;
+    return data;
+  } catch (err) {
+    console.error('Error al obtener usuarios:', err.message);
+    return [];
+  }
+}

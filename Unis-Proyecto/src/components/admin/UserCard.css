@@ -1,0 +1,65 @@
+/* UserCard.css */
+
+.user-card {
+    max-width: 220px;
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    padding: 1rem;
+    text-align: center;
+    transition: transform 0.3s, box-shadow 0.3s;
+    margin: 1rem;
+  }
+  
+  .user-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 25px rgba(0,0,0,0.12);
+  }
+  
+  .user-card-img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin: 0 auto 0.75rem auto;
+    border: 3px solid #2560B9;
+  }
+  
+  .user-card-name {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #1f2937;
+    margin-bottom: 0.25rem;
+  }
+  
+  .user-card-role {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #6b7280;
+    background: #f3f4f6;
+    padding: 0.25rem 0.5rem;
+    border-radius: 12px;
+    display: inline-block;
+  }
+  
+  /* Responsive */
+  @media (max-width: 500px) {
+    .user-card {
+      max-width: 160px;
+      padding: 0.75rem;
+    }
+  
+    .user-card-img {
+      width: 80px;
+      height: 80px;
+    }
+  
+    .user-card-name {
+      font-size: 1rem;
+    }
+  
+    .user-card-role {
+      font-size: 0.8rem;
+    }
+  }
+  

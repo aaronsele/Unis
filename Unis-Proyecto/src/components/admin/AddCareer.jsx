@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { insertCarrera } from '../../bd/bd.js';
+import './AddCareer.css';
 
 export function AddCareer() {
   const [nombre, setNombre] = useState('');
@@ -17,7 +18,7 @@ export function AddCareer() {
     setSuccessMsg(null);
 
     if (!nombre || !duracionGenericaEnAnios || !area || !nivelDemanda || !descripcion) {
-      setError('Completa todos los campos, gordo.');
+      setError('Completa todos los campos.');
       return;
     }
 
@@ -39,7 +40,7 @@ export function AddCareer() {
     const result = await insertCarrera(nuevaCarrera);
 
     if (result) {
-      setSuccessMsg('Carrera agregada con éxito, como la leche que le encanta a tu tío.');
+      setSuccessMsg('Carrera agregada con éxito');
       setNombre('');
       setDuracionGenericaEnAnios('');
       setArea('');
@@ -47,43 +48,50 @@ export function AddCareer() {
       setDescripcion('');
       setFoto('');
     } else {
-      setError('Error al agregar la carrera. Revisa la conexión o la base, gil.');
+      setError('Error al agregar la carrera. Revisa la conexión o la base.');
     }
   };
 
   return (
-    <div style={{ maxWidth: 400, margin: '20px auto', padding: 20, border: '1px solid #ddd' }}>
-      <h2>Agregar Nueva Carrera (Admin Mode ON)</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Nombre:</label><br />
+    <div className="form-container">
+      <h2 className="form-title">Agregar Nueva Carrera</h2>
+      
+      {error && <p className="error-msg">{error}</p>}
+      {successMsg && <p className="success-msg">{successMsg}</p>}
+
+      <form onSubmit={handleSubmit} className="career-form">
+        <div className="form-group">
+          <label>Nombre:</label>
           <input type="text" value={nombre} onChange={e => setNombre(e.target.value)} required />
         </div>
-        <div>
-          <label>Duración Genérica (Años):</label><br />
+
+        <div className="form-group">
+          <label>Duración Genérica (Años):</label>
           <input type="number" min="1" value={duracionGenericaEnAnios} onChange={e => setDuracionGenericaEnAnios(e.target.value)} required />
         </div>
-        <div>
-          <label>Área:</label><br />
+
+        <div className="form-group">
+          <label>Área:</label>
           <input type="text" value={area} onChange={e => setArea(e.target.value)} required />
         </div>
-        <div>
-          <label>Nivel de Demanda:</label><br />
+
+        <div className="form-group">
+          <label>Nivel de Demanda:</label>
           <input type="text" value={nivelDemanda} onChange={e => setNivelDemanda(e.target.value)} required />
         </div>
-        <div>
-          <label>Descripción:</label><br />
+
+        <div className="form-group">
+          <label>Descripción:</label>
           <textarea value={descripcion} onChange={e => setDescripcion(e.target.value)} required />
         </div>
-        <div>
-          <label>Foto (URL):</label><br />
+
+        <div className="form-group">
+          <label>Foto (URL):</label>
           <input type="text" value={foto} onChange={e => setFoto(e.target.value)} />
         </div>
-        <button type="submit" style={{ marginTop: 10 }}>Agregar Carrera</button>
+
+        <button type="submit" className="submit-btn">Agregar Carrera</button>
       </form>
-      {successMsg && <p style={{ color: 'green' }}>{successMsg}</p>}
     </div>
   );
 }
-
-
