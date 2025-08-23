@@ -1,0 +1,189 @@
+/* Register.css */
+
+/* Contenedor principal */
+.register-container {
+  width: 100%;
+  max-width: 500px; /* Más ancho */
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+/* Card */
+.register-card {
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+  padding: 2.5rem 2rem;
+}
+
+/* Header */
+.register-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.register-header h2 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #2f2f2f;
+}
+
+.register-header p {
+  color: #6b7280;
+  margin-top: 0.25rem;
+  font-size: 1rem;
+}
+
+/* Grupo de inputs */
+.form-group {
+  margin-bottom: 1.75rem;
+}
+
+/* Label */
+.form-label {
+  display: block;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #374151;
+  margin-bottom: 0.5rem;
+}
+
+/* Wrapper del input con icono */
+.input-wrapper {
+  position: relative;
+}
+
+/* Iconos dentro del input */
+.input-wrapper svg {
+  position: absolute;
+  left: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #9ca3af;
+  z-index: 1;
+}
+
+/* Inputs */
+.input {
+  width: 100%;
+  padding: 0.75rem 1rem 0.75rem 3rem; /* más espacio a la izquierda para el icono */
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.input:focus {
+  border-color: #2560b9;
+  box-shadow: 0 0 0 3px rgba(37, 96, 185, 0.15);
+}
+
+/* Botón de mostrar contraseña */
+.password-toggle {
+  position: absolute;
+  right: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #9ca3af;
+  z-index: 1;
+}
+
+/* Texto de error */
+.error-text {
+  margin-top: 0.5rem;
+  font-size: 0.875rem;
+  color: #ef4444;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+/* Select */
+.select {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  font-size: 1rem;
+  outline: none;
+}
+
+.select:focus {
+  border-color: #2560b9;
+  box-shadow: 0 0 0 3px rgba(37, 96, 185, 0.15);
+}
+
+/* Términos */
+.terms {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  color: #374151;
+  margin-bottom: 1.25rem;
+}
+
+.terms a {
+  color: #2560b9;
+  text-decoration: underline;
+}
+
+/* Botón de submit */
+.submit-btn {
+  width: 100%;
+  padding: 0.85rem 1rem;
+  background-color: #2560b9;
+  color: #fff;
+  font-weight: 600;
+  font-size: 1rem;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.submit-btn:hover {
+  opacity: 0.9;
+}
+
+/* Divider */
+.divider {
+  display: flex;
+  align-items: center;
+  margin: 2rem 0 1.5rem;
+}
+
+.divider-line {
+  flex-grow: 1;
+  border-top: 1px solid #e5e7eb;
+}
+
+.divider-text {
+  margin: 0 0.75rem;
+  font-size: 0.875rem;
+  color: #9ca3af;
+}
+
+/* Social login */
+.social-buttons {
+  display: grid;
+  gap: 0.75rem;
+}
+
+/* Footer */
+.register-footer {
+  text-align: center;
+  margin-top: 2rem;
+  font-size: 0.9rem;
+  color: #6b7280;
+}
+
+.register-footer a {
+  color: #2560b9;
+  font-weight: 500;
+}
