@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { insertCarrera } from '../../bd/bd.js';
 import './AddCareer.css';
+import {getCareerInUniversity, getCarreras, getUniversidades} from '../../bd/bd.js'
 
 export function AddCareer() {
   const [nombre, setNombre] = useState('');
@@ -11,6 +12,16 @@ export function AddCareer() {
   const [foto, setFoto] = useState('');
   const [error, setError] = useState(null);
   const [successMsg, setSuccessMsg] = useState(null);
+  const [carreras, setCarreras] = useState([]);
+
+  useEffect(()=>{
+    const fetchCarreras = async() =>{
+      const crr = await getCarreras();
+      setCarreras(crr);
+    }
+  },[])
+
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -27,6 +38,12 @@ export function AddCareer() {
       setError('Duración tiene que ser un número entero positivo, no cualquier cosa.');
       return;
     }
+
+    const carreraExistente = carreras.find(c => c.nombre.toLowerCase() === nombre.toLowerCase());
+  if (carreraExistente) {
+    setError('Ya existe una carrera con ese nombre.');
+    return;
+  }
 
     const nuevaCarrera = {
       nombre,

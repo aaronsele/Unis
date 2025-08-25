@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { addCareerInUniversity, getUniversidades, getCarreras } from '../../bd/bd.js';
+import { getCareerInUniversity, addCareerInUniversity, getUniversidades, getCarreras } from '../../bd/bd.js';
 import './AddCareerInUniversity.css';
 
 export default function AddCareerInUniversity() {
@@ -143,6 +143,16 @@ export default function AddCareerInUniversity() {
 
     setLoading(true);
     try {
+      // Verificar si la carrera ya está vinculada a la universidad
+      const careerExist = await getCareerInUniversity(form.idUniversidad, form.idCarrera);
+
+      if (careerExist) {
+        alert("Esta carrera ya está vinculada a esta universidad.");
+        setLoading(false);
+        return;
+      }
+
+      // Si no existe la vinculación, continuamos con la creación
       await addCareerInUniversity(form);
       alert("Carrera vinculada correctamente a la universidad 🚀");
       navigate("/admin/universidades");

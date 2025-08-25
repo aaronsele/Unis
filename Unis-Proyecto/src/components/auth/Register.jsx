@@ -22,10 +22,11 @@ export function Register() {
     confirmarContraseña: '',
     aceptarTerminos: false,
     foto: "",
-    rol: 1,
+    rol: "1",   // usar string para facilitar comparación
     especialidad: "",
-    empresa: ""
-  })
+    empresa: "",
+    secundario: ""  // <-- nuevo campo
+  });
   const [errores, setErrores] = useState({})
   const [mostrarContraseña, setMostrarContraseña] = useState(false)
   const [mostrarConfirmacion, setMostrarConfirmacion] = useState(false)
@@ -96,7 +97,9 @@ export function Register() {
       ...otrosCampos,
       contraseña,
       idRol: rol,
-      foto: fotoURL
+      email:formData.email,
+      foto: fotoURL,
+      secundario: formData.secundario
     };
 
     const data = await crearPerfil(payload);
@@ -113,7 +116,8 @@ export function Register() {
         foto: null,
         rol: "",
         especialidad: "",
-        empresa: ""
+        empresa: "",
+        secundario:""
       });
 
       navigate("/");
@@ -247,8 +251,8 @@ export function Register() {
               onChange={(e) => setFormData({ ...formData, rol: e.target.value })}
               className="select"
             >
-              <option value={1}>Estudiante</option>
-              <option value={2}>Profesional</option>
+              <option value="1">Estudiante</option>
+              <option value="2">Profesional</option>
             </select>
             {errores.rol && (
               <p className="error-text">
@@ -258,8 +262,7 @@ export function Register() {
             )}
           </div>
 
-          {/* Inputs extra si es profesional */}
-          {formData.rol === "2" && (
+                    {formData.rol === "2" && (
             <>
               <div className="form-group">
                 <label htmlFor="especialidad" className="form-label">Especialidad</label>
@@ -287,6 +290,19 @@ export function Register() {
             </>
           )}
 
+          {formData.rol === "1" && (
+            <div className="form-group">
+              <label htmlFor="secundario" className="form-label">Secundario</label>
+              <input
+                id="secundario"
+                type="text"
+                value={formData.secundario}
+                onChange={(e) => setFormData({ ...formData, secundario: e.target.value })}
+                className="input"
+                placeholder="Nombre del colegio secundario"
+              />
+            </div>
+          )}
           {/* Términos y condiciones */}
           <div className="terms">
             <input

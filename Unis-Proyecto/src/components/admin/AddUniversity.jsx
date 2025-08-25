@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { addUniversity } from "../../bd/bd.js";
+import {getCareerInUniversity, getCarreras, getUniversidades} from '../../bd/bd.js'
 import './AddUniversity.css';
 
 export default function AddUniversity() {
@@ -24,6 +25,7 @@ export default function AddUniversity() {
     fechaInscripcion: "",
     costoMensualPromedio: ""
   });
+  
 
   const [error, setError] = useState("");
 
@@ -57,6 +59,16 @@ export default function AddUniversity() {
     }
 
     try {
+       // Validar si la universidad ya existe
+       const universidades = await getUniversidades();
+       const universidadExistente = universidades.find(
+         u => u.nombre.toLowerCase() === form.nombre.trim().toLowerCase()
+       );
+ 
+       if (universidadExistente) {
+         setError("Ya existe una universidad con ese nombre.");
+         return;
+       }
       const ranking = `${form.rankingNumero} (${form.rankingTipo})`;
       const payload = { 
         ...form, 
