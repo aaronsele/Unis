@@ -72,12 +72,24 @@ export function AddCareer() {
 
         <div className="form-group">
           <label>Área:</label>
-          <input type="text" value={area} onChange={e => setArea(e.target.value)} required />
+          <select value={area} onChange={e => setArea(e.target.value)} required>
+            <option value="">Selecciona un área</option>
+            <option value="TECNOLOGIA">Tecnología</option>
+            <option value="CONSTRUCCIONES">Construcciones</option>
+            <option value="INGENIERIA">Ingeniería</option>
+            <option value="CIENCIAS DE LA SALUD">Ciencias de la Salud</option>
+            <option value="COMUNICACION Y DISEÑO">Comunicación y Diseño</option>
+          </select>
         </div>
 
         <div className="form-group">
           <label>Nivel de Demanda:</label>
-          <input type="text" value={nivelDemanda} onChange={e => setNivelDemanda(e.target.value)} required />
+          <select value={nivelDemanda} onChange={e => setNivelDemanda(e.target.value)} required>
+            <option value="">Selecciona el nivel de demanda</option>
+            <option value="BAJO">Bajo</option>
+            <option value="MEDIO">Medio</option>
+            <option value="ALTO">Alto</option>
+          </select>
         </div>
 
         <div className="form-group">
