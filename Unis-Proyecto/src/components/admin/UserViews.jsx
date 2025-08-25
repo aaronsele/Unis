@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { getUsuariosAdminView } from "../../bd/bd.js";
 import UserCard from "../../components/admin/UserCard.jsx";
 import { ProtectedAdminRoute } from "../../components/ProtectedAdminRoute";
+import "./UserViews.css";
 
 function UserViewsContent() {
   const [usuarios, setUsuarios] = useState([]);
@@ -15,13 +16,21 @@ function UserViewsContent() {
   }, []);
 
   return (
-    <div className="p-6">
-      <h1 className="text-3xl font-bold mb-6 text-gray-800">Usuarios Registrados</h1>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+    <div className="user-views-container">
+      <h1 className="user-views-title">Usuarios Registrados</h1>
+      <div className="user-views-grid">
         {usuarios.length > 0 ? (
-          usuarios.map((usuario) => <UserCard key={usuario.id} usuario={usuario} />)
+          usuarios.map((usuario) => (
+            <UserCard
+              key={usuario.id || usuario.user_id}
+              nombre={usuario.nombre}
+              foto={usuario.foto}
+              rol={usuario.rol}
+              email={usuario.email}
+            />
+          ))
         ) : (
-          <p className="text-gray-500 text-center col-span-full">No hay usuarios cargados.</p>
+          <p className="user-views-empty">No hay usuarios cargados.</p>
         )}
       </div>
     </div>

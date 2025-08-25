@@ -1,0 +1,24 @@
+.user-views-container {
+    padding: 24px;
+  }
+  
+  .user-views-title {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 24px;
+    color: #333;
+    text-align: center;
+  }
+  
+  .user-views-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 👈 4 columnas fijas */
+    gap: 20px;
+  }
+  
+  .user-views-empty {
+    grid-column: 1 / -1;
+    text-align: center;
+    color: #777;
+  }
+  
