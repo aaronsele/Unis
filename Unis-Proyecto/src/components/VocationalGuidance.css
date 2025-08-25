@@ -1,27 +1,9 @@
-.p-4 {
-  padding: 24px;
-  font-family: 'Inter', sans-serif;
-}
-
-h1 {
-  font-size: 24px;
-  font-weight: bold;
-  margin-bottom: 24px;
-  color: #1f2937;
-}
-
-.roboAmigo {
-  width: 100%;
-  max-width: 350px;
-  height: 400px;
-  position: sticky;
-  top: 100px;
-}
-
 .layout-orientacion {
   display: flex;
-  gap: 32px;
+  justify-content: space-between; /* espacio entre elementos */
   align-items: flex-start;
+  gap: 32px;
+  flex-wrap: wrap; /* para pantallas chicas */
 }
 
 /* Cards más chicas */
@@ -37,3 +19,14 @@ h1 {
   max-width: 650px;
 }
 
+/* Robot más chico */
+.roboAmigo {
+  width: 100%;
+  max-width: 350px; /* más chico que antes */
+  height: 350px;    /* proporcional */
+}
+
+/* Chat centrado en altura */
+.vocational-chat {
+  align-self: flex-start; /* se alinea al top de las cards */
+}
