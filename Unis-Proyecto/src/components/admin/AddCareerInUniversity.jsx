@@ -15,7 +15,7 @@ export default function AddCareerInUniversity() {
     direccion: "",
     telefono: "",
     email: "",
-    horarioAtencion: "",
+    horarioAtencion: "",  // ahora será solo hora única, tipo "14:00"
     idUniversidad: "",
     idCarrera: "",
     foto: "",
@@ -61,46 +61,46 @@ export default function AddCareerInUniversity() {
         if (!value) error = "La duración es requerida";
         else if (isNaN(value) || value <= 0) error = "La duración debe ser un número positivo";
         break;
-      
+
       case "modalidad":
         if (!value) error = "La modalidad es requerida";
         else if (!["presencial", "virtual", "híbrido"].includes(value)) {
           error = "La modalidad debe ser: presencial, virtual o híbrido";
         }
         break;
-      
+
       case "costoMensual":
         if (!value) error = "El costo mensual es requerido";
         else if (isNaN(value) || value < 0) error = "El costo debe ser un número positivo o cero";
         break;
-      
+
       case "telefono":
         if (!value) error = "El teléfono es requerido";
         else if (!/^\d{10,}$/.test(value.replace(/\D/g, ''))) error = "El teléfono debe tener al menos 10 dígitos";
         break;
-      
+
       case "email":
         if (!value) error = "El email es requerido";
         else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) error = "El email debe tener un formato válido";
         break;
-      
+
       case "horarioAtencion":
         if (!value) error = "El horario de atención es requerido";
-        else if (!/^\d{2}:\d{2} - \d{2}:\d{2}$/.test(value)) error = "El formato debe ser HH:MM - HH:MM";
+        else if (!/^\d{2}:\d{2}$/.test(value)) error = "El formato debe ser HH:MM";
         break;
-      
+
       case "idUniversidad":
         if (!value) error = "Debe seleccionar una universidad";
         break;
-      
+
       case "idCarrera":
         if (!value) error = "Debe seleccionar una carrera";
         break;
-      
+
       case "direccion":
         if (!value) error = "La dirección es requerida";
         break;
-      
+
       default:
         break;
     }
@@ -111,7 +111,7 @@ export default function AddCareerInUniversity() {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setForm({ ...form, [name]: value });
-    
+
     // Validate field on change
     const error = validateField(name, value);
     setErrors({ ...errors, [name]: error });
@@ -135,7 +135,7 @@ export default function AddCareerInUniversity() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     if (!validateForm()) {
       alert("Por favor, corrija los errores en el formulario");
       return;
@@ -147,8 +147,9 @@ export default function AddCareerInUniversity() {
       alert("Carrera vinculada correctamente a la universidad 🚀");
       navigate("/admin/universidades");
     } catch (error) {
+      console.error("Error al vincular carrera:", error);
       let errorMessage = "Hubo un error al vincular la carrera ❌";
-      
+
       if (error.code === '23505') {
         errorMessage = "Esta carrera ya está vinculada a esta universidad";
       } else if (error.code === '23503') {
@@ -160,7 +161,7 @@ export default function AddCareerInUniversity() {
       } else if (error.code === '404') {
         errorMessage = "Recurso no encontrado";
       }
-      
+
       alert(errorMessage);
     } finally {
       setLoading(false);
@@ -169,7 +170,7 @@ export default function AddCareerInUniversity() {
 
   const renderField = (field) => {
     const isOptional = field === "foto" || field === "descripcion";
-    
+
     switch (field) {
       case "idUniversidad":
         return (
@@ -307,14 +308,13 @@ export default function AddCareerInUniversity() {
       case "horarioAtencion":
         return (
           <div className="form-group">
-            <label className="form-label">Horario de Atención (HH:MM - HH:MM)</label>
+            <label className="form-label">Horario de Atención (HH:MM)</label>
             <input
-              type="text"
+              type="time"
               name="horarioAtencion"
               value={form.horarioAtencion}
               onChange={handleChange}
               className="form-input"
-              placeholder="08:00 - 17:00"
               required
             />
             {errors.horarioAtencion && <span className="form-error">{errors.horarioAtencion}</span>}
@@ -373,7 +373,7 @@ export default function AddCareerInUniversity() {
   return (
     <div className="add-career-university-container">
       <h2 className="add-career-university-title">Vincular Carrera a Universidad</h2>
-      
+
       <form onSubmit={handleSubmit} className="add-career-university-form">
         {renderField("idUniversidad")}
         {renderField("idCarrera")}
