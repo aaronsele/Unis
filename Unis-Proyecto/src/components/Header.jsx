@@ -5,7 +5,6 @@ import {
   UserIcon,
   BookOpenIcon,
   BuildingIcon,
-  CompassIcon,
   BrainIcon,
   BellIcon,
   SettingsIcon,
@@ -32,12 +31,12 @@ export function Header() {
           <div className="flex items-center logo-container">
             <Link to="/" className="flex items-center">
               <div className="logo-icon">
-                <img src='/src/assets/logoUnis.png' alt="Logo Unis" />
+                <img src="/src/assets/logoUnis.png" alt="Logo Unis" />
               </div>
             </Link>
           </div>
 
-          {/* Navigation - always visible */}
+          {/* Navigation */}
           <nav className="nav-desktop">
             {navigation.map((item) => {
               const Icon = item.icon;
@@ -49,7 +48,6 @@ export function Header() {
               );
             })}
 
-          
             {perfil?.esAdmin && (
               <div className="nav-link dropdown">
                 <SettingsIcon className="w-5 h-5" />
@@ -74,16 +72,27 @@ export function Header() {
             )}
           </nav>
 
-          
-          <div className="right-section">
+          {/* Perfil + notificaciones */}
+          <div className="right-section flex items-center space-x-4">
             <button className="notification-button">
               <BellIcon className="h-6 w-6" />
             </button>
             <div className="user-profile">
-              <Link to="/profile" className="flex items-center space-x-3">
-                <div className="user-icon">
-                  <UserIcon className="w-5 h-5 text-gray-500" />
-                </div>
+              <Link to="/profile" className="flex items-center space-x-2">
+                {perfil?.foto ? (
+                  <img
+                    src={perfil.foto}
+                    alt="Foto de perfil"
+                    className="w-8 h-8 rounded-full object-cover border border-gray-300"
+                  />
+                ) : (
+                  <UserIcon className="w-6 h-6 text-gray-500" />
+                )}
+                {perfil?.nombre && (
+                  <span className="text-gray-700 font-medium">
+                    {perfil.nombre}
+                  </span>
+                )}
               </Link>
             </div>
           </div>

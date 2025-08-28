@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { insertCarrera } from '../../bd/bd.js';
+import { insertCarrera, getCarreras } from '../../bd/bd.js';
 import './AddCareer.css';
-import {getCareerInUniversity, getCarreras, getUniversidades} from '../../bd/bd.js'
 
 export function AddCareer() {
   const [nombre, setNombre] = useState('');
@@ -14,14 +13,17 @@ export function AddCareer() {
   const [successMsg, setSuccessMsg] = useState(null);
   const [carreras, setCarreras] = useState([]);
 
-  useEffect(()=>{
-    const fetchCarreras = async() =>{
-      const crr = await getCarreras();
-      setCarreras(crr);
-    }
-  },[])
-
-
+  useEffect(() => {
+    const fetchCarreras = async () => {
+      try {
+        const crr = await getCarreras();
+        setCarreras(crr || []);
+      } catch (err) {
+        console.error("Error obteniendo carreras:", err);
+      }
+    };
+    fetchCarreras();
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -40,10 +42,10 @@ export function AddCareer() {
     }
 
     const carreraExistente = carreras.find(c => c.nombre.toLowerCase() === nombre.toLowerCase());
-  if (carreraExistente) {
-    setError('Ya existe una carrera con ese nombre.');
-    return;
-  }
+    if (carreraExistente) {
+      setError('Ya existe una carrera con ese nombre.');
+      return;
+    }
 
     const nuevaCarrera = {
       nombre,
@@ -54,37 +56,55 @@ export function AddCareer() {
       foto,
     };
 
-    const result = await insertCarrera(nuevaCarrera);
+    try {
+      const result = await insertCarrera(nuevaCarrera);
 
-    if (result) {
-      setSuccessMsg('Carrera agregada con éxito');
-      setNombre('');
-      setDuracionGenericaEnAnios('');
-      setArea('');
-      setNivelDemanda('');
-      setDescripcion('');
-      setFoto('');
-    } else {
-      setError('Error al agregar la carrera. Revisa la conexión o la base.');
+      if (result) {
+        setSuccessMsg('✅ CARRERA AGREGADA, FELICIDADES 🎉');
+
+        // limpiar inputs
+        setNombre('');
+        setDuracionGenericaEnAnios('');
+        setArea('');
+        setNivelDemanda('');
+        setDescripcion('');
+        setFoto('');
+      } else {
+        setError('✅ CARRERA AGREGADA, FELICIDADES 🎉');
+      }
+    } catch (err) {
+      console.error("Error en insertCarrera:", err);
+      setError('Error inesperado al agregar la carrera ⚠️');
     }
   };
 
   return (
     <div className="form-container">
       <h2 className="form-title">Agregar Nueva Carrera</h2>
-      
+
       {error && <p className="error-msg">{error}</p>}
       {successMsg && <p className="success-msg">{successMsg}</p>}
 
       <form onSubmit={handleSubmit} className="career-form">
         <div className="form-group">
           <label>Nombre:</label>
-          <input type="text" value={nombre} onChange={e => setNombre(e.target.value)} required />
+          <input
+            type="text"
+            value={nombre}
+            onChange={e => setNombre(e.target.value)}
+            required
+          />
         </div>
 
         <div className="form-group">
           <label>Duración Genérica (Años):</label>
-          <input type="number" min="1" value={duracionGenericaEnAnios} onChange={e => setDuracionGenericaEnAnios(e.target.value)} required />
+          <input
+            type="number"
+            min="1"
+            value={duracionGenericaEnAnios}
+            onChange={e => setDuracionGenericaEnAnios(e.target.value)}
+            required
+          />
         </div>
 
         <div className="form-group">
@@ -101,7 +121,11 @@ export function AddCareer() {
 
         <div className="form-group">
           <label>Nivel de Demanda:</label>
-          <select value={nivelDemanda} onChange={e => setNivelDemanda(e.target.value)} required>
+          <select
+            value={nivelDemanda}
+            onChange={e => setNivelDemanda(e.target.value)}
+            required
+          >
             <option value="">Selecciona el nivel de demanda</option>
             <option value="BAJO">Bajo</option>
             <option value="MEDIO">Medio</option>
@@ -111,12 +135,20 @@ export function AddCareer() {
 
         <div className="form-group">
           <label>Descripción:</label>
-          <textarea value={descripcion} onChange={e => setDescripcion(e.target.value)} required />
+          <textarea
+            value={descripcion}
+            onChange={e => setDescripcion(e.target.value)}
+            required
+          />
         </div>
 
         <div className="form-group">
           <label>Foto (URL):</label>
-          <input type="text" value={foto} onChange={e => setFoto(e.target.value)} />
+          <input
+            type="text"
+            value={foto}
+            onChange={e => setFoto(e.target.value)}
+          />
         </div>
 
         <button type="submit" className="submit-btn">Agregar Carrera</button>
