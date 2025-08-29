@@ -84,7 +84,7 @@ export function UserProfile() {
         <div className="profile-info">
           <img src={perfil.foto || "/default-avatar.png"} alt="Foto de perfil" className="profile-avatar" />
           <h2 className="profile-name">{perfil.nombre} {perfil.apellido}</h2>
-          <p className="profile-role">Estudiante</p>
+          <p className="profile-role">Unis</p>
         </div>
         <div className="profile-data">
           <div className="profile-section">
@@ -94,8 +94,8 @@ export function UserProfile() {
             {perfil.esAdmin ? <p><strong>Rol: Administrador</strong></p> : null}
           </div>
           <div className="profile-section">
-            <h3>Información Académica</h3>
-            <p><strong>Secundario:</strong> {perfil.secundario}</p>
+            <h3>Mas informacion</h3>
+            {perfil.esAdmin ? <p><strong>Historia: Co-fundador</strong></p> : null}
           </div>
         </div>
         <div className="profile-buttons">
