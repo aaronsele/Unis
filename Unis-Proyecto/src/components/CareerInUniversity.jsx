@@ -34,7 +34,7 @@ export default function CareerInUniversity() {
         <img src={info.foto} alt={`Carrera ${info.nombreCarrera}`} className="career-image" />
         <div className="overlay"></div>
         <div className="career-header-text">
-          <span className="career-tag">Tecnología</span>
+          <span className="career-tag">?</span>
           <span className="career-tag">Pública</span>
           <h1>{info.nombreCarrera}</h1>
           <h2>en {info.nombreUniversidad}</h2>
