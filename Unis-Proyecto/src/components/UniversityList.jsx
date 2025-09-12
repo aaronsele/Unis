@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { UniversityCard } from './UniversityCard.jsx';
 import { getUniversidades } from '../bd/bd.js';
-import './UniversityList.css'
+import { FaSearch } from 'react-icons/fa';
+import './UniversityList.css';
 
 export function UniversityList() {
   const [universities, setUniversities] = useState([]);
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
     async function fetchUniversities() {
@@ -13,6 +15,11 @@ export function UniversityList() {
     }
     fetchUniversities();
   }, []);
+
+  // Filtrar universidades en tiempo real
+  const filteredUniversities = universities.filter(university =>
+    university.nombre.toLowerCase().startsWith(search.toLowerCase())
+  );
 
   return (
     <main className="w-full py-8">
@@ -26,8 +33,20 @@ export function UniversityList() {
           </p>
         </header>
 
-        <div className="university-cards-container">
-          {universities.map(university => (
+        {/* Buscador */}
+        <div className="university-search">
+          <FaSearch className="search-icon" />
+          <input
+            type="text"
+            placeholder="Buscar universidad..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+        </div>
+
+        {/* Cards */}
+        <div className="university-list-grid">
+          {filteredUniversities.map(university => (
             <UniversityCard key={university.id} university={university} />
           ))}
         </div>

@@ -3,19 +3,25 @@ import { supabase } from '../lib/supabaseClient'
 import CareerCard from './CareerCard.jsx'
 import { getCarreras } from '../bd/bd.js'
 import './CareerList.css'
-
+import { FaSearch } from 'react-icons/fa'
 
 export function CareerList() {
-  const [careers, setCareers] = useState([]);
+  const [careers, setCareers] = useState([])
+  const [searchTerm, setSearchTerm] = useState('')
 
   useEffect(() => {
     async function fetchCareers() {
       const data = await getCarreras()
-          console.log('📦 DATA CARRERAS:', data)
+      console.log('📦 DATA CARRERAS:', data)
       setCareers(data)
     }
     fetchCareers()
   }, [])
+
+  // Filtro en tiempo real
+  const filteredCareers = careers.filter((career) =>
+    career.nombre.toLowerCase().startsWith(searchTerm.toLowerCase())
+  )
 
   return (
     <section className="w-full py-8 bg-gray-50">
@@ -29,9 +35,19 @@ export function CareerList() {
           </p>
         </div>
 
+        {/* Buscador */}
+        <div className="career-search">
+          <FaSearch className="search-icon" />
+          <input
+            type="text"
+            placeholder="Buscar carrera..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+        </div>
 
         <div className="Careers-columns">
-          {careers.map((career) => (
+          {filteredCareers.map((career) => (
             <CareerCard key={career.id} career={career} />
           ))}
         </div>
@@ -39,4 +55,3 @@ export function CareerList() {
     </section>
   )
 }
-
