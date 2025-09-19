@@ -6,10 +6,12 @@ import {
   MapPinIcon,
   CheckIcon,
 } from 'lucide-react'
+import { Link } from 'react-router-dom'
+import Map from './Map' // el componente que hicimos antes
 import './UniversityInfo.css'
 
 export function UniversityInfo({ university }) {
-  const { descripcion, facilities, admissionProcess, contact } = university
+  const { descripcion, facilities, admissionProcess, contact, name } = university
 
   return (
     <div className="university-info-grid">
@@ -17,9 +19,7 @@ export function UniversityInfo({ university }) {
         {/* Descripción */}
         <section className="university-info-section">
           <h2>Sobre la Universidad</h2>
-          <p>
-            {descripcion || 'No hay descripción disponible.'}
-          </p>
+          <p>{descripcion || 'No hay descripción disponible.'}</p>
         </section>
 
         {/* Instalaciones */}
@@ -57,15 +57,11 @@ export function UniversityInfo({ university }) {
             </div>
             <div className="mb-4">
               <h3>Fechas de Inscripción:</h3>
-              <p>
-                {admissionProcess?.dates || 'No disponible'}
-              </p>
+              <p>{admissionProcess?.dates || 'No disponible'}</p>
             </div>
             <div>
               <h3>Costo:</h3>
-              <p>
-                {admissionProcess?.cost || 'No disponible'}
-              </p>
+              <p>{admissionProcess?.cost || 'No disponible'}</p>
             </div>
           </div>
         </section>
@@ -106,7 +102,23 @@ export function UniversityInfo({ university }) {
             </div>
           )}
         </div>
+
+{/* Mini mapa */}
+{university.lat && university.lng && (
+  <div style={{ height: '200px', marginTop: '1rem' }}>
+    <Map lat={university.lat} lng={university.lng} name={name || 'Universidad'} />
+  </div>
+)}
+
+{/* Botón para ir al mapa completo */}
+{university.lat && university.lng && (
+  <Link to={`/map/${university.lat}/${university.lng}`}>
+    <button className="map-button">Ver ubicación</button>
+  </Link>
+)}
+
       </div>
     </div>
   )
 }
+
