@@ -1,12 +1,11 @@
 .layout-orientacion {
   display: flex;
-  justify-content: space-between; /* espacio entre elementos */
+  justify-content: space-between;
   align-items: flex-start;
   gap: 32px;
-  flex-wrap: wrap; /* para pantallas chicas */
+  flex-wrap: wrap;
 }
 
-/* Cards más chicas */
 .cursos-container {
   flex: 1;
   display: flex;
@@ -14,19 +13,69 @@
   gap: 20px;
 }
 
-/* Para que no ocupen todo el ancho y se mantengan alineadas */
 .curso-wrapper {
   max-width: 650px;
 }
 
-/* Robot más chico */
 .roboAmigo {
   width: 100%;
-  max-width: 350px; /* más chico que antes */
-  height: 350px;    /* proporcional */
+  max-width: 350px;
+  height: 350px;
 }
 
-/* Chat centrado en altura */
 .vocational-chat {
-  align-self: flex-start; /* se alinea al top de las cards */
+  align-self: flex-start;
+}
+
+/* Botón de agregar curso abajo */
+.boton-agregar-curso {
+  display: inline-block;
+  background-color: #22c55e; /* verde */
+  color: white;
+  padding: 12px 24px;
+  border-radius: 12px;
+  font-weight: bold;
+  margin-top: 24px;
+  margin-left: 16px; /* ← ahora tiene separación del borde */
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.boton-agregar-curso:hover {
+  background-color: #16a34a;
+}
+
+
+/* Formulario */
+.form-agregar-curso {
+  margin-top: 16px;
+  padding: 16px;
+  border-radius: 12px;
+  background-color: #f3f4f6;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.form-agregar-curso input,
+.form-agregar-curso textarea {
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  width: 100%;
+  font-size: 14px;
+}
+
+.boton-guardar-curso {
+  background-color: #3b82f6; /* azul */
+  color: white;
+  padding: 10px 20px;
+  border-radius: 12px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.boton-guardar-curso:hover {
+  background-color: #2563eb;
 }

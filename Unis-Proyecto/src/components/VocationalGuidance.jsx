@@ -24,22 +24,14 @@ export function VocationalGuidance() {
   useEffect(() => {
     const fetchPerfil = async () => {
       const { data: { user } } = await supabase.auth.getUser();
-      console.log("Usuario logueado:", user);
-
       if (user) {
         const { data, error } = await supabase
           .from('Perfil')
           .select('*')
-          .eq('user_id', user.id) // buscamos el perfil con el user_id de auth
+          .eq('user_id', user.id)
           .single();
-
-        if (error) {
-          console.error("Error trayendo perfil:", error);
-        } else {
-          console.log("Perfil encontrado:", data);
+        if (!error) {
           setPerfil(data);
-
-          // ⚠️ guardamos el id de Perfil, no el user_id
           setFormData(f => ({ ...f, idProfesional: data.id }));
         }
       }
@@ -48,17 +40,14 @@ export function VocationalGuidance() {
   }, []);
 
   const handleChange = (e) => {
-    setFormData(f => ({
-      ...f,
-      [e.target.name]: e.target.value
-    }));
+    setFormData(f => ({ ...f, [e.target.name]: e.target.value }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const curso = {
-        idProfesional: perfil.id,   // 👈 ahora usamos el ID del perfil
+        idProfesional: perfil.id,
         precio: formData.precio,
         foto: formData.foto,
         titulo: formData.titulo,
@@ -67,10 +56,8 @@ export function VocationalGuidance() {
         modalidad: formData.modalidad,
         fechaInicio: formData.fechaInicio,
       };
-
       await addCursoOV(curso);
       alert('Curso agregado con éxito 🚀');
-
       setShowForm(false);
       setFormData({
         idProfesional: perfil?.id || '',
@@ -89,89 +76,10 @@ export function VocationalGuidance() {
   };
 
   const esProfesional = perfil?.especialidad && perfil.especialidad.trim() !== '';
-  console.log("Es profesional?", esProfesional, perfil);
 
   return (
     <div className="p-4">
       <h1>Orientación Vocacional</h1>
-
-      {esProfesional && (
-        <button
-          onClick={() => setShowForm(!showForm)}
-          className="bg-green-500 text-white px-4 py-2 rounded mb-4 hover:bg-green-600"
-        >
-          {showForm ? 'Cerrar formulario' : 'Agregar curso'}
-        </button>
-      )}
-
-      {showForm && (
-        <form
-          onSubmit={handleSubmit}
-          className="border p-4 mb-6 rounded bg-gray-50 space-y-2"
-        >
-          <input
-            type="number"
-            name="precio"
-            placeholder="Precio"
-            value={formData.precio}
-            onChange={handleChange}
-            className="border p-2 w-full"
-          />
-          <input
-            type="text"
-            name="foto"
-            placeholder="URL de la foto"
-            value={formData.foto}
-            onChange={handleChange}
-            className="border p-2 w-full"
-          />
-          <input
-            type="text"
-            name="titulo"
-            placeholder="Título"
-            value={formData.titulo}
-            onChange={handleChange}
-            className="border p-2 w-full"
-          />
-          <textarea
-            name="descripcion"
-            placeholder="Descripción"
-            value={formData.descripcion}
-            onChange={handleChange}
-            className="border p-2 w-full"
-          />
-          <input
-            type="number"
-            name="cantSesiones"
-            placeholder="Cantidad de sesiones"
-            value={formData.cantSesiones}
-            onChange={handleChange}
-            className="border p-2 w-full"
-          />
-          <input
-            type="text"
-            name="modalidad"
-            placeholder="Modalidad (presencial/virtual)"
-            value={formData.modalidad}
-            onChange={handleChange}
-            className="border p-2 w-full"
-          />
-          <input
-            type="date"
-            name="fechaInicio"
-            value={formData.fechaInicio}
-            onChange={handleChange}
-            className="border p-2 w-full"
-          />
-
-          <button
-            type="submit"
-            className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
-          >
-            Guardar curso
-          </button>
-        </form>
-      )}
 
       <div className="layout-orientacion">
         <VocationalCard />
@@ -180,6 +88,30 @@ export function VocationalGuidance() {
         </div>
         <VocationalChat />
       </div>
+
+      {/* Botón abajo */}
+      {esProfesional && (
+        <button
+          onClick={() => setShowForm(!showForm)}
+          className="boton-agregar-curso"
+        >
+          {showForm ? 'Cerrar formulario' : 'Agregar curso'}
+        </button>
+      )}
+
+      {/* Formulario debajo del botón */}
+      {showForm && (
+        <form onSubmit={handleSubmit} className="form-agregar-curso">
+          <input type="number" name="precio" placeholder="Precio" value={formData.precio} onChange={handleChange} />
+          <input type="text" name="foto" placeholder="URL de la foto" value={formData.foto} onChange={handleChange} />
+          <input type="text" name="titulo" placeholder="Título" value={formData.titulo} onChange={handleChange} />
+          <textarea name="descripcion" placeholder="Descripción" value={formData.descripcion} onChange={handleChange} />
+          <input type="number" name="cantSesiones" placeholder="Cantidad de sesiones" value={formData.cantSesiones} onChange={handleChange} />
+          <input type="text" name="modalidad" placeholder="Modalidad (presencial/virtual)" value={formData.modalidad} onChange={handleChange} />
+          <input type="date" name="fechaInicio" value={formData.fechaInicio} onChange={handleChange} />
+          <button type="submit" className="boton-guardar-curso">Guardar curso</button>
+        </form>
+      )}
     </div>
   );
 }
