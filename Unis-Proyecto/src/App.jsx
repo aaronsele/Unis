@@ -7,7 +7,7 @@ import { UniversityDetail } from './components/UniversityDetail.jsx';
 import { CareerList } from './components/CareerList';
 import CareerDetail from './components/CareerDetail.jsx';
 import CareerInUniversity from './components/CareerInUniversity.jsx';
-import { VocationalGuidance } from './components/VocationalGuidance';
+import  {VocationalGuidance} from './components/VocationalGuidance';
 import { UserProfile } from './components/UserProfile';
 import { Login } from './components/auth/Login';
 import { AuthLayout } from './components/auth/AuthLayout';

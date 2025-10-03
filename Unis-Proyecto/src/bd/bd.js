@@ -382,3 +382,18 @@ export async function getUsuariosAdminView() {
     return [];
   }
 }
+
+
+
+export async function addCursoOV(curso) {
+  const { data, error } = await supabase
+    .from('cursoOV')
+    .insert([curso]);
+
+  if (error) {
+    console.error('Error insertando curso:', error);
+    throw error;
+  }
+
+  return data;
+}
