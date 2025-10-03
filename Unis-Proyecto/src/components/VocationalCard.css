@@ -150,3 +150,19 @@
 .boton-mas-info:hover {
   background-color: #e5e7eb;
 }
+
+.boton-eliminar {
+  background-color: #ef4444; /* rojo */
+  color: white;
+  padding: 8px 16px;
+  border-radius: 8px;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  margin-left: 8px;
+}
+
+.boton-eliminar:hover {
+  background-color: #b91c1c;
+}

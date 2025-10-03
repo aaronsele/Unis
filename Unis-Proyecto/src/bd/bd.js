@@ -397,3 +397,13 @@ export async function addCursoOV(curso) {
 
   return data;
 }
+
+export async function deleteCursoOV(cursoId) {
+  const { data, error } = await supabase
+    .from('cursoOV')
+    .delete()
+    .eq('id', cursoId);
+
+  if (error) throw error;
+  return data;
+}
