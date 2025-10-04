@@ -1,3 +1,4 @@
+/* --- Contenedor general de cursos --- */
 .cursos-container {
   display: flex;
   flex-direction: column;
@@ -6,6 +7,7 @@
   font-family: 'Inter', sans-serif;
 }
 
+/* --- Card del curso --- */
 .curso-wrapper {
   display: flex;
   background-color: white;
@@ -13,10 +15,18 @@
   overflow: hidden;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   border: 1px solid #e5e7eb;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  max-width: 1100px; /* Más ancho */
+  margin: 0 auto; /* Centrar */
+}
+
+.curso-wrapper:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
 }
 
 .curso-imagen {
-  width: 260px;
+  width: 300px; /* Más ancho la imagen */
   height: auto;
   object-fit: cover;
 }
@@ -28,141 +38,115 @@
   flex: 1;
 }
 
-.curso-header {
+/* --- Botones --- */
+.curso-botones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.boton-inscribirme,
+.boton-mas-info,
+.boton-eliminar,
+.boton-desuscribirse,
+.boton-inscripto,
+.boton-ver-suscripciones {
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  flex: none; /* Para que no se estiren demasiado */
+  transition: background-color 0.2s ease, transform 0.15s ease;
+}
+
+/* Colores de los botones */
+.boton-inscribirme { background-color: #2563eb; color: white; }
+.boton-inscribirme:hover { background-color: #1d4ed8; transform: translateY(-1px); }
+
+.boton-mas-info { background-color: #f3f4f6; color: #374151; }
+.boton-mas-info:hover { background-color: #e5e7eb; transform: translateY(-1px); }
+
+.boton-eliminar { background-color: #ef4444; color: white; }
+.boton-eliminar:hover { background-color: #b91c1c; transform: translateY(-1px); }
+
+.boton-desuscribirse { background-color: #f59e0b; color: white; }
+.boton-desuscribirse:hover { background-color: #b45309; transform: translateY(-1px); }
+
+.boton-inscripto { background-color: #10b981; color: white; }
+.boton-inscripto:hover { background-color: #047857; transform: translateY(-1px); }
+
+.boton-ver-suscripciones { background-color: #6b7280; color: white; }
+.boton-ver-suscripciones:hover { background-color: #4b5563; transform: translateY(-1px); }
+
+/* --- Modal de estudiantes inscriptos --- */
+.modal-suscripciones {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.modal-content {
+  background-color: white;
+  border-radius: 12px;
+  padding: 24px;
+  max-width: 500px;
+  width: 90%;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+}
+
+.modal-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 16px;
 }
 
-.curso-header h3 {
-  font-size: 18px;
-  font-weight: 600;
+.modal-header h2 {
   margin: 0;
+  font-size: 20px;
+  font-weight: 600;
   color: #1f2937;
 }
 
-.curso-precio {
-  color: #2563eb;
-  font-size: 18px;
+.modal-close {
+  cursor: pointer;
+  font-size: 20px;
   font-weight: bold;
+  color: #374151;
 }
 
-.curso-precio span {
-  font-size: 16px;
-  font-weight: 400;
-  color: #2563eb;
-}
-
-.profesional-info {
+.estudiante-item {
   display: flex;
   align-items: center;
   gap: 12px;
-  margin: 10px 0;
+  padding: 10px 0;
+  border-bottom: 1px solid #e5e7eb;
 }
 
-.profesional-foto {
+.estudiante-item img {
   width: 42px;
   height: 42px;
   border-radius: 50%;
   object-fit: cover;
-  border: 1px solid #d1d5db;
 }
 
-.profesional-nombre {
-  font-weight: 600;
+.estudiante-item p {
   margin: 0;
   color: #1f2937;
+  font-weight: 500;
 }
 
-.profesional-profesion {
+.estudiante-item span {
   font-size: 13px;
   color: #6b7280;
-  margin: 0;
-}
-
-.curso-descripcion {
-  font-size: 14px;
-  color: #4b5563;
-  margin-bottom: 12px;
-}
-
-.curso-datos {
-  display: flex;
-  gap: 24px;
-  flex-wrap: wrap;
-  font-size: 14px;
-  color: #374151;
-  margin-bottom: 12px;
-}
-
-.curso-datos div {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.curso-beneficios {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-  font-size: 14px;
-  color: #374151;
-  margin-bottom: 16px;
-}
-
-.curso-beneficios div {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.curso-botones {
-  display: flex;
-  gap: 12px;
-}
-
-.boton-inscribirme {
-  background-color: #2563eb;
-  color: white;
-  border: none;
-  padding: 10px 16px;
-  border-radius: 6px;
-  font-weight: 600;
-  cursor: pointer;
-  flex: 1;
-}
-
-.boton-mas-info {
-  background-color: #f3f4f6;
-  color: #374151;
-  border: none;
-  padding: 10px 16px;
-  border-radius: 6px;
-  font-weight: 600;
-  cursor: pointer;
-  flex: 1;
-}
-
-.boton-inscribirme:hover {
-  background-color: #1d4ed8;
-}
-
-.boton-mas-info:hover {
-  background-color: #e5e7eb;
-}
-
-.boton-eliminar {
-  background-color: #ef4444; /* rojo */
-  color: white;
-  padding: 8px 16px;
-  border-radius: 8px;
-  border: none;
-  font-weight: bold;
-  cursor: pointer;
-  transition: background-color 0.2s;
-  margin-left: 8px;
-}
-
-.boton-eliminar:hover {
-  background-color: #b91c1c;
 }

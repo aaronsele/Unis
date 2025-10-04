@@ -407,3 +407,85 @@ export async function deleteCursoOV(cursoId) {
   if (error) throw error;
   return data;
 }
+
+export async function eliminarSuscripcion(idEstudiante, idCurso) {
+  const { error } = await supabase
+    .from('Suscripciones')
+    .delete()
+    .eq('id_estudiante', idEstudiante)
+    .eq('id_curso', idCurso);
+
+  if (error) {
+    console.error("Error eliminando suscripción:", error);
+    throw error;
+  }
+}
+
+export async function crearSuscripcion(idEstudiante, idCurso) {
+  const { data, error } = await supabase
+    .from('Suscripciones')
+    .insert([{ id_estudiante: idEstudiante, id_curso: idCurso }])
+    .select()
+    .single();
+
+  if (error) {
+    console.error("Error creando suscripción:", error);
+    throw error;
+  }
+  return data;
+}
+
+export async function getSuscripcionesPorEstudiante(idEstudiante) {
+  const { data, error } = await supabase
+    .from('Suscripciones')
+    .select(`
+      id,
+      id_curso,
+      cursoOV (
+        id,
+        titulo,
+        descripcion,
+        foto,
+        precio,
+        fechaInicio,
+        modalidad
+      )
+    `)
+    .eq('id_estudiante', idEstudiante);
+
+  if (error) {
+    console.error("Error trayendo suscripciones:", error);
+    throw error;
+  }
+  return data;
+}
+
+export async function getEstudiantesPorCurso(idCurso) {
+  try {
+    // Primero traemos los id_estudiante
+    const { data: suscripciones, error: errorSus } = await supabase
+      .from('Suscripciones')
+      .select('id_estudiante')
+      .eq('id_curso', idCurso);
+
+    if (errorSus) throw errorSus;
+
+    if (!suscripciones || suscripciones.length === 0) return [];
+
+    const ids = suscripciones.map(s => s.id_estudiante);
+
+    // Ahora traemos los perfiles de esos estudiantes
+    const { data: perfiles, error: errorPerf } = await supabase
+      .from('Perfil')
+      .select('id, nombre, email, foto')
+      .in('id', ids);
+
+    if (errorPerf) throw errorPerf;
+
+    return perfiles;
+
+  } catch (err) {
+    console.error("Error trayendo perfiles: ", err);
+    return [];
+  }
+}
