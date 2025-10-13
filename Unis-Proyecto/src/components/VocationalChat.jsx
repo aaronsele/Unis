@@ -1,51 +1,59 @@
-// VocationalChat.jsx
-import React, { useState } from 'react';
-import './VocationalChat.css';
+import { useState } from "react";
+import axios from "axios";
 
-export function VocationalChat() {
-  const [messages, setMessages] = useState([
-    { from: 'ia', text: '¡Hola! Soy tu asistente vocacional. Para empezar, ¿qué cosas te gustan hacer?' }
-  ]);
-  const [input, setInput] = useState('');
+export default function VocationalChat() {
+  const [messages, setMessages] = useState([]);
+  const [input, setInput] = useState("");
 
-  const handleSend = () => {
+  const sendMessage = async () => {
     if (!input.trim()) return;
 
-    const userMessage = { from: 'user', text: input };
-    setMessages([...messages, userMessage]);
+    const newMessage = { role: "user", text: input };
+    setMessages([...messages, newMessage]);
+    setInput("");
 
-    // respuesta simple de la "IA" según palabras clave
-    let iaResponse = 'Interesante, contame más.';
-    const lower = input.toLowerCase();
-    if (lower.includes('arte')) iaResponse = '¡Genial! Podrías explorar carreras en diseño, música o artes plásticas.';
-    if (lower.includes('ciencia')) iaResponse = '¡Perfecto! Las ciencias te podrían llevar a ingeniería, biología o física.';
-    if (lower.includes('programación')) iaResponse = '¡Ah, programar es lo tuyo! Podrías estudiar desarrollo de software o ingeniería informática.';
+    try {
+      const res = await axios.post("http://localhost:4000/api/chat", {
+        message: input,
+      });
 
-    setTimeout(() => {
-      setMessages(prev => [...prev, { from: 'ia', text: iaResponse }]);
-    }, 500);
-
-    setInput('');
+      const botMessage = { role: "bot", text: res.data.response };
+      setMessages((prev) => [...prev, botMessage]);
+    } catch (err) {
+      console.error("Error al enviar mensaje:", err);
+      const botMessage = { role: "bot", text: "⚠️ Error al comunicarse con el servidor" };
+      setMessages((prev) => [...prev, botMessage]);
+    }
   };
 
   return (
-    <div className="vocational-chat">
-      <div className="messages">
-        {messages.map((m, i) => (
-          <div key={i} className={m.from === 'ia' ? 'msg ia' : 'msg user'}>
-            {m.text}
+    <div style={{ padding: "20px", maxWidth: "600px", margin: "auto" }}>
+      <h2>🧠 Orientador Vocacional</h2>
+      <div
+        style={{
+          border: "1px solid #ccc",
+          padding: "10px",
+          minHeight: "300px",
+          overflowY: "auto",
+        }}
+      >
+        {messages.map((msg, i) => (
+          <div key={i} style={{ textAlign: msg.role === "user" ? "right" : "left" }}>
+            <b>{msg.role === "user" ? "Vos:" : "Asistente:"}</b> {msg.text}
           </div>
         ))}
       </div>
-      <div className="input-box">
-        <input 
-          type="text" 
-          value={input} 
-          onChange={e => setInput(e.target.value)} 
-          placeholder="Escribí tu respuesta..." 
-          onKeyDown={e => e.key === 'Enter' && handleSend()}
+      <div style={{ marginTop: "10px" }}>
+        <input
+          type="text"
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          style={{ width: "80%", padding: "5px" }}
+          placeholder="Escribí tu duda..."
         />
-        <button onClick={handleSend}>Enviar</button>
+        <button onClick={sendMessage} style={{ padding: "5px 10px", marginLeft: "5px" }}>
+          Enviar
+        </button>
       </div>
     </div>
   );

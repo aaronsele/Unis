@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import '@splinetool/viewer';
 import './VocationalGuidance.css';
 import { VocationalCard } from '../components/VocationalCard';
-import {VocationalChat}  from '../components/VocationalChat';
+import VocationalChat  from '../components/VocationalChat';
 import { addCursoOV } from '../bd/bd';
 import { supabase } from '../lib/supabaseClient';
 

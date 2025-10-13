@@ -1,38 +1,44 @@
 import express from "express";
 import cors from "cors";
-import bodyParser from "body-parser";
-import { spawn } from "child_process";
+import { Ollama } from "@llamaindex/ollama";
 
 const app = express();
 app.use(cors());
-app.use(bodyParser.json());
+app.use(express.json());
 
-app.post("/api/chat", (req, res) => {
-  const userMessage = req.body.message;
-
-  // Iniciamos un proceso para ejecutar ollama desde Node
- const ollama = spawn(
-  "C:\\Users\\Alexis\\AppData\\Local\\Programs\\Ollama\\ollama.exe",
-  ["run", "mistral"]
-);
-
-  let modelResponse = "";
-
-  ollama.stdin.write(`Sos un orientador vocacional experto. Ayudá a la persona a elegir una carrera según sus gustos e intereses.\nUsuario: ${userMessage}\nIA:`);
-  ollama.stdin.end();
-
-  ollama.stdout.on("data", (data) => {
-    modelResponse += data.toString();
-  });
-
-  ollama.stderr.on("data", (data) => {
-    console.error(`Error: ${data}`);
-  });
-
-  ollama.on("close", () => {
-    res.json({ response: modelResponse.trim() });
-  });
+// Configuración del modelo Ollama
+const ollamaLLM = new Ollama({
+  model: "gemma3:1b", // modelo ligero para test
+  temperature: 0.7,
 });
 
-const PORT = 4000;
-app.listen(PORT, () => console.log(`Servidor corriendo en http://localhost:${PORT}`));
+// Historial de mensajes
+const historial = [
+  {
+    role: "assistant",
+    content:
+      "Eres un psicologo vocacional que ayuda a estudiantes de secundaria a saber qué carrera estudiar. Debes hacerle 3 preguntas (SOLO 3, NO MÁS) abiertas sobre sus intereses. Luego de esas 3 preguntas, recomendale 2 carreras. Es importante que mantengas un tono amable y claro.",
+  },
+];
+
+// Endpoint para chat
+app.post("/api/chat", async (req, res) => {
+  const userMessage = req.body.message;
+  historial.push({ role: "user", content: userMessage });
+
+  try {
+    const response = await ollamaLLM.chat({ messages: historial });
+    const respuesta = response?.message?.content || response?.message || "";
+    historial.push({ role: "assistant", content: respuesta.trim() });
+    res.json({ response: respuesta.trim() });
+  } catch (err) {
+    console.error("⚠️ ERROR COMPLETO:", err); // <--- imprimir todo
+    res.status(500).json({ error: "Error al llamar al modelo", details: err.toString() });
+  }
+});
+
+
+// Levantar el servidor
+app.listen(4000, () =>
+  console.log("Servidor corriendo en http://localhost:4000")
+);
