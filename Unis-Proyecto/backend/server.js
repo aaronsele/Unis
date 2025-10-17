@@ -1,73 +1,42 @@
+// server.js
+import express from "express";
+import cors from "cors";
+import bodyParser from "body-parser";
 import { Ollama } from "@llamaindex/ollama";
-import { Settings } from "llamaindex";
-import readline from "readline";
 
+const app = express();
+app.use(cors()); // permite que el front en otro puerto pueda conectar
+app.use(bodyParser.json());
 
-// Configura el modelo Ollama
 const ollamaLLM = new Ollama({
   model: "gemma3:1b",
   temperature: 0.7,
 });
 
-Settings.llm = ollamaLLM;
-Settings.embedModel = ollamaLLM;
-
-// Historial de mensajes
+// Historial global de mensajes
 const historial = [
   {
     role: "assistant",
-    content:"Eres un psicologo vocacional que ayuda a estudiantes de secundaria a saber que carrera estudiar. Debes hacerle 3 preguntas (SOLO 3, NO MAS) abiertas sobre sus intereses. Luego de esas 3 preguntas, recomendale 2 carreras. Es importante que mantegas un tono amable y claro"
+    content: "Eres un psicólogo vocacional que ayuda a estudiantes de secundaria a elegir carrera. Haz 3 preguntas abiertas y luego recomienda 2 carreras."
   }
 ];
 
+app.post("/api/chat", async (req, res) => {
+  const { message } = req.body;
+  if (!message) return res.status(400).json({ response: "No enviaste mensaje" });
 
-async function main() {
-  const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout,
-  });
+  historial.push({ role: "user", content: message });
 
+  try {
+    const response = await ollamaLLM.chat({ messages: historial });
+    const botMessage = response?.message?.content || response?.message || "";
+    historial.push({ role: "assistant", content: botMessage.trim() });
 
-  console.log("🤖 Bot con IA (Ollama) iniciado.");
-  console.log("Escribí tu pregunta o poné 'salir' para terminar:");
+    res.json({ response: botMessage.trim() });
+  } catch (err) {
+    console.error("⚠️ Error al llamar a Ollama:", err);
+    res.status(500).json({ response: "⚠️ Error al comunicarse con Ollama" });
+  }
+});
 
-
-  rl.on("line", async (input) => {
-    if (input.toLowerCase() === "salir") {
-      rl.close();
-      return;
-    }
-
-
-    // Agrega el mensaje del usuario al historial
-    historial.push({
-      role: "user",
-      content: input,
-    });
-
-
-    try {
-      // Envía todo el historial al modelo
-      const res = await ollamaLLM.chat({
-        messages: historial,
-      });
-
-
-      // Agrega la respuesta de la IA al historial
-      const respuesta = res?.message?.content || res?.message || "";
-      historial.push({
-        role: "assistant",
-        content: respuesta.trim(),
-      });
-
-      // Muestra la respuesta
-      console.log("🤖 IA:", respuesta.trim());
-    } catch (err) {
-      console.error("⚠️ Error al llamar al modelo:", err);
-    }
-
-    console.log("\nPreguntá otra cosa o escribí 'salir':");
-  });
-}
-
-main();
+app.listen(4000, () => console.log("Servidor escuchando en puerto 4000"));
