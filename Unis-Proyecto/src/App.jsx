@@ -19,6 +19,7 @@ import { AddCareer } from './components/admin/AddCareer';
 import AddCareerInUniversity from './components/admin/AddCareerInUniversity';
 import AddUniversity from './components/admin/AddUniversity.jsx';
 import UserViews from "./components/admin/UserViews.jsx";
+import Settings from "./components/Settings";
 
 import { ProtectedAdminRoute } from './components/ProtectedAdminRoute';
 import { Register } from './components/auth/Register.jsx';
@@ -42,6 +43,7 @@ export function App() {
           <Route path="legal/privacy" element={<Privacy />} />
           <Route path="register" element={<Register />} />
           <Route path="change-password" element={<ChangePassword />} />
+          <Route path="settings" element={<Settings/>} />
 
           {/* Rutas de Admin */}
           <Route

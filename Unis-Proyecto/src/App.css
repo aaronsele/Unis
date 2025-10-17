@@ -40,5 +40,64 @@
 .read-the-docs {
   color: #888;
 }
+/* 🌗 Modo claro / oscuro */
+body.light {
+  background-color: #f5f5f5;
+  color: #222;
+  transition: background 0.3s, color 0.3s;
+}
+
+body.dark {
+  background-color: #121212;
+  color: #f5f5f5;
+  transition: background 0.3s, color 0.3s;
+}
+
+/* 🎨 Colores principales */
+body.azul {
+  --main-color: #007bff;
+}
+
+body.violeta {
+  --main-color: #7b2cbf;
+}
+
+body.verde {
+  --main-color: #28a745;
+}
+
+/* Aplicar color principal a botones, links, etc */
+button,
+a {
+  color: var(--main-color);
+}
+
+button {
+  background-color: var(--main-color);
+  border: none;
+  color: white;
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover {
+  opacity: 0.85;
+}
+
+/* 🔠 Tamaño de fuente */
+body.normal {
+  font-size: 16px;
+}
+
+body.grande {
+  font-size: 18px;
+}
+
+body.extra-grande {
+  font-size: 20px;
+}
+
 
 @import "leaflet/dist/leaflet.css";

@@ -273,3 +273,81 @@ body {
   margin-top: 10px;
   color: #4b5563;
 }
+/* --- Sección de suscripciones --- */
+
+.suscripciones-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 20px;
+  margin-top: 15px;
+  width: 100%;
+}
+
+.suscripcion-card {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.suscripcion-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+}
+
+.suscripcion-card img {
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+}
+
+.suscripcion-card h4 {
+  font-size: 16px;
+  margin: 10px 12px 6px;
+  color: #1f2937;
+}
+
+.suscripcion-card p {
+  font-size: 14px;
+  margin: 0 12px 10px;
+  color: #4b5563;
+  line-height: 1.4;
+  flex-grow: 1;
+}
+
+.suscripcion-card span {
+  display: inline-block;
+  margin: 0 12px 12px;
+  background: #e7f0ff;
+  color: #0057d8;
+  font-weight: 600;
+  font-size: 13px;
+  padding: 4px 10px;
+  border-radius: 20px;
+  align-self: flex-start;
+}
+
+/* Ajuste responsivo */
+@media (max-width: 600px) {
+  .suscripciones-grid {
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 12px;
+  }
+
+  .suscripcion-card img {
+    height: 120px;
+  }
+
+  .suscripcion-card h4 {
+    font-size: 15px;
+  }
+
+  .suscripcion-card p {
+    font-size: 13px;
+  }
+}

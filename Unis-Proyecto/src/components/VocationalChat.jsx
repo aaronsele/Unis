@@ -28,7 +28,7 @@ export default function VocationalChat() {
 
   return (
     <div style={{ padding: "20px", maxWidth: "600px", margin: "auto" }}>
-      <h2>🧠 Orientador Vocacional</h2>
+      <h2>Chatea con Uni🎓</h2>
       <div
         style={{
           border: "1px solid #ccc",

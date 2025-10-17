@@ -186,3 +186,27 @@ header {
   background-color: #f3f4f6;
   color: #1f2937;
 }
+.settings-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px;
+  border-radius: 50%;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.settings-button:hover {
+  background-color: #f3f4f6;
+  transform: rotate(30deg);
+}
+
+.settings-button svg {
+  width: 22px;
+  height: 22px;
+  color: #4b5563;
+  transition: color 0.2s ease;
+}
+
+.settings-button:hover svg {
+  color: #0057d8;
+}

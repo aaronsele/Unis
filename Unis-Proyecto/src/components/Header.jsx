@@ -94,6 +94,10 @@ export function Header() {
                   </span>
                 )}
               </Link>
+              <Link to="/settings" className="settings-button">
+  <SettingsIcon className="h-6 w-6 text-gray-600" />
+</Link>
+
             </div>
           </div>
         </div>
