@@ -5,7 +5,7 @@ import bodyParser from "body-parser";
 import { Ollama } from "@llamaindex/ollama";
 
 const app = express();
-app.use(cors()); // permite que el front en otro puerto pueda conectar
+app.use(cors());
 app.use(bodyParser.json());
 
 const ollamaLLM = new Ollama({
@@ -13,13 +13,18 @@ const ollamaLLM = new Ollama({
   temperature: 0.7,
 });
 
-// Historial global de mensajes
-const historial = [
+// Estado global
+let historial = [
   {
-    role: "assistant",
-    content: "Eres un psicólogo vocacional que ayuda a estudiantes de secundaria a elegir carrera. Haz 3 preguntas abiertas y luego recomienda 2 carreras."
-  }
+    role: "system",
+    content:
+      "Eres un psicólogo vocacional que ayuda a estudiantes de secundaria a elegir carrera. Haz preguntas abiertas y al final recomienda 2 carreras posibles según las respuestas del usuario.",
+  },
 ];
+
+let preguntasHechas = 0;
+let recomendacionDada = false;
+let saludoDado = false; // <--- nuevo
 
 app.post("/api/chat", async (req, res) => {
   const { message } = req.body;
@@ -27,7 +32,48 @@ app.post("/api/chat", async (req, res) => {
 
   historial.push({ role: "user", content: message });
 
+  // Reiniciar si ya recomendó carreras
+  if (recomendacionDada) {
+    historial = [
+      {
+        role: "system",
+        content:
+          "Eres un psicólogo vocacional que ayuda a estudiantes de secundaria a elegir carrera, te llamas Uni. Haz preguntas abiertas y al final recomienda 2 carreras posibles según las respuestas del usuario.",
+      },
+    ];
+    preguntasHechas = 0;
+    recomendacionDada = false;
+    saludoDado = false;
+  }
+
   try {
+    // Si no saludó aún, responder con saludo
+    if (!saludoDado) {
+      saludoDado = true;
+      const saludo = `¡Hola! Soy Uni, tu psicólogo vocacional 🤓. Te voy a hacer 3 series de preguntas para conocerte mejor y ayudarte a elegir una carrera. ¿Listo para empezar?`;
+      return res.json({ response: saludo });
+    }
+
+    // Detectar si el usuario pide recomendación o ya se hicieron 3 preguntas
+    const mensajeLower = message.toLowerCase();
+    const quiereCarreras =
+      mensajeLower.includes("carrera") ||
+      mensajeLower.includes("recomendame") ||
+      mensajeLower.includes("decime") ||
+      preguntasHechas >= 3;
+
+    let prompt;
+
+    if (quiereCarreras) {
+      prompt = `En base a las respuestas anteriores del usuario, recomienda exactamente 2 carreras posibles que se ajusten a sus intereses. Explica brevemente por qué. No hagas más preguntas.`;
+      recomendacionDada = true;
+    } else {
+      preguntasHechas++;
+      prompt = `Haz una pregunta abierta número ${preguntasHechas} para conocer mejor los intereses del estudiante. No repitas preguntas anteriores.`;
+    }
+
+    historial.push({ role: "assistant", content: prompt });
+
     const response = await ollamaLLM.chat({ messages: historial });
     const botMessage = response?.message?.content || response?.message || "";
     historial.push({ role: "assistant", content: botMessage.trim() });
@@ -39,4 +85,6 @@ app.post("/api/chat", async (req, res) => {
   }
 });
 
-app.listen(4000, () => console.log("Servidor escuchando en puerto 4000"));
+app.listen(4000, () =>
+  console.log("🧠 Servidor vocacional escuchando en puerto 4000")
+);

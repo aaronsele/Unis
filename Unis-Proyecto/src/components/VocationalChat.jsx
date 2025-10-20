@@ -58,7 +58,7 @@ export default function VocationalChat() {
           value={input}
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={handleKeyPress}
-          placeholder="Escribí tu duda..."
+          placeholder="Poné Hola para empezar y luego escribí tu duda..."
           disabled={loading}
         />
         <button onClick={sendMessage} disabled={loading}>
