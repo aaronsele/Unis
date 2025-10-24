@@ -110,6 +110,7 @@ header {
   gap: 0.5rem;
 }
 
+/* Foto de usuario */
 .user-profile img {
   width: 32px;
   height: 32px;
@@ -118,6 +119,7 @@ header {
   border: 1px solid #d1d5db;
 }
 
+/* Icono de usuario por defecto */
 .user-icon {
   width: 32px;
   height: 32px;
@@ -128,17 +130,31 @@ header {
   justify-content: center;
 }
 
+/* Nombre de usuario */
 .user-name {
   font-size: 0.875rem;
   font-weight: 500;
   color: #374151;
   white-space: nowrap;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none; /* Quita el subrayado */
 }
 
+/* Para pantallas pequeñas, se puede ocultar el nombre */
 @media (max-width: 640px) {
   .user-name {
     display: none;
   }
+}
+
+/* Asegurar que el link del perfil no subraye nada */
+.user-profile a {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
 }
 
 /* Dropdown general */
@@ -186,6 +202,7 @@ header {
   background-color: #f3f4f6;
   color: #1f2937;
 }
+
 .settings-button {
   display: flex;
   align-items: center;

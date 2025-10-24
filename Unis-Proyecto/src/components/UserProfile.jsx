@@ -88,9 +88,13 @@ export function UserProfile() {
                 suscripciones.map((sub) => (
                   <div key={sub.id} className="suscripcion-card">
                     <img src={sub.cursoOV?.foto} alt={sub.cursoOV?.titulo} />
+                    <div className="suscripcion-card-content">
                     <h4>{sub.cursoOV?.titulo}</h4>
                     <p>{sub.cursoOV?.descripcion}</p>
+                    </div>
+                    <div className="suscripcion-card-footer">
                     <span>{sub.cursoOV?.modalidad}</span>
+                  </div>
                   </div>
                 ))
               )}

@@ -56,18 +56,13 @@ export function UniversityCareerList({ universityId }) {
           <div className="cards-viewport">
             <div
               className="cards-track"
-              style={{
-                transform: `translateX(-${(100 / cardsPerPage) * startIndex}%)`,
-                display: 'flex',
-                transition: 'transform 0.3s ease',
-                width: `${(100 / cardsPerPage) * careers.length}%`,
-              }}
+              
             >
               {careers.map((career) => (
                 <div
                   key={career.id}
                   className="card-item"
-                  style={{ flex: `0 0 ${100 / cardsPerPage}%` }}
+                  
                 >
                   {/* Pasamos el universityId a CareerInUniversityCard */}
                   <CareerInUniversityCard

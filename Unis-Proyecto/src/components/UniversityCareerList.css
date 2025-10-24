@@ -1,66 +1,105 @@
 .university-career-section {
-    padding: 20px;
-  }
-  
-  .header {
-    margin-bottom: 20px;
-  }
-  
-  .university-career-section h2 {
-    font-size: 24px;
-    font-weight: bold;
-    color: #2F2F2F;
-  }
-  
-  .university-career-section p {
-    color: #666;
-  }
-  
-  .slider-container {
-    display: flex;
-    align-items: center;
-  }
-  
-  .cards-viewport {
-    overflow: hidden;
-    flex: 1;
-  }
-  
-  .cards-track {
-    display: flex;
-    gap: 20px;
-    transition: transform 0.5s ease-in-out; /* transición suave */
-  }
-  
+  padding: 20px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.header {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.university-career-section h2 {
+  font-size: 24px;
+  font-weight: bold;
+  color: #2F2F2F;
+}
+
+.university-career-section p {
+  color: #666;
+  margin-top: 5px;
+}
+
+.slider-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  position: relative;
+}
+
+.cards-viewport {
+  overflow: hidden;
+  flex: 1;
+  position: relative;
+}
+
+.cards-track {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+  gap: 20px;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+/* Card base */
+.card-item {
+  flex: 0 0 calc(100% / 3 - 13.33px);
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+}
+
+/* Cuando hay menos de 3 cards → centradas y tamaño normal */
+.cards-track.single {
+  justify-content: center;
+}
+
+.cards-track.single .card-item {
+  flex: 0 0 300px;
+  max-width: 90%;
+}
+
+/* Botones del slider */
+.slider-btn {
+  background-color: #ddd;
+  border: none;
+  padding: 10px 14px;
+  font-size: 18px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.2s, transform 0.2s;
+  flex-shrink: 0;
+  z-index: 2;
+}
+
+.slider-btn:hover:not(:disabled) {
+  background-color: #bbb;
+  transform: scale(1.1);
+}
+
+.slider-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.slider-btn.left {
+  margin-right: 10px;
+}
+
+.slider-btn.right {
+  margin-left: 10px;
+}
+
+/* Responsive: 2 por fila o 1 en mobile */
+@media (max-width: 900px) {
   .card-item {
-    flex: 0 0 calc(33.333% - 13.33px); /* 3 por fila */
-    box-sizing: border-box;
+    flex: 0 0 calc(50% - 10px);
   }
-  
-  .slider-btn {
-    background-color: #ddd;
-    border: none;
-    padding: 10px;
-    font-size: 18px;
-    cursor: pointer;
-    border-radius: 4px;
-    transition: background-color 0.2s;
+}
+
+@media (max-width: 600px) {
+  .card-item {
+    flex: 0 0 100%;
   }
-  
-  .slider-btn:hover:not(:disabled) {
-    background-color: #bbb;
-  }
-  
-  .slider-btn:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-  }
-  
-  .slider-btn.left {
-    margin-right: 10px;
-  }
-  
-  .slider-btn.right {
-    margin-left: 10px;
-  }
-  
+}
