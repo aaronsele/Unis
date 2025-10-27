@@ -3,15 +3,49 @@ import {
   TrendingUpIcon,
   DollarSignIcon,
   CheckIcon,
+  StarIcon,
 } from 'lucide-react';
 import './CareerInfo.css';
 import UniversityInCareerCard from './UniversityInCareerCard';
-import { getUniversitiesForCareer } from '../bd/bd.js';
+import { getUniversitiesForCareer, esCarreraFavorita, agregarCarreraFavorita, quitarCarreraFavorita } from '../bd/bd.js';
+import { supabase } from '../lib/supabaseClient';
 
 export default function CareerInfo({ career }) {
   const [universities, setUniversities] = useState([]);
   const [loadingUnis, setLoadingUnis] = useState(true);
+  const [perfil, setPerfil] = useState(null);
+  const [favorita, setFavorita] = useState(false);
 
+  // Traer perfil logueado y chequear favorito
+  useEffect(() => {
+    const fetchPerfil = async () => {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+      if (!user) return;
+
+      const { data: perfilData, error } = await supabase
+        .from('Perfil')
+        .select('*')
+        .eq('user_id', user.id)
+        .single();
+
+      if (!error && perfilData) {
+        setPerfil(perfilData);
+
+        if (perfilData.secundario) {
+          const fav = await esCarreraFavorita(perfilData.id, career.id);
+          setFavorita(fav);
+        }
+      } else if (error) {
+        console.error('Error al traer perfil:', error);
+      }
+    };
+
+    fetchPerfil();
+  }, [career]);
+
+  // Traer universidades asociadas a la carrera
   useEffect(() => {
     async function fetchUnis() {
       if (career?.id) {
@@ -24,10 +58,34 @@ export default function CareerInfo({ career }) {
     fetchUnis();
   }, [career]);
 
+  const toggleFavorito = async () => {
+    if (!perfil?.secundario) return;
+
+    if (favorita) {
+      await quitarCarreraFavorita(perfil.id, career.id);
+      setFavorita(false);
+    } else {
+      await agregarCarreraFavorita(perfil.id, career.id);
+      setFavorita(true);
+    }
+  };
+
   if (!career) return null;
 
   return (
     <div className="career-info-container">
+      <div className="career-header">
+        <h1>{career.name || career.nombre}</h1>
+        {perfil?.secundario && (
+          <StarIcon
+            size={28}
+            className={`star-icon ${favorita ? 'active' : ''}`}
+            onClick={toggleFavorito}
+            style={{ cursor: 'pointer', transition: '0.3s' }}
+          />
+        )}
+      </div>
+
       <div className="career-info-main">
         <section className="career-section">
           <h2 className="career-section-title">Sobre la Carrera</h2>

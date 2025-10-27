@@ -150,3 +150,10 @@
   flex-wrap: wrap;
   gap: 20px;
 }
+.star-icon {
+  color: gray;
+}
+
+.star-icon.active {
+  color: gold;
+}

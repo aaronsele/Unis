@@ -489,3 +489,74 @@ export async function getEstudiantesPorCurso(idCurso) {
     return [];
   }
 }
+
+export async function esFavorita(perfilId, uniId) {
+  const { data, error } = await supabase
+    .from('UniFavoritas')
+    .select('*')
+    .eq('id_perfil', perfilId)        // nombre correcto
+    .eq('id_universidad', uniId)
+    .single()
+
+  if (error) {
+    console.error('Error al chequear favorita:', error)
+    return false
+  }
+  return !!data
+}
+
+export async function agregarFavorita(perfilId, uniId) {
+  const { data, error } = await supabase
+    .from('UniFavoritas')
+    .insert({ id_perfil: perfilId, id_universidad: uniId })
+
+  if (error) console.error('Error al agregar favorita:', error)
+  return data
+}
+
+export async function quitarFavorita(perfilId, uniId) {
+  const { data, error } = await supabase
+    .from('UniFavoritas')
+    .delete()
+    .eq('id_perfil', perfilId)
+    .eq('id_universidad', uniId)
+
+  if (error) console.error('Error al quitar favorita:', error)
+  return data
+}
+export async function esCarreraFavorita(perfilId, carreraId) {
+  const { data, error } = await supabase
+    .from('CarreraFavo')
+    .select('*')
+    .eq('id_perfil', perfilId)
+    .eq('id_carrera', carreraId)
+    .single();
+
+  if (error) {
+    console.error('Error al chequear carrera favorita:', error);
+    return false;
+  }
+  return !!data;
+}
+
+// Agregar carrera favorita
+export async function agregarCarreraFavorita(perfilId, carreraId) {
+  const { data, error } = await supabase
+    .from('CarreraFavo')
+    .insert({ id_perfil: perfilId, id_carrera: carreraId });
+
+  if (error) console.error('Error al agregar carrera favorita:', error);
+  return data;
+}
+
+// Quitar carrera favorita
+export async function quitarCarreraFavorita(perfilId, carreraId) {
+  const { data, error } = await supabase
+    .from('CarreraFavo')
+    .delete()
+    .eq('id_perfil', perfilId)
+    .eq('id_carrera', carreraId);
+
+  if (error) console.error('Error al quitar carrera favorita:', error);
+  return data;
+}

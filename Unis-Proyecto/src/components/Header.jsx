@@ -10,6 +10,7 @@ import {
   SettingsIcon,
   PlusCircleIcon,
   HandIcon,
+  BarChartIcon, // <-- Agregado
 } from 'lucide-react';
 import './header.css';
 import { usePerfil } from '../contexts/UsePerfil';
@@ -18,6 +19,7 @@ const navigation = [
   { name: 'Carreras', href: '/careers', icon: BookOpenIcon },
   { name: 'Donde Estudiar', href: '/universities', icon: BuildingIcon },
   { name: 'Orientación Vocacional', href: '/guidance', icon: BrainIcon },
+  { name: 'Gráficos', href: '/graphics', icon: BarChartIcon }, // <-- Nueva opción
 ];
 
 export function Header() {
@@ -95,9 +97,8 @@ export function Header() {
                 )}
               </Link>
               <Link to="/settings" className="settings-button">
-  <SettingsIcon className="h-6 w-6 text-gray-600" />
-</Link>
-
+                <SettingsIcon className="h-6 w-6 text-gray-600" />
+              </Link>
             </div>
           </div>
         </div>

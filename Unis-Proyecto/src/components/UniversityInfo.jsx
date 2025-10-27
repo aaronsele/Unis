@@ -1,21 +1,71 @@
-import React from 'react'
-import {
-  PhoneIcon,
-  MailIcon,
-  GlobeIcon,
-  MapPinIcon,
-  CheckIcon,
-} from 'lucide-react'
+import React, { useEffect, useState } from 'react'
+import { PhoneIcon, MailIcon, GlobeIcon, MapPinIcon, CheckIcon, Star } from 'lucide-react'
 import { Link } from 'react-router-dom'
-import Map from './Map' // el componente que hicimos antes
+import Map from './Map'
 import './UniversityInfo.css'
+import { esFavorita, agregarFavorita, quitarFavorita } from '../bd/bd'
+import { supabase } from '../lib/supabaseClient'
+import { useUser } from '../contexts/UserContext'
 
 export function UniversityInfo({ university }) {
-  const { descripcion, facilities, admissionProcess, contact, name } = university
+  const { descripcion, facilities, admissionProcess, contact, name, id } = university
+  const { usuario } = useUser()
+  const [perfil, setPerfil] = useState(null)
+  const [favorita, setFavorita] = useState(false)
+
+  // Traer perfil completo del usuario logueado
+  useEffect(() => {
+    const fetchPerfil = async () => {
+      if (!usuario) return
+      const { data, error } = await supabase
+        .from('Perfil')
+        .select('*')
+        .eq('user_id', usuario.id)
+        .single()
+
+      if (error) {
+        console.error('Error trayendo perfil:', error)
+        return
+      }
+
+      setPerfil(data)
+
+      if (data?.secundario) {
+        const fav = await esFavorita(data.id, id)
+        setFavorita(fav)
+      }
+    }
+
+    fetchPerfil()
+  }, [usuario, id])
+
+  const toggleFavorito = async () => {
+    if (!perfil?.secundario) return
+
+    if (favorita) {
+      await quitarFavorita(perfil.id, id)
+      setFavorita(false)
+    } else {
+      await agregarFavorita(perfil.id, id)
+      setFavorita(true)
+    }
+  }
 
   return (
     <div className="university-info-grid">
       <div className="university-info-main">
+        <div className="university-header" style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+          <h1>{name}</h1>
+          {perfil?.secundario && (
+            <Star
+              size={28}
+              className={`star-icon ${favorita ? 'active' : ''}`}
+              onClick={toggleFavorito}
+              style={{ cursor: 'pointer', transition: '0.3s' }}
+            />
+          )}
+        </div>
+
         {/* Descripción */}
         <section className="university-info-section">
           <h2>Sobre la Universidad</h2>
@@ -47,9 +97,7 @@ export function UniversityInfo({ university }) {
               <h3>Requisitos:</h3>
               <ul>
                 {admissionProcess?.requirements?.length > 0 ? (
-                  admissionProcess.requirements.map((req, index) => (
-                    <li key={index}>{req}</li>
-                  ))
+                  admissionProcess.requirements.map((req, index) => <li key={index}>{req}</li>)
                 ) : (
                   <li>No especificado</li>
                 )}
@@ -92,33 +140,25 @@ export function UniversityInfo({ university }) {
           {contact?.website && (
             <div className="contact-item">
               <GlobeIcon className="icon" />
-              <a
-                href={`https://${contact.website}`}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
+              <a href={`https://${contact.website}`} target="_blank" rel="noopener noreferrer">
                 {contact.website}
               </a>
             </div>
           )}
         </div>
 
-{/* Mini mapa */}
-{university.lat && university.lng && (
-  <div style={{ height: '200px', marginTop: '1rem' }}>
-    <Map lat={university.lat} lng={university.lng} name={name || 'Universidad'} />
-  </div>
-)}
+        {university.lat && university.lng && (
+          <div style={{ height: '200px', marginTop: '1rem' }}>
+            <Map lat={university.lat} lng={university.lng} name={name || 'Universidad'} />
+          </div>
+        )}
 
-{/* Botón para ir al mapa completo */}
-{university.lat && university.lng && (
-  <Link to={`/map/${university.lat}/${university.lng}`}>
-    <button className="map-button">Ver ubicación</button>
-  </Link>
-)}
-
+        {university.lat && university.lng && (
+          <Link to={`/map/${university.lat}/${university.lng}`}>
+            <button className="map-button">Ver ubicación</button>
+          </Link>
+        )}
       </div>
     </div>
   )
 }
-
