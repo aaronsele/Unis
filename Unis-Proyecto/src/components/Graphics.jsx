@@ -6,8 +6,10 @@ import {
   ArcElement,
   Tooltip,
   Legend,
+  Title,
 } from 'chart.js';
-ChartJS.register(ArcElement, Tooltip, Legend);
+
+ChartJS.register(ArcElement, Tooltip, Legend, Title);
 
 export default function Graphics() {
   const [uniData, setUniData] = useState(null);
@@ -18,14 +20,21 @@ export default function Graphics() {
   useEffect(() => {
     async function fetchUniFavorites() {
       try {
+        // Traer las favoritas con la relación
         const { data, error } = await supabase
           .from('UniFavoritas')
-          .select('universidad_id');
+          .select(`
+            id_universidad,
+            Universidad ( nombre )
+          `);
+
         if (error) throw error;
 
+        // Contar cuántas veces aparece cada universidad
         const counts = {};
         data.forEach(item => {
-          counts[item.universidad_id] = (counts[item.universidad_id] || 0) + 1;
+          const nombre = item.Universidad?.nombre || 'Desconocida';
+          counts[nombre] = (counts[nombre] || 0) + 1;
         });
 
         const labels = Object.keys(counts);
@@ -35,7 +44,7 @@ export default function Graphics() {
           labels,
           datasets: [
             {
-              label: 'Universidades más favoritas',
+              label: 'Votos',
               data: values,
               backgroundColor: [
                 '#FF6384',
@@ -45,6 +54,7 @@ export default function Graphics() {
                 '#9966FF',
                 '#FF9F40',
               ],
+              borderWidth: 1,
             },
           ],
         });
@@ -57,14 +67,20 @@ export default function Graphics() {
 
     async function fetchCareerFavorites() {
       try {
+        // Traer las favoritas con la relación
         const { data, error } = await supabase
           .from('CarreraFavo')
-          .select('id_carrera');
+          .select(`
+            id_carrera,
+            Carrera ( nombre )
+          `);
+
         if (error) throw error;
 
         const counts = {};
         data.forEach(item => {
-          counts[item.id_carrera] = (counts[item.id_carrera] || 0) + 1;
+          const nombre = item.Carrera?.nombre || 'Desconocida';
+          counts[nombre] = (counts[nombre] || 0) + 1;
         });
 
         const labels = Object.keys(counts);
@@ -74,16 +90,17 @@ export default function Graphics() {
           labels,
           datasets: [
             {
-              label: 'Carreras más favoritas',
+              label: 'Votos',
               data: values,
               backgroundColor: [
-                '#FF6384',
                 '#36A2EB',
+                '#FF6384',
                 '#FFCE56',
-                '#4BC0C0',
                 '#9966FF',
+                '#4BC0C0',
                 '#FF9F40',
               ],
+              borderWidth: 1,
             },
           ],
         });
@@ -99,14 +116,42 @@ export default function Graphics() {
   }, []);
 
   return (
-    <div style={{ display: 'flex', gap: '50px', flexWrap: 'wrap', justifyContent: 'center', padding: '2rem' }}>
-      <div style={{ width: '400px', height: '400px' }}>
-        {loadingUnis ? <p>Cargando universidades...</p> :
-          uniData && <Pie data={uniData} />}
+    <div
+      style={{
+        display: 'flex',
+        flexWrap: 'wrap',
+        gap: '50px',
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: '2rem',
+      }}
+    >
+      {/* Gráfico de universidades */}
+      <div style={{ textAlign: 'center' }}>
+        <h2 style={{ marginBottom: '1rem' }}>Universidades más populares</h2>
+        <div style={{ width: '400px', height: '400px' }}>
+          {loadingUnis ? (
+            <p>Cargando universidades...</p>
+          ) : uniData ? (
+            <Pie data={uniData} />
+          ) : (
+            <p>No hay datos disponibles.</p>
+          )}
+        </div>
       </div>
-      <div style={{ width: '400px', height: '400px' }}>
-        {loadingCareers ? <p>Cargando carreras...</p> :
-          careerData && <Pie data={careerData} />}
+
+      {/* Gráfico de carreras */}
+      <div style={{ textAlign: 'center' }}>
+        <h2 style={{ marginBottom: '1rem' }}>Carreras más populares</h2>
+        <div style={{ width: '400px', height: '400px' }}>
+          {loadingCareers ? (
+            <p>Cargando carreras...</p>
+          ) : careerData ? (
+            <Pie data={careerData} />
+          ) : (
+            <p>No hay datos disponibles.</p>
+          )}
+        </div>
       </div>
     </div>
   );
