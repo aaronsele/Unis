@@ -19,7 +19,7 @@ const navigation = [
   { name: 'Carreras', href: '/careers', icon: BookOpenIcon },
   { name: 'Donde Estudiar', href: '/universities', icon: BuildingIcon },
   { name: 'Orientación Vocacional', href: '/guidance', icon: BrainIcon },
-  { name: 'Gráficos', href: '/graphics', icon: BarChartIcon }, // <-- Nueva opción
+  { name: 'Estadisticas', href: '/graphics', icon: BarChartIcon }, // <-- Nueva opción
 ];
 
 export function Header() {

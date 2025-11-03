@@ -13,8 +13,10 @@
   "description": "",
   "dependencies": {
     "@llamaindex/ollama": "^0.1.23",
+    "@supabase/supabase-js": "^2.78.0",
     "body-parser": "^2.2.0",
     "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
     "express": "^5.1.0",
     "llamaindex": "^0.12.0"
   }

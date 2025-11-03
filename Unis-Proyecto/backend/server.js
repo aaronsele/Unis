@@ -51,7 +51,7 @@ app.post("/api/chat", async (req, res) => {
     // Saludo inicial
     if (!saludoDado) {
       saludoDado = true;
-      const saludo = `¡Hola! Soy Uni, tu psicólogo vocacional 🤓. 
+      const saludo = `¡Hola! Soy Uni, tu asistente vocacional 🤓. 
 Te voy a hacer 3 series de preguntas para conocerte mejor y ayudarte a elegir una carrera. 
 ¿Listo para empezar?`;
       return res.json({ response: saludo });
