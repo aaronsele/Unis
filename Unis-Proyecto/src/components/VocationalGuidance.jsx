@@ -84,7 +84,7 @@ export function VocationalGuidance() {
       <div className="layout-orientacion">
         <VocationalCard />
         <div className="roboAmigo">
-          <spline-viewer url="https://prod.spline.design/B8O-mb1DKzVohPvS/scene.splinecode"></spline-viewer>
+          <spline-viewer url="https://prod.spline.design/WpVqK2n9kOPA2Sqf/scene.splinecode"></spline-viewer>
         </div>
         <VocationalChat />
       </div>
@@ -112,6 +112,7 @@ export function VocationalGuidance() {
           <button type="submit" className="boton-guardar-curso">Guardar curso</button>
         </form>
       )}
+
     </div>
   );
 }
