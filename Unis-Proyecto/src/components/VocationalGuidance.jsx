@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import '@splinetool/viewer';
 import './VocationalGuidance.css';
 import { VocationalCard } from '../components/VocationalCard';
 import VocationalChat  from '../components/VocationalChat';
@@ -84,7 +83,7 @@ export function VocationalGuidance() {
       <div className="layout-orientacion">
         <VocationalCard />
         <div className="roboAmigo">
-          <spline-viewer url="https://prod.spline.design/WpVqK2n9kOPA2Sqf/scene.splinecode"></spline-viewer>
+          
         </div>
         <VocationalChat />
       </div>

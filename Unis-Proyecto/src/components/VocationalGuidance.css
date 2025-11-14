@@ -1,10 +1,13 @@
-/* --- Layout general --- */
 .layout-orientacion {
   display: flex;
-  justify-content: space-between;
   align-items: flex-start;
-  gap: 32px;
-  flex-wrap: wrap;
+  gap: 40px;
+
+  /* Mantiene el ancho pero asegura que TODO quede alineado */
+  max-width: 1400px;
+  margin-left: 0 !important;     /* <-- pega las cards a la izquierda */
+  margin-right: auto !important;
+
   margin-top: 24px;
 }
 
@@ -16,46 +19,23 @@
   gap: 20px;
 }
 
+/* --- Cards pegadas a la izquierda sí o sí --- */
 .curso-wrapper {
   max-width: 650px;
+  margin-left: 0 !important;
+  padding-left: 0 !important;
+  align-self: flex-start !important;
 }
 
-/* --- Modelo 3D del robot --- */
-.roboAmigo {
-  width: 100%;
-  max-width: 400px;
-  aspect-ratio: 1 / 1; /* mantiene proporción cuadrada sin fijar altura */
-  border-radius: 20px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
-  padding: 8px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
-  margin: 0 auto;
-}
-
-.roboAmigo:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
-}
-
-.roboAmigo spline-viewer {
-  width: 100%;
-  height: 100%;
-  border-radius: 16px;
-  background: transparent;
-  outline: none;
-  display: block;
-}
-
-
-/* Chat a la derecha */
+/* ----------- CHAT ------------ */
 .vocational-chat {
   align-self: flex-start;
-  flex: 1;
-  min-width: 280px;
+  max-width: 420px;
+  min-width: 320px;
+
+  /* separación lateral */
+  margin-left: 40px;
+  margin-right: 60px;
 }
 
 /* --- Título principal --- */
@@ -160,11 +140,7 @@ h1 {
   .layout-orientacion {
     flex-direction: column;
     align-items: center;
-  }
-
-  .roboAmigo {
-    max-width: 300px;
-    height: 300px;
+    gap: 20px;
   }
 
   .boton-agregar-curso {
@@ -177,14 +153,11 @@ h1 {
     width: 100%;
   }
 
+  /* Chat en móvil */
   .vocational-chat {
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* centra el robot horizontalmente */
-    gap: 24px; /* separa el robot del chat */
-  }
-  
-  .vocational-chat .roboAmigo {
-    order: -1; /* coloca el robot arriba del chat */
+    align-self: center;
+    margin-left: 0;
+    margin-right: 0;
+    padding-right: 0;
   }
 }

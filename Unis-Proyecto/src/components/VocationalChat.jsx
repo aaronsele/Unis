@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import axios from "axios";
+import '@splinetool/viewer';
 import "./VocationalChat.css";
 
 export default function VocationalChat() {
@@ -8,7 +9,6 @@ export default function VocationalChat() {
   const [loading, setLoading] = useState(false);
   const messagesEndRef = useRef(null);
 
-  // Scroll automático al final
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
@@ -30,7 +30,10 @@ export default function VocationalChat() {
       setMessages((prev) => [...prev, botMessage]);
     } catch (err) {
       console.error("Error al enviar mensaje:", err);
-      const botMessage = { role: "bot", text: "⚠️ Error al comunicarse con el servidor" };
+      const botMessage = {
+        role: "bot",
+        text: "⚠️ Error al comunicarse con el servidor",
+      };
       setMessages((prev) => [...prev, botMessage]);
     } finally {
       setLoading(false);
@@ -43,7 +46,15 @@ export default function VocationalChat() {
 
   return (
     <div className="vocational-chat">
-      <h2>Chatea con Uni🎓</h2>
+
+      {/* 🟦 Header con avatar Spline */}
+      <div className="chat-header">
+        <div className="avatar-container">
+        <spline-viewer url="https://prod.spline.design/WpVqK2n9kOPA2Sqf/scene.splinecode"></spline-viewer>
+        </div>
+        <h2>Uni 🎓</h2>
+      </div>
+
       <div className="chat-messages">
         {messages.map((msg, i) => (
           <div key={i} className={`message ${msg.role}`}>
@@ -52,6 +63,7 @@ export default function VocationalChat() {
         ))}
         <div ref={messagesEndRef} />
       </div>
+
       <div className="chat-input">
         <input
           type="text"
